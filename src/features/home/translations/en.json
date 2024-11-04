@@ -1,0 +1,8 @@
+{
+    "breadcrumb": "Home",
+    "title": "Welcome to PrivMX Bridge UI!",
+    "message_1": "PrivMX Bridge UI is a tool that allows you to manage your PrivMX Bridge Server.",
+    "message_2_notSignedIn": "You can start by signing in or you can have a look at the documentation:",
+    "message_2_signedIn": "You can use the sidebar to navigate through the application or you can have a look at the documentation:",
+    "openDocsButtonLabel": "Open documentation"
+}

@@ -1,0 +1,39 @@
+{
+    "list": {
+        "title": "Solutions"
+    },
+    "profile": {
+        "title": "Solution: {name}",
+        "id": "ID",
+        "name": "Name",
+        "created": "Created"
+    },
+    "contextsButton": {
+        "label": "View Contexts"
+    },
+    "tableHeaders": {
+        "id": "ID",
+        "name": "Name",
+        "created": "Created"
+    },
+    "createSolutionButton": {
+        "label": "Create a Solution"
+    },
+    "deleteModal": {
+        "modalTitle": "Delete Solution",
+        "confirmText": "Are you sure you want to delete Solution {name}?"
+    },
+    "create": {
+        "modalTitle": "Create a Solution"
+    },
+    "edit": {
+        "modalTitle": "Edit Solution"
+    },
+    "notifications": {
+        "deleted": "Solution deleted",
+        "deleteError": "Could not delete the Solution.",
+        "hasBeenDeleted": "Solution has been deleted",
+        "solutionCreated": "Solution has been created",
+        "updated": "Solution updated"
+    }
+}

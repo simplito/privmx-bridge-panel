@@ -1,0 +1,8 @@
+{
+    "context": "Context",
+    "loadingContexts": "Loading contexts...",
+    "failedToLoadContexts": "Failed to load contexts",
+    "solution": "Solution",
+    "loadingSolutions": "Loading solutions...",
+    "failedToLoadSolutions": "Failed to load solutions"
+}

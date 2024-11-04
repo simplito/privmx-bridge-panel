@@ -1,0 +1,10 @@
+{
+    "ipAddrPromptModal": {
+        "title": "Enter IP address",
+        "placeholder": "0.0.0.0"
+    },
+    "sessionPromptModal": {
+        "title": "Enter session name",
+        "placeholder": "Session name"
+    }
+}

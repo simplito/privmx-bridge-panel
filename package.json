@@ -1,0 +1,71 @@
+{
+    "name": "privmx-bridge-ui",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc -b && vite build",
+        "preview": "vite preview",
+        "lint-check": "eslint ./src/ --max-warnings 0",
+        "lint-fix": "eslint ./src/ --max-warnings 0 --fix",
+        "prettier-check": "prettier ./ --check",
+        "prettier-fix": "prettier ./ --write",
+        "tsc-check": "tsc --noEmit",
+        "check-all": "run-s lint-check prettier-check tsc-check",
+        "pre-commit-checks": "run-s check-all"
+    },
+    "dependencies": {
+        "@fontsource-variable/noto-sans": "^5.1.0",
+        "@mantine/core": "^7.13.1",
+        "@mantine/form": "^7.13.1",
+        "@mantine/hooks": "^7.13.1",
+        "@mantine/modals": "^7.13.1",
+        "@mantine/notifications": "^7.13.1",
+        "@tabler/icons-react": "^3.19.0",
+        "color-convert": "^2.0.1",
+        "cross-env": "^7.0.3",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^6.26.2",
+        "use-intl": "^3.20.0",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@types/color-convert": "^2.0.4",
+        "@types/eslint": "^8.56.12",
+        "@types/node": "^22.7.4",
+        "@types/privmx-server-api": "^1.0.202410141442",
+        "@types/react": "^18.3.11",
+        "@types/react-dom": "^18.3.0",
+        "@typescript-eslint/eslint-plugin": "^8.8.0",
+        "@typescript-eslint/parser": "^8.8.0",
+        "@vitejs/plugin-react": "^4.3.2",
+        "eslint": "^8.57.1",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-deprecation": "^3.0.0",
+        "eslint-plugin-import": "^2.30.0",
+        "eslint-plugin-jsx-a11y": "^6.10.0",
+        "eslint-plugin-react": "^7.37.1",
+        "eslint-plugin-react-hooks": "^4.6.2",
+        "globals": "^15.10.0",
+        "npm-run-all": "^4.1.5",
+        "prettier": "^3.3.3",
+        "sass": "^1.79.4",
+        "typescript": "^5.6.2",
+        "vite": "^5.4.8",
+        "vite-plugin-node-polyfills": "^0.22.0"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}

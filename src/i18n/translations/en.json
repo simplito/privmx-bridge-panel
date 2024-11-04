@@ -1,0 +1,157 @@
+{
+    "langName": "English",
+    "appTitle": "PrivMX Bridge",
+    "mainNav": {
+        "home": "Home",
+        "solutions": "Solutions",
+        "managementApiKeys": "Api Keys"
+    },
+    "forms": {
+        "buttons": {
+            "add": "Add",
+            "cancel": "Cancel",
+            "confirm": "Confirm",
+            "create": "Create",
+            "delete": "Delete",
+            "edit": "Edit",
+            "ok": "Ok",
+            "update": "Update",
+            "remove": "Remove",
+            "reset": "Reset",
+            "save": "Save",
+            "signIn": "Sign In",
+            "signOut": "Sign Out",
+            "submit": "Submit",
+            "viewDetails": "View details"
+        },
+        "errors": {
+            "required": "Required",
+            "invalidType": "Expected {expected}, received {received}",
+            "invalidLiteral": "Invalid literal value, expected {expected}",
+            "unrecognizedKeys": "Unrecognized {count, plural, =1 {key} other {# keys}} in object: {keys}",
+            "invalidUnion": "Invalid input",
+            "invalidUnionDiscriminator": "Invalid discriminator value. Expected {expected}",
+            "invalidEnumValue": "Invalid enum value. Expected {expected}, received '{received}'",
+            "invalidArguments": "Invalid function arguments",
+            "invalidReturnType": "Invalid function return type",
+            "invalidDate": "Invalid date",
+            "invalidString": {
+                "includes": {
+                    "simple": "Must include \"{includes}\"",
+                    "atPositions": "Must include \"{includes}\" at one or more positions greater than or equal to {position}"
+                },
+                "startsWith": "Must start with \"{startsWith}\"",
+                "endsWith": "Must end with \"{endsWith}\"",
+                "format": {
+                    "base64": "Invalid base64 format",
+                    "cuid": "Invalid cuid format",
+                    "cuid2": "Invalid cuid2 format",
+                    "date": "Invalid date format",
+                    "datetime": "Invalid datetime format",
+                    "duration": "Invalid duration format",
+                    "email": "Invalid email format",
+                    "emoji": "Invalid emoji format",
+                    "ip": "Invalid ip format",
+                    "nanoid": "Invalid nanoid format",
+                    "regex": "Invalid format",
+                    "time": "Invalid time format",
+                    "ulid": "Invalid ulid format",
+                    "url": "Invalid url format",
+                    "uuid": "Invalid uuid format"
+                }
+            },
+            "tooSmall": {
+                "unknown": "Invalid input",
+                "array": "Must contain {condition, select, eq {exactly} gte {at least} gt {more than} other {}} {minimum} {minimum, plural, =1 {element} other {# elements}}",
+                "bigint": "Must be {condition, select, eq {exactly equal to} gte {greater than or equal to} gt {greater than} other {}} {minimum}",
+                "date": "Must be {condition, select, eq {exactly equal to} gte {greater than or equal to} gt {greater than} other {}} {minimum}",
+                "number": "Must be {condition, select, eq {exactly equal to} gte {greater than or equal to} gt {greater than} other {}} {minimum}",
+                "set": "Must contain {condition, select, eq {exactly} gte {at least} gt {more than} other {}} {minimum} {minimum, plural, =1 {element} other {# elements}}",
+                "string": "Must contain {condition, select, eq {exactly} gte {at least} gt {more than} other {}} {minimum} {minimum, plural, =1 {character} other {characters}}"
+            },
+            "tooBig": {
+                "unknown": "Invalid input",
+                "array": "Must contain {condition, select, eq {exactly} lte {at most} lt {less than} other {}} {maximum} {maximum, plural, =1 {element} other {# elements}}",
+                "bigint": "Must be {condition, select, eq {exactly equal to} lte {less than or equal to} lt {less than} other {}} {maximum}",
+                "date": "Must be {condition, select, eq {exactly equal to} lte {less than or equal to} lt {less than} other {}} {maximum}",
+                "number": "Must be {condition, select, eq {exactly equal to} lte {less than or equal to} lt {less than} other {}} {maximum}",
+                "set": "Must contain {condition, select, eq {exactly} lte {at most} lt {less than} other {}} {maximum} {maximum, plural, =1 {element} other {# elements}}",
+                "string": "Must contain {condition, select, eq {exactly} lte {at most} lt {less than} other {}} {maximum} {maximum, plural, =1 {character} other {characters}}"
+            },
+            "invalidIntersectionTypes": "Intersection results could not be merged",
+            "notMultipleOf": "Must be a multiple of {multipleOf}",
+            "notFinite": "Must be finite",
+            "custom": {
+                "unknown": "Invalid input",
+                "emailRepeat": "Emails do not match",
+                "passwordRepeat": "Passwords do not match",
+                "passwordStrength": {
+                    "base": "Password must contain at least {issues}",
+                    "upperCase": "one uppercase letter",
+                    "lowerCase": "one lowercase letter",
+                    "digit": "one number",
+                    "special": "one special character"
+                }
+            }
+        }
+    },
+    "errorPages": {
+        "notFound": {
+            "title": "Page not found"
+        }
+    },
+    "api": {
+        "context": {
+            "scope": {
+                "public": "Public (possible sharing between Solutions)",
+                "private": "Private (accessible only in parent Solution)"
+            },
+            "scopeShort": {
+                "public": "Public",
+                "private": "Private"
+            }
+        }
+    },
+    "sendEmail": "Send an e-mail",
+    "pagination": {
+        "prev": "previous",
+        "next": "next",
+        "showPerPage": "Show per page: {count}",
+        "showing": "Showing: {from} - {to} of {total}"
+    },
+    "yes": "Yes",
+    "no": "No",
+    "retry": "Retry",
+    "hide": "Hide",
+    "show": "Show",
+    "showMore": "Show more",
+    "refresh": "Refresh",
+    "clickToOpenDocs": "Click to open documentation",
+    "sort": {
+        "direction": {
+            "tooltip": "Sort"
+        }
+    },
+    "filter": {
+        "label": "Filter",
+        "placeholder": "Filter...",
+        "booleanState": {
+            "null": "No filter",
+            "true": "Yes",
+            "false": "No"
+        },
+        "numberState": {
+            "null": "No filter",
+            "gt": "Greater than",
+            "gte": "Greater than or equal to",
+            "lt": "Less than",
+            "lte": "Less than or equal to",
+            "eq": "Equal to",
+            "range": "Range"
+        },
+        "stringState": {
+            "exactMatch": "Exact match"
+        },
+        "enterAtLeast": "Enter at least {count} characters to enable filtering"
+    }
+}

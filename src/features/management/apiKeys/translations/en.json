@@ -1,0 +1,44 @@
+{
+    "list": {
+        "title": "ApiKeys"
+    },
+    "profile": {
+        "title": "ApiKey: {name}",
+        "id": "ID",
+        "name": "Name",
+        "secret": "Secret",
+        "scope": "Scope",
+        "enabled": "Enabled",
+        "created": "Created"
+    },
+    "contextsButton": {
+        "label": "View Contexts"
+    },
+    "tableHeaders": {
+        "id": "ID",
+        "name": "Name",
+        "scope": "Scope",
+        "enabled": "Enabled",
+        "created": "Created"
+    },
+    "createApiKeyButton": {
+        "label": "Create an ApiKey"
+    },
+    "deleteModal": {
+        "modalTitle": "Delete ApiKey",
+        "confirmText": "Are you sure you want to delete ApiKey {name}?"
+    },
+    "create": {
+        "modalTitle": "Create an ApiKey"
+    },
+    "edit": {
+        "modalTitle": "Edit ApiKey"
+    },
+    "notifications": {
+        "deleted": "ApiKey deleted",
+        "deleteError": "Could not delete the ApiKey.",
+        "hasBeenDeleted": "ApiKey has been deleted",
+        "apiKeyCreated": "ApiKey has been created",
+        "updated": "ApiKey updated"
+    }
+}

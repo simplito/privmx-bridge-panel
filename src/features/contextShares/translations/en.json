@@ -1,0 +1,39 @@
+{
+    "list": {
+        "title": "Shares"
+    },
+    "profile": {
+        "title": "Share: {name}",
+        "id": "ID",
+        "name": "Name",
+        "created": "Created"
+    },
+    "tableHeaders": {
+        "id": "ID",
+        "name": "Name",
+        "created": "Created"
+    },
+    "addContextShareButton": {
+        "label": "Add a Share"
+    },
+    "goToSolutionButton": {
+        "label": "Go to Solution"
+    },
+    "remove": {
+        "modalTitle": "Remove Share",
+        "confirmText": "Are you sure you want to remove Share {solutionName} from Context {contextName}?",
+        "actionName": "Remove"
+    },
+    "add": {
+        "modalTitle": "Add a Share",
+        "solutionId": {
+            "label": "Solution"
+        }
+    },
+    "notifications": {
+        "removed": "Share removed",
+        "removeError": "Could not remove the Share.",
+        "hasBeenDeleted": "Share has been deleted",
+        "contextShareAdded": "Share has been added"
+    }
+}

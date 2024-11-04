@@ -1,0 +1,17 @@
+{
+    "defaultTitle": "ACL",
+    "table": {
+        "headers": {
+            "action": "Action",
+            "target": "Target",
+            "param": "Param"
+        },
+        "rows": {
+            "param": {
+                "none": "None",
+                "valuePlaceholder": "Value"
+            }
+        }
+    },
+    "addAclEntry": "Add a new ACL Entry"
+}

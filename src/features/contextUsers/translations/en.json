@@ -1,0 +1,41 @@
+{
+    "list": {
+        "title": "Users"
+    },
+    "profile": {
+        "title": "User: {name}",
+        "id": "ID",
+        "pubKey": "PubKey",
+        "acl": "ACL",
+        "created": "Created"
+    },
+    "tableHeaders": {
+        "id": "ID",
+        "name": "Name",
+        "pubKey": "PubKey",
+        "created": "Created"
+    },
+    "createContextUserButton": {
+        "label": "Create User"
+    },
+    "deleteModal": {
+        "modalTitle": "Delete User",
+        "confirmText": "Are you sure you want to delete User {userId} from Context {contextName}?"
+    },
+    "create": {
+        "modalTitle": "Create User",
+        "solutionId": {
+            "label": "Solution"
+        }
+    },
+    "edit": {
+        "modalTitle": "Edit User"
+    },
+    "notifications": {
+        "deleted": "User deleted",
+        "deleteError": "Could not delete the User.",
+        "hasBeenDeleted": "User has been deleted",
+        "contextUserCreated": "User has been created",
+        "updated": "User updated"
+    }
+}

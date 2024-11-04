@@ -1,0 +1,49 @@
+{
+    "list": {
+        "title": "Contexts"
+    },
+    "profile": {
+        "title": "Context: {name}",
+        "id": "ID",
+        "name": "Name",
+        "scope": "Scope",
+        "sharesCount": "# Shares",
+        "created": "Created",
+        "modified": "Modified",
+        "description": "Description"
+    },
+    "usersButton": {
+        "label": "View Users"
+    },
+    "sharesButton": {
+        "label": "View Shares"
+    },
+    "tableHeaders": {
+        "id": "ID",
+        "name": "Name",
+        "scope": "Scope",
+        "sharesCount": "# Shares",
+        "created": "Created",
+        "modified": "Modified"
+    },
+    "createContextButton": {
+        "label": "Create a Context"
+    },
+    "deleteModal": {
+        "modalTitle": "Delete Context",
+        "confirmText": "Are you sure you want to delete Context {name}?"
+    },
+    "create": {
+        "modalTitle": "Create a Context"
+    },
+    "edit": {
+        "modalTitle": "Edit Context"
+    },
+    "notifications": {
+        "deleted": "Context deleted",
+        "deleteError": "Could not delete the Context.",
+        "hasBeenDeleted": "Context has been deleted",
+        "contextCreated": "Context has been created",
+        "updated": "Context updated"
+    }
+}
