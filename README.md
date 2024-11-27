@@ -1,11 +1,6 @@
-<div align="center">
-   <h1>
-      PrivMX Bridge Panel
-   </h1>
-<p>
+# PrivMX Bridge Panel
+
 PrivMX Bridge Panel is an end-to-end encrypted application used to manage [PrivMX Bridge](https://privmx.dev).
-</p>
-</div>
 
 ## Features
 
