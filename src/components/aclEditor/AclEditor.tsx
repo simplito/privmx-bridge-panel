@@ -1,4 +1,4 @@
-import { InputLabel, InputWrapper, Table } from "@mantine/core";
+import { InputError, InputLabel, InputWrapper, Table } from "@mantine/core";
 import { useCallback, useState } from "react";
 import { useTranslations } from "use-intl";
 import { Button } from "../button/Button";
@@ -11,12 +11,14 @@ export interface AclEditorProps {
     onFocus?: (() => void) | undefined;
     disabled?: boolean | undefined;
     label?: React.ReactNode | undefined;
+    error?: React.ReactNode | undefined;
 }
 
 let nextRowId = 0;
 
 export function AclEditor(props: AclEditorProps) {
     const t = useTranslations("components.aclEditor");
+    const tFormErrors = useTranslations("forms.errors");
     const propsOnChange = props.onChange;
     const [rows, setRows] = useState<RowData[]>(() => getRowsFromString(props.value ?? ""));
 
@@ -60,10 +62,13 @@ export function AclEditor(props: AclEditorProps) {
         ]);
     }, []);
 
+    const error = props.error === undefined ? undefined : convertRowsToString(rows) === "" ? tFormErrors("required") : props.error;
+
     return (
         <>
             <InputWrapper>
                 <InputLabel>{props.label === undefined ? t("defaultTitle") : props.label}</InputLabel>
+                {error !== undefined && <InputError>{error}</InputError>}
                 <Table>
                     <Table.Thead>
                         <Table.Tr>
