@@ -1,41 +1,34 @@
-<div align="center">
-   <h1>
-      PrivMX Bridge Panel
-   </h1>
-<p>
-PrivMX Bridge Panel is an end-to-end encrypted application that enabled you to manage <b>[PrivMX Platform](https://privmx.cloud)</b>.
-</p>
-</div>
+# PrivMX Bridge Panel
+
+PrivMX Bridge Panel is an end-to-end encrypted application used to manage [PrivMX Bridge](https://privmx.dev).
 
 ## Features
 
-PrivMX Bridge Panel provides essential Platform managemenet features. All data exchanged within PrivMX Bridge Panel is end-to-end encrypted, meaning that only the end users can read (decrypt) their data. It means that even platform hosting provider cannot access user data.
+PrivMX Bridge Panel provides essential Platform management features. All the data exchanged within PrivMX Bridge Panel is end-to-end encrypted, meaning that only the end users can read (decrypt) their data. It means that even platform hosting provider cannot access user data.
 
 ## Requirements
 
-PrivMX Bridge Panel Requirements:
+- Node.js in 20.10 version;
+- server that will serve static files;
+- [PrivMX Bridge](https://github.com/simplito/privmx-bridge) Instance.
 
--   node.js in 20.10 version,
--   a server that will serve static files,
--   account on <b>[PrivMX Platform](https://privmx.cloud)</b>.
+## How to start
 
-## How to start?
+First, clone this repository. It includes the PrivMX Bridge Panel sources along with various helpful files.
 
-To begin, clone this repository. It includes the PrivMX Bridge Panel sources along with various helpful files.
+#### Bridge Instance
 
-#### **Bridge Instance**
+Go to [Bridge CLI repo](https://github.com/simplito/privmx-bridge-docker) to find scripts to create and initialize PrivMX Bridge on your local machine.
 
-You need a **PrivMX Bridge** instance.
-
-#### **Node.js**
+#### Node.js
 
 To build or develop the app, you need Node.js preferably in version **20.10 or higher**.
 
-## How to run this software?
+## How to run this software
 
 ### .env.local file
 
-Create `.env.local` file in the root of your project. You can copy **.env.example** or use snippets available in <b>[PrivMX Platform](https://privmx.cloud)</b>.
+Create `.env.local` file in the root of your project and paste the content of `.env.example`.
 
 This is an example `.env.local` file:
 
@@ -44,9 +37,9 @@ VITE_PRIVMX_BRIDGE_URL=http://localhost:9111
 VITE_LOG_LEVEL=log
 ```
 
-### Building the app
+### Build the app
 
-In a new terminal go to the project's root folder.
+In a new terminal, go to the project's root folder.
 
 ```sh
 npm install
@@ -57,7 +50,7 @@ During development you can run `npm run preview` to ensure everything works. For
 
 ### Running the app in dev mode
 
-In a new terminal go to the project's root folder.
+In a new terminal, go to the project's root folder and use:
 
 ```sh
 npm install
