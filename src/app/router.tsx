@@ -19,7 +19,7 @@ import RootLayout from "./layout";
 
 export const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/panel",
         element: <RootLayout />,
         children: [
             { index: true, element: <RenderWithProps page={Home_Page} /> },

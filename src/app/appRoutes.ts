@@ -2,7 +2,7 @@ import type * as ServerApiTypes from "privmx-server-api";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export const appRoutes = {
-    _base: () => ``,
+    _base: () => `/panel`,
     home: () => `${appRoutes._base()}/`,
     auth: {
         _base: () => `${appRoutes._base()}/auth`,

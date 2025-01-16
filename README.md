@@ -57,7 +57,16 @@ npm install
 npm run dev
 ```
 
-Check your app at <http://localhost:3000>.
+Check your app at <http://localhost:3000/panel>.
+
+### Building for PrivMX Bridge
+
+If you want to build a panel for PrivMX Bridge working at the same domain, use `.env.local` with the content below
+
+```ENV
+VITE_PRIVMX_BRIDGE_URL=/
+VITE_LOG_LEVEL=error
+```
 
 ## License
 
