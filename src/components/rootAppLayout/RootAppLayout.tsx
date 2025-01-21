@@ -13,6 +13,7 @@ import { i18nFormats } from "@/i18n/formats/i18nFormats";
 import { i18nConfig } from "@/i18n/i18nConfig";
 import { loadAllI18nMessages } from "@/i18n/loadAllI18nMessages";
 import { AppLogo } from "../appLogo/AppLogo";
+import { SessionFromUrlEstablisher } from "../utils/SessionFromUrlEstablisher";
 import { SessionKeepAlive } from "../utils/SessionKeepAlive";
 import { colors, mantineTheme, themeCssVariablesResolver } from "./mantineTheme";
 import { headerHeight, sidebarWidth } from "./rootAppLayoutConsts";
@@ -39,6 +40,7 @@ export function RootAppLayout(props: RootAppLayoutProps) {
             <MantineProvider theme={mantineTheme} forceColorScheme="dark" defaultColorScheme="dark" cssVariablesResolver={themeCssVariablesResolver}>
                 <Notifications />
                 <AuthDataContextProvider defaultAuthData={defaultAuthData}>
+                    <SessionFromUrlEstablisher />
                     <SessionKeepAlive />
                     <ModalsProvider>
                         <AppShell
