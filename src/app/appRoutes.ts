@@ -1,8 +1,17 @@
 import type * as ServerApiTypes from "privmx-server-api";
 
+function getRootPath(): string {
+    const path = location.pathname;
+    if (path.startsWith("/d/")) {
+        const instanceId = path.split("/")[2];
+        return `/d/${instanceId}/panel`;
+    }
+    return "/panel";
+}
+
 /* eslint-disable @typescript-eslint/naming-convention */
 export const appRoutes = {
-    _base: () => `/panel`,
+    _base: () => getRootPath(),
     home: () => `${appRoutes._base()}/`,
     auth: {
         _base: () => `${appRoutes._base()}/auth`,
