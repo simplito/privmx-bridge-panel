@@ -37,6 +37,11 @@ export abstract class BaseApi {
     }
 
     protected async getApiUrl(): Promise<types.PrivMxBridgeApiUrl> {
+        const path = location.pathname;
+        if (path.startsWith("/d/")) {
+            const instanceId = path.split("/")[2];
+            return `/d/${instanceId}/api` as types.PrivMxBridgeApiUrl;
+        }
         let url = await this.options.getPrivMxBridgeUrl();
         if (!url.endsWith("/")) {
             url = `${url}/` as types.PrivMxBridgeUrl;

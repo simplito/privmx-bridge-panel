@@ -20,7 +20,7 @@ export default defineConfig({
             "@": nodePath.resolve(__dirname, "./src/"),
         },
     },
-    base: "/",
+    base: "/panel",
     server: {
         port: 3003,
         open: false,
