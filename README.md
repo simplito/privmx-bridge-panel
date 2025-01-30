@@ -1,16 +1,12 @@
 # PrivMX Bridge Panel
 
-PrivMX Bridge Panel is an end-to-end encrypted application used to manage [PrivMX Bridge](https://privmx.dev).
-
-## Features
-
-PrivMX Bridge Panel provides essential Platform management features. All the data exchanged within PrivMX Bridge Panel is end-to-end encrypted, meaning that only the end users can read (decrypt) their data. It means that even platform hosting provider cannot access user data.
+PrivMX Bridge Panel is an application used to manage [PrivMX Bridge](https://privmx.dev).
 
 ## Requirements
 
-- Node.js in 20.10 version;
-- server that will serve static files;
-- [PrivMX Bridge](https://github.com/simplito/privmx-bridge) Instance.
+-   Node.js in 20.10 version;
+-   server that will serve static files;
+-   [PrivMX Bridge](https://github.com/simplito/privmx-bridge) Instance.
 
 ## How to start
 
