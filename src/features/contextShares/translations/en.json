@@ -6,11 +6,16 @@
         "title": "Share: {name}",
         "id": "ID",
         "name": "Name",
-        "created": "Created"
+        "created": "Created",
+        "types": {
+            "primary": "Primary",
+            "share": "Share"
+        }
     },
     "tableHeaders": {
         "id": "ID",
         "name": "Name",
+        "type": "Type",
         "created": "Created"
     },
     "addContextShareButton": {

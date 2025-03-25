@@ -10,9 +10,9 @@ import { useRouter } from "@/i18n/routing";
 import type { ContextDeletedEvent, ContextUpdatedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
 import { useOpenAddContextShareModal } from "../add/openAddContextShareModal";
 import { useOpenRemoveContextShareModal } from "../remove/openRemoveContextShareModal";
-import { ContextShareRow, untranslatedTableHeaders } from "./ContextShareRow";
+import { ContextShareRow, type ContextSolution, untranslatedTableHeaders } from "./ContextShareRow";
 
-const entryIdProvider = (entry: ServerApiTypes.api.solution.Solution) => entry.id;
+const entryIdProvider = (entry: ContextSolution) => entry.solution.id;
 
 export interface ContextSharesCrudTableProps {
     context: ServerApiTypes.api.context.Context;
@@ -20,10 +20,14 @@ export interface ContextSharesCrudTableProps {
     withBottomCreateButton?: boolean | undefined;
 }
 
+function isEntryDeletable(entry: ContextSolution) {
+    return entry.type === "share";
+}
+
 export function ContextSharesCrudTable(props: ContextSharesCrudTableProps) {
     const t = useTranslations("features.contextShares");
     const router = useRouter();
-    const refreshRef = useRef<() => Promise<ServerApiTypes.api.solution.Solution[]>>();
+    const refreshRef = useRef<() => Promise<ContextSolution[]>>();
     const refresh = useCallback(() => {
         void refreshRef.current?.();
     }, []);
@@ -59,8 +63,8 @@ export function ContextSharesCrudTable(props: ContextSharesCrudTableProps) {
 
     const { openRemoveContextShareModal } = useOpenRemoveContextShareModal();
     const handleOpenRemoveContextShareModal = useCallback(
-        async (entry: ServerApiTypes.api.solution.Solution) => {
-            const res = await openRemoveContextShareModal({ context: props.context, solution: entry });
+        async (entry: ContextSolution) => {
+            const res = await openRemoveContextShareModal({ context: props.context, solution: entry.solution });
             return { deleted: res.removed };
         },
         [openRemoveContextShareModal, props.context],
@@ -69,18 +73,26 @@ export function ContextSharesCrudTable(props: ContextSharesCrudTableProps) {
     const solutionApi = useSolutionApi();
     const dataProvider = useCallback(
         async (pageId: number, entriesPerPage: number, _filters: CrudTableFilter[]) => {
-            const solutionIds = props.context.shares.slice(pageId * entriesPerPage, (pageId + 1) * entriesPerPage);
+            const solutionIds = [props.context.solution, ...props.context.shares].slice(pageId * entriesPerPage, (pageId + 1) * entriesPerPage);
 
-            const res = await Promise.all(solutionIds.map(async (solutionId) => (await solutionApi.getSolution({ id: solutionId })).solution));
+            const res = (await Promise.all(solutionIds.map(async (solutionId) => (await solutionApi.getSolution({ id: solutionId })).solution))).map(
+                (solution) => {
+                    const contextSolution: ContextSolution = {
+                        solution: solution,
+                        type: solution.id === props.context.solution ? "primary" : "share",
+                    };
+                    return contextSolution;
+                },
+            );
 
             return { entries: res, totalEntries: props.context.shares.length };
         },
-        [props.context.shares, solutionApi],
+        [props.context.shares, props.context.solution, solutionApi],
     );
 
     const handleViewSolution = useCallback(
-        (entry: ServerApiTypes.api.solution.Solution) => {
-            router.push(appRoutes.solutions.$solution(entry.id).profile());
+        (entry: ContextSolution) => {
+            router.push(appRoutes.solutions.$solution(entry.solution.id).profile());
         },
         [router],
     );
@@ -110,6 +122,7 @@ export function ContextSharesCrudTable(props: ContextSharesCrudTableProps) {
                 onRowClick={handleViewSolution}
                 withGlobalStringFilter={false}
                 actionsColumnWidth={100}
+                isEntryDeletable={isEntryDeletable}
             />
         </Box>
     );
