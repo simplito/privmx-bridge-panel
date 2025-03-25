@@ -52,7 +52,7 @@ export const appRoutes = {
     },
     users: {
         _base: () => `${appRoutes._base()}/users`,
-        list: () => `${appRoutes.solutions._base()}/`,
+        list: () => `${appRoutes.users._base()}/`,
         $user: (userId: ServerApiTypes.types.cloud.UserId) => ({
             _base: () => `${appRoutes.users._base()}/${userId}`,
             profile: () => `${appRoutes.users.$user(userId)._base()}/`,
