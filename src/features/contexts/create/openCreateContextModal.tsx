@@ -5,7 +5,7 @@ import { useTranslations } from "use-intl";
 import { Deferred } from "@/utils/Deferred";
 import { CreateContextModalContent } from "./CreateContextModalContent";
 
-export async function openCreateContextModal(solutionId: ServerApiTypes.types.cloud.SolutionId, modalTitle: string) {
+export async function openCreateContextModal(solutionId: ServerApiTypes.types.cloud.SolutionId | null, modalTitle: string) {
     const resultDeferred = new Deferred<{ created: boolean }>();
     const modalId = `${Math.random().toString(36).substring(2)}-${Date.now()}`;
     const close = () => {
@@ -35,7 +35,7 @@ export async function openCreateContextModal(solutionId: ServerApiTypes.types.cl
 export function useOpenCreateContextModal() {
     const t = useTranslations("features.contexts");
     const openCreateContextModalCallback = useCallback(
-        async (solutionId: ServerApiTypes.types.cloud.SolutionId) => {
+        async (solutionId: ServerApiTypes.types.cloud.SolutionId | null) => {
             return await openCreateContextModal(solutionId, t("create.modalTitle"));
         },
         [t],
