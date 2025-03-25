@@ -5,6 +5,7 @@ import * as nodePath from "path";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
+import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
     css: {
@@ -14,7 +15,14 @@ export default defineConfig({
             },
         },
     },
-    plugins: [react(), nodePolyfills()],
+    plugins: [
+        svgr({
+            svgrOptions: { exportType: "named", ref: true, svgo: false, titleProp: true },
+            include: "**/*.svg",
+        }),
+        react(),
+        nodePolyfills(),
+    ],
     resolve: {
         alias: {
             "@": nodePath.resolve(__dirname, "./src/"),
