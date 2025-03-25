@@ -15,7 +15,6 @@ import { ContextShareRow, untranslatedTableHeaders } from "./ContextShareRow";
 const entryIdProvider = (entry: ServerApiTypes.api.solution.Solution) => entry.id;
 
 export interface ContextSharesCrudTableProps {
-    solution: ServerApiTypes.api.solution.Solution;
     context: ServerApiTypes.api.context.Context;
     withTopCreateButton?: boolean | undefined;
     withBottomCreateButton?: boolean | undefined;

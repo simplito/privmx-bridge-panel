@@ -9,29 +9,24 @@ import { PageWrapper } from "@/components/atoms/PageWrapper";
 import { useContextApi } from "@/hooks/useContextApi";
 import { useDataLoader } from "@/hooks/useDataLoader";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
-import { useSolutionApi } from "@/hooks/useSolutionApi";
 import type { ContextDeletedEvent, ContextUpdatedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
 import { ContextSharesCrudTable } from "./ContextSharesCrudTable";
 
 export interface ContextSharesListPageProps {
-    solutionId: ServerApiTypes.types.cloud.SolutionId;
     contextId: ServerApiTypes.types.context.ContextId;
 }
 
 interface PageData {
-    solution: ServerApiTypes.api.solution.Solution;
     context: ServerApiTypes.api.context.Context;
 }
 
 export function ContextSharesListPage(props: ContextSharesListPageProps) {
     const contextApi = useContextApi();
-    const solutionApi = useSolutionApi();
     const [pageData, setPageData] = useState<PageData | null>(null);
     const pageDataLoader = useCallback(async () => {
-        const solution = await solutionApi.getSolution({ id: props.solutionId });
         const context = await contextApi.getContext({ contextId: props.contextId });
-        return { solution: solution.solution, context: context.context };
-    }, [solutionApi, props.solutionId, props.contextId, contextApi]);
+        return { context: context.context };
+    }, [props.contextId, contextApi]);
     const { isLoading: isLoadingPageData, error: pageDataLoadingError, reload: reloadPageData } = useDataLoader(pageDataLoader, setPageData);
     usePrivMxBridgeApiEventListener(
         "contextDeleted",
@@ -65,11 +60,10 @@ export function ContextSharesListPage(props: ContextSharesListPageProps) {
         );
     }
 
-    return <ContextSharesListPageCore solution={pageData.solution} context={pageData.context} />;
+    return <ContextSharesListPageCore context={pageData.context} />;
 }
 
 export interface ContextSharesListPageCoreProps {
-    solution: ServerApiTypes.api.solution.Solution;
     context: ServerApiTypes.api.context.Context;
 }
 
@@ -90,7 +84,7 @@ export function ContextSharesListPageCore(props: ContextSharesListPageCoreProps)
 
     return (
         <PageWrapper title={t("list.title")} breadcrumbs={breadcrumbs}>
-            <ContextSharesCrudTable context={props.context} solution={props.solution} />
+            <ContextSharesCrudTable context={props.context} />
         </PageWrapper>
     );
 }
