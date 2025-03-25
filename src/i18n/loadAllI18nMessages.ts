@@ -7,8 +7,8 @@ import * as components_apiFormInputs_translations from "../components/apiFormInp
 import * as components_apiScopesEditor_translations from "../components/apiScopesEditor/translations/en.json";
 import * as components_copyButton_translations from "../components/copyButton/translations/en.json";
 import * as components_noneText_translations from "../components/noneText/translations/en.json";
-import * as features_auth_signIn_translations from "../features/auth/signIn/translations/en.json";
-import * as features_auth_signOut_translations from "../features/auth/signOut/translations/en.json";
+import * as features_auth_login_translations from "../features/auth/login/translations/en.json";
+import * as features_auth_logout_translations from "../features/auth/logout/translations/en.json";
 import * as features_contexts_translations from "../features/contexts/translations/en.json";
 import * as features_contextShares_translations from "../features/contextShares/translations/en.json";
 import * as features_contextUsers_translations from "../features/contextUsers/translations/en.json";
@@ -32,8 +32,8 @@ export function loadAllI18nMessages(_locale: I18nLocale) {
         },
         features: {
             auth: {
-                signIn: features_auth_signIn_translations,
-                signOut: features_auth_signOut_translations,
+                login: features_auth_login_translations,
+                logout: features_auth_logout_translations,
             },
             contexts: features_contexts_translations,
             contextShares: features_contextShares_translations,

@@ -79,25 +79,25 @@ export function Sidebar() {
                 >
                     {isSignedIn ? (
                         <NavLink
-                            label={t("forms.buttons.signOut")}
+                            label={t("forms.buttons.logout")}
                             rightSection={
                                 <span style={{ color: colors["document/typography/text"] }}>
-                                    <Icon name="signOut" size={"md"} />
+                                    <Icon name="logout" size={"md"} />
                                 </span>
                             }
-                            href={appRoutes.auth.signOut()}
+                            href={appRoutes.auth.logout()}
                             pl="md"
                             component={Link}
                         />
                     ) : (
                         <NavLink
-                            label={t("forms.buttons.signIn")}
+                            label={t("forms.buttons.login")}
                             rightSection={
                                 <span style={{ color: colors["document/typography/text"] }}>
-                                    <Icon name="signIn" size={"md"} />
+                                    <Icon name="login" size={"md"} />
                                 </span>
                             }
-                            href={appRoutes.auth.signIn()}
+                            href={appRoutes.auth.login()}
                             pl="md"
                             component={Link}
                         />

@@ -41,7 +41,6 @@ export function CrudTableRow<TEntry>(props: CrudTableRowProps<TEntry>) {
                         action.isSeparate === true ? <CrudTableRowAction key={action.id} row={props.row} action={action} /> : null,
                     )}
                     {hasNonSeparateActions ? (
-                        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                         <div style={{ display: "inline-block" }} onMouseDown={handleStopPropagation}>
                             <Menu>
                                 <MenuTarget>

@@ -21,7 +21,7 @@ export function HomePage() {
                 <AuthGuard type="requireUnauthed" behavior="renderNothing">
                     <Text>{t("message_2_notSignedIn")}</Text>
                     <Group>
-                        <Button type="link" preset="signIn" href={appRoutes.auth.signIn()} />
+                        <Button type="link" preset="login" href={appRoutes.auth.login()} />
                         <Button type="linkExternal" href={DocsUtils.getDocsUrl()} priority="primary" icon="docs">
                             {t("openDocsButtonLabel")}
                         </Button>

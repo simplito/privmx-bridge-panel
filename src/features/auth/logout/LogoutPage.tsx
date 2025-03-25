@@ -6,14 +6,14 @@ import { PageWrapper } from "@/components/atoms/PageWrapper";
 import { useAuthData } from "@/hooks/useAuthData";
 import { AuthPersistence } from "../AuthPersistence";
 
-export function SignOutPage() {
+export function LogoutPage() {
     const { setAuthData } = useAuthData();
-    const t = useTranslations("features.auth.signOut");
+    const t = useTranslations("features.auth.logout");
     const tRoot = useTranslations();
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
             { label: tRoot("features.home.title"), href: appRoutes.home() },
-            { label: t("title"), href: appRoutes.auth.signOut() },
+            { label: t("title"), href: appRoutes.auth.logout() },
         ];
     }, [t, tRoot]);
     useEffect(() => {

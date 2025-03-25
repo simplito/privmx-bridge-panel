@@ -15,8 +15,8 @@ export const appRoutes = {
     home: () => `${appRoutes._base()}/`,
     auth: {
         _base: () => `${appRoutes._base()}/auth`,
-        signIn: () => `${appRoutes.auth._base()}/signIn`,
-        signOut: () => `${appRoutes.auth._base()}/signOut`,
+        login: () => `${appRoutes.auth._base()}/login`,
+        logout: () => `${appRoutes.auth._base()}/logout`,
     },
     management: {
         _base: () => `${appRoutes._base()}/management`,

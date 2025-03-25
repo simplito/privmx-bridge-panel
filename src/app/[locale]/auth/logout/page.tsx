@@ -1,10 +1,10 @@
 import { AuthGuard } from "@/components/atoms/AuthGuard";
-import { SignOutPage } from "@/features/auth/signOut/SignOutPage";
+import { LogoutPage } from "@/features/auth/logout/LogoutPage";
 
 export default function Page() {
     return (
         <AuthGuard type="requireAuthed" behavior="redirectToHomePage">
-            <SignOutPage />
+            <LogoutPage />
         </AuthGuard>
     );
 }

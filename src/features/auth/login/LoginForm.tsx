@@ -22,8 +22,8 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-export function SignInForm() {
-    const t = useTranslations("features.auth.signIn");
+export function LoginForm() {
+    const t = useTranslations("features.auth.login");
     const { isProcessing, withProcessing } = useProcessing();
     const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null);
     const managerApi = useManagerApi();
@@ -107,7 +107,7 @@ export function SignInForm() {
                         />
                     </Stack>
                 </Box>
-                <ModalButtons onConfirm="formSubmit" isProcessing={isProcessing} confirmButtonPreset="signIn" />
+                <ModalButtons onConfirm="formSubmit" isProcessing={isProcessing} confirmButtonPreset="login" />
             </Stack>
         </form>
     );

@@ -12,13 +12,13 @@ export type ButtonPresetName =
     | "create"
     | "delete"
     | "edit"
+    | "login"
+    | "logout"
     | "ok"
     | "update"
     | "remove"
     | "reset"
     | "save"
-    | "signIn"
-    | "signOut"
     | "submit"
     | "viewDetails";
 
@@ -78,6 +78,18 @@ const buttonPresets = {
         icon: "edit",
         label: "edit",
     },
+    login: {
+        color: "primary",
+        priority: "primary",
+        icon: "login",
+        label: "login",
+    },
+    logout: {
+        color: "primary",
+        priority: "tertiary",
+        icon: "logout",
+        label: "logout",
+    },
     ok: {
         color: "primary",
         priority: "primary",
@@ -107,18 +119,6 @@ const buttonPresets = {
         priority: "primary",
         icon: "save",
         label: "save",
-    },
-    signIn: {
-        color: "primary",
-        priority: "primary",
-        icon: "signIn",
-        label: "signIn",
-    },
-    signOut: {
-        color: "primary",
-        priority: "tertiary",
-        icon: "signOut",
-        label: "signOut",
     },
     submit: {
         color: "primary",

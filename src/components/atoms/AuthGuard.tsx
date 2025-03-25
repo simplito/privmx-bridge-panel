@@ -1,5 +1,5 @@
 import { appRoutes } from "@/app/appRoutes";
-import { SignInForm } from "@/features/auth/signIn/SignInForm";
+import { LoginForm } from "@/features/auth/login/LoginForm";
 import { useAuthData } from "@/hooks/useAuthData";
 import { Redirect } from "@/i18n/routing";
 
@@ -19,13 +19,13 @@ export interface RequireAuthedAuthGuardProps extends BaseAuthGuardProps {
 
     /**
      * The behavior to use when the user is not authenticated.
-     * - "redirectToSignInPage" - Redirect the user to the sign-in page.
-     * - "renderSignInForm" - Render the sign-in form.
+     * - "redirectToLoginPage" - Redirect the user to the sign-in page.
+     * - "renderLoginForm" - Render the sign-in form.
      * - "renderNothing" - Render nothing.
      *
      * Defaults to "renderNothing".
      */
-    behavior?: "renderNothing" | "redirectToHomePage" | "redirectToSignInPage" | "renderSignInForm" | undefined;
+    behavior?: "renderNothing" | "redirectToHomePage" | "redirectToLoginPage" | "renderLoginForm" | undefined;
 }
 
 export interface RequireUnauthedAuthGuardProps extends BaseAuthGuardProps {
@@ -48,15 +48,15 @@ export function AuthGuard(props: AuthGuardProps) {
     const isAuthed = authData.privMxBridgeApiAuthData !== null;
     if (props.type === "requireAuthed" && !isAuthed) {
         const behavior = props.behavior ?? "renderNothing";
-        if (behavior === "renderSignInForm") {
-            return <SignInForm />;
+        if (behavior === "renderLoginForm") {
+            return <LoginForm />;
         } else if (behavior === "renderNothing") {
             return null;
         }
         if (behavior === "redirectToHomePage") {
             return <Redirect to={appRoutes.home()} />;
         } else {
-            return <Redirect to={appRoutes.auth.signIn()} />;
+            return <Redirect to={appRoutes.auth.login()} />;
         }
     }
     if (props.type === "requireUnauthed" && isAuthed) {

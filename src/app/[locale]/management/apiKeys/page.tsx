@@ -3,7 +3,7 @@ import { ApiKeysListPage } from "@/features/management/apiKeys/list/ApiKeysListP
 
 export default function Page() {
     return (
-        <AuthGuard type="requireAuthed" behavior="renderSignInForm">
+        <AuthGuard type="requireAuthed" behavior="renderLoginForm">
             <ApiKeysListPage />
         </AuthGuard>
     );

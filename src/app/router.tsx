@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Navigate, type RouteObject, createBrowserRouter, useParams } from "react-router-dom";
 import Home_Page from "./[locale]/page";
-import Auth_SignIn_Page from "./[locale]/auth/signIn/page";
-import Auth_SignOut_Page from "./[locale]/auth/signOut/page";
+import Auth_Login_Page from "./[locale]/auth/login/page";
+import Auth_Logout_Page from "./[locale]/auth/logout/page";
 import Error_General_Page from "./[locale]/error";
 import Error_NotFound_Page from "./[locale]/not-found";
 import Management_ApiKeys_Page from "./[locale]/management/apiKeys/page";
@@ -39,12 +39,12 @@ const mainPanelRoute: RouteObject = {
             errorElement: <Error_General_Page />,
             children: [
                 {
-                    path: "signIn",
-                    element: <RenderWithProps page={Auth_SignIn_Page} />,
+                    path: "login",
+                    element: <RenderWithProps page={Auth_Login_Page} />,
                 },
                 {
-                    path: "signOut",
-                    element: <RenderWithProps page={Auth_SignOut_Page} />,
+                    path: "logout",
+                    element: <RenderWithProps page={Auth_Logout_Page} />,
                 },
             ],
         },

@@ -10,7 +10,7 @@ interface PageProps {
 
 export default function Page(props: PageProps) {
     return (
-        <AuthGuard type="requireAuthed" behavior="renderSignInForm">
+        <AuthGuard type="requireAuthed" behavior="renderLoginForm">
             <ContextSharesListPage contextId={props.params.contextId} />
         </AuthGuard>
     );
