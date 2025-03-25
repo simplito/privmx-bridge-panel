@@ -4,7 +4,6 @@ import { ContextProfilePage } from "@/features/contexts/profile/ContextProfilePa
 
 interface PageProps {
     params: {
-        solutionId: ServerApiTypes.types.cloud.SolutionId;
         contextId: ServerApiTypes.types.context.ContextId;
     };
 }
@@ -12,7 +11,7 @@ interface PageProps {
 export default function Page(props: PageProps) {
     return (
         <AuthGuard type="requireAuthed" behavior="renderSignInForm">
-            <ContextProfilePage solutionId={props.params.solutionId} contextId={props.params.contextId} />
+            <ContextProfilePage contextId={props.params.contextId} />
         </AuthGuard>
     );
 }

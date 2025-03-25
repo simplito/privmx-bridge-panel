@@ -9,29 +9,24 @@ import { PageWrapper } from "@/components/atoms/PageWrapper";
 import { useContextApi } from "@/hooks/useContextApi";
 import { useDataLoader } from "@/hooks/useDataLoader";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
-import { useSolutionApi } from "@/hooks/useSolutionApi";
-import type { ContextDeletedEvent, ContextUpdatedEvent, SolutionDeletedEvent, SolutionUpdatedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
+import type { ContextDeletedEvent, ContextUpdatedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
 import { ContextProfileCore } from "./ContextProfile";
 
 export interface ContextProfilePageProps {
-    solutionId: ServerApiTypes.types.cloud.SolutionId;
     contextId: ServerApiTypes.types.context.ContextId;
 }
 
 interface PageData {
     context: ServerApiTypes.api.context.Context;
-    solution: ServerApiTypes.api.solution.Solution;
 }
 
 export function ContextProfilePage(props: ContextProfilePageProps) {
     const contextApi = useContextApi();
-    const solutionApi = useSolutionApi();
     const [pageData, setPageData] = useState<PageData | null>(null);
     const pageDataLoader = useCallback(async () => {
         const context = await contextApi.getContext({ contextId: props.contextId });
-        const solution = await solutionApi.getSolution({ id: props.solutionId });
-        return { context: context.context, solution: solution.solution };
-    }, [contextApi, solutionApi, props.contextId, props.solutionId]);
+        return { context: context.context };
+    }, [contextApi, props.contextId]);
     const { isLoading: isLoadingPageData, error: pageDataLoadingError, reload: reloadPageData } = useDataLoader(pageDataLoader, setPageData);
     usePrivMxBridgeApiEventListener(
         "contextDeleted",
@@ -55,28 +50,6 @@ export function ContextProfilePage(props: ContextProfilePageProps) {
             [props.contextId, reloadPageData],
         ),
     );
-    usePrivMxBridgeApiEventListener(
-        "solutionDeleted",
-        useCallback(
-            (event: SolutionDeletedEvent) => {
-                if (event.solutionId === props.solutionId) {
-                    void reloadPageData();
-                }
-            },
-            [props.solutionId, reloadPageData],
-        ),
-    );
-    usePrivMxBridgeApiEventListener(
-        "solutionUpdated",
-        useCallback(
-            (event: SolutionUpdatedEvent) => {
-                if (event.solutionId === props.solutionId) {
-                    void reloadPageData();
-                }
-            },
-            [props.solutionId, reloadPageData],
-        ),
-    );
 
     if (Boolean(pageDataLoadingError) || isLoadingPageData || pageData === null) {
         return (
@@ -86,12 +59,11 @@ export function ContextProfilePage(props: ContextProfilePageProps) {
         );
     }
 
-    return <ContextProfilePageCore context={pageData.context} solution={pageData.solution} />;
+    return <ContextProfilePageCore context={pageData.context} />;
 }
 
 export interface ContextProfilePageCoreProps {
     context: ServerApiTypes.api.context.Context;
-    solution: ServerApiTypes.api.solution.Solution;
 }
 
 export function ContextProfilePageCore(props: ContextProfilePageCoreProps) {
@@ -110,7 +82,7 @@ export function ContextProfilePageCore(props: ContextProfilePageCoreProps) {
 
     return (
         <PageWrapper title={t("profile.title", { name: props.context.name })} breadcrumbs={breadcrumbs} size="lg">
-            <ContextProfileCore context={props.context} solution={props.solution} />
+            <ContextProfileCore context={props.context} />
         </PageWrapper>
     );
 }

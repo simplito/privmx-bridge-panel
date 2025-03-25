@@ -11,9 +11,8 @@ import type * as propsViewTypes from "@/components/propsView/types";
 import { useContextApi } from "@/hooks/useContextApi";
 import { useDataLoader } from "@/hooks/useDataLoader";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
-import { useSolutionApi } from "@/hooks/useSolutionApi";
 import { useRouter } from "@/i18n/routing";
-import type { ContextDeletedEvent, ContextUpdatedEvent, SolutionDeletedEvent, SolutionUpdatedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
+import type { ContextDeletedEvent, ContextUpdatedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
 import { useOpenDeleteContextModal } from "../delete/openDeleteContextModal";
 import { useOpenEditContextModal } from "../edit/openEditContextModal";
 
@@ -23,19 +22,16 @@ export interface ContextProfileProps {
 }
 
 interface ContextProfileData {
-    solution: ServerApiTypes.api.solution.Solution;
     context: ServerApiTypes.api.context.Context;
 }
 
 export function ContextProfile(props: ContextProfileProps) {
     const contextApi = useContextApi();
-    const solutionApi = useSolutionApi();
     const [profileData, setProfileData] = useState<ContextProfileData | null>(null);
     const profileDataLoader = useCallback(async () => {
         const context = await contextApi.getContext({ contextId: props.contextId });
-        const solution = await solutionApi.getSolution({ id: props.solutionId });
-        return { context: context.context, solution: solution.solution };
-    }, [contextApi, solutionApi, props.contextId, props.solutionId]);
+        return { context: context.context };
+    }, [contextApi, props.contextId]);
     const { isLoading: isLoadingProfileData, error: profileDataLoadingError, reload: reloadProfileData } = useDataLoader(profileDataLoader, setProfileData);
     usePrivMxBridgeApiEventListener(
         "contextDeleted",
@@ -59,28 +55,6 @@ export function ContextProfile(props: ContextProfileProps) {
             [props.contextId, reloadProfileData],
         ),
     );
-    usePrivMxBridgeApiEventListener(
-        "solutionDeleted",
-        useCallback(
-            (event: SolutionDeletedEvent) => {
-                if (event.solutionId === props.solutionId) {
-                    void reloadProfileData();
-                }
-            },
-            [props.solutionId, reloadProfileData],
-        ),
-    );
-    usePrivMxBridgeApiEventListener(
-        "solutionUpdated",
-        useCallback(
-            (event: SolutionUpdatedEvent) => {
-                if (event.solutionId === props.solutionId) {
-                    void reloadProfileData();
-                }
-            },
-            [props.solutionId, reloadProfileData],
-        ),
-    );
 
     if (Boolean(profileDataLoadingError) || isLoadingProfileData || profileData === null) {
         return (
@@ -90,11 +64,10 @@ export function ContextProfile(props: ContextProfileProps) {
         );
     }
 
-    return <ContextProfileCore context={profileData.context} solution={profileData.solution} />;
+    return <ContextProfileCore context={profileData.context} />;
 }
 
 export interface ContextProfileCoreProps {
-    solution: ServerApiTypes.api.solution.Solution;
     context: ServerApiTypes.api.context.Context;
 }
 
