@@ -5,6 +5,7 @@ import { useCallback, useState } from "react";
 import { useTranslations } from "use-intl";
 import { z } from "zod";
 import { ContextScopeSelect } from "@/components/apiFormInputs/ContextScopeSelect";
+import { SolutionSelect } from "@/components/apiFormInputs/SolutionSelect";
 import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { CopyableText } from "@/components/copyButton/CopyableText";
 import { useContextApi } from "@/hooks/useContextApi";
@@ -17,11 +18,12 @@ import { zodSchemas } from "@/validation/zodSchemas";
 type CreateContextModalResult = { result: "cancelled" } | { result: "created"; contextId: ServerApiTypes.types.context.ContextId };
 
 export interface CreateContextModalContentProps {
-    solutionId: ServerApiTypes.types.cloud.SolutionId;
+    solutionId: ServerApiTypes.types.cloud.SolutionId | null;
     onResult: (result: CreateContextModalResult) => void;
 }
 
 const schema = z.object({
+    solutionId: zodSchemas.solution.id(),
     contextName: zodSchemas.context.name(),
     contextDescription: zodSchemas.context.description(),
     contextScope: zodSchemas.context.scope(),
@@ -42,6 +44,7 @@ export function CreateContextModalContent(props: CreateContextModalContentProps)
 
     const form = useForm<FormValues>({
         initialValues: {
+            solutionId: props.solutionId ?? "",
             contextName: "",
             contextDescription: "",
             contextScope: "private",
@@ -60,7 +63,7 @@ export function CreateContextModalContent(props: CreateContextModalContentProps)
                     name: values.contextName as ServerApiTypes.types.context.ContextName,
                     description: values.contextDescription as ServerApiTypes.types.context.ContextDescription,
                     scope: values.contextScope as ServerApiTypes.types.context.ContextScope,
-                    solution: props.solutionId,
+                    solution: values.solutionId as ServerApiTypes.types.cloud.SolutionId,
                 });
                 return {
                     contextId: createContextResult.contextId,
@@ -74,7 +77,7 @@ export function CreateContextModalContent(props: CreateContextModalContentProps)
                 setErrorMessage(getErrorMessage(error));
             }
         },
-        [contextApi, props.solutionId, withProcessing],
+        [contextApi, withProcessing],
     );
 
     const handleCloseClick = useCallback(() => {
@@ -123,6 +126,14 @@ export function CreateContextModalContent(props: CreateContextModalContentProps)
                 </Center>
                 <Box mx="md">
                     <Stack gap="md">
+                        <SolutionSelect
+                            withAsterisk
+                            required
+                            label={t("profile.solution")}
+                            // eslint-disable-next-line react/jsx-props-no-spreading
+                            {...form.getInputProps("solutionId")}
+                            disabled={isProcessing}
+                        />
                         <TextInput
                             withAsterisk
                             label={t("profile.name")}
