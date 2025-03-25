@@ -1,6 +1,6 @@
 {
     "list": {
-        "title": "ApiKeys"
+        "title": "Access management"
     },
     "profile": {
         "title": "ApiKey: {name}",

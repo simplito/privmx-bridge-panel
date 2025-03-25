@@ -18,16 +18,13 @@ export const appRoutes = {
         login: () => `${appRoutes.auth._base()}/login`,
         logout: () => `${appRoutes.auth._base()}/logout`,
     },
-    management: {
-        _base: () => `${appRoutes._base()}/management`,
-        apiKeys: {
-            _base: () => `${appRoutes.management._base()}/apiKeys`,
-            list: () => `${appRoutes.management.apiKeys._base()}/`,
-            $apiKey: (apiKeyId: ServerApiTypes.types.auth.ApiKeyId) => ({
-                _base: () => `${appRoutes.management.apiKeys._base()}/${apiKeyId}`,
-                profile: () => `${appRoutes.management.apiKeys.$apiKey(apiKeyId)._base()}/`,
-            }),
-        },
+    access: {
+        _base: () => `${appRoutes._base()}/access`,
+        list: () => `${appRoutes.access._base()}/`,
+        $apiKey: (apiKeyId: ServerApiTypes.types.auth.ApiKeyId) => ({
+            _base: () => `${appRoutes.access._base()}/${apiKeyId}`,
+            profile: () => `${appRoutes.access.$apiKey(apiKeyId)._base()}/`,
+        }),
     },
     contexts: {
         _base: () => `${appRoutes._base()}/contexts`,

@@ -59,12 +59,7 @@ export function Sidebar() {
                     <NavLink label={t("mainNav.users")} leftSection={<Icon name="users" size={"md"} />} href={appRoutes.users.list()} component={Link} />
                 ) : null}
                 {isSignedIn ? (
-                    <NavLink
-                        label={t("mainNav.managementApiKeys")}
-                        leftSection={<Icon name="apiKeys" size={"md"} />}
-                        href={appRoutes.management.apiKeys.list()}
-                        component={Link}
-                    />
+                    <NavLink label={t("mainNav.apiKeys")} leftSection={<Icon name="apiKeys" size={"md"} />} href={appRoutes.access.list()} component={Link} />
                 ) : null}
                 <Box mt="md" style={{ borderBottom: `1px solid ${colors["document/backgrounds/grid"]}` }} />
             </AppShell.Section>

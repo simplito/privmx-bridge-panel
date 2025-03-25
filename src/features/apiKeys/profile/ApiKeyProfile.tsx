@@ -74,7 +74,7 @@ export interface ApiKeyProfileCoreProps {
 
 export function ApiKeyProfileCore(props: ApiKeyProfileCoreProps) {
     const apiKey = props.apiKey;
-    const t = useTranslations("features.management.apiKeys");
+    const t = useTranslations("features.apiKeys");
     const tRoot = useTranslations();
     const router = useRouter();
 
@@ -141,7 +141,7 @@ export function ApiKeyProfileCore(props: ApiKeyProfileCoreProps) {
     const handleDeleteClick = useCallback(() => {
         void openDeleteApiKeyModal(apiKey).then((res) => {
             if (res.deleted) {
-                router.push(appRoutes.management.apiKeys.list());
+                router.push(appRoutes.access.list());
             }
         });
     }, [apiKey, openDeleteApiKeyModal, router]);

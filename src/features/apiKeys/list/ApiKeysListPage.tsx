@@ -6,12 +6,12 @@ import { PageWrapper } from "@/components/atoms/PageWrapper";
 import { ApiKeysCrudTable } from "./ApiKeysCrudTable";
 
 export function ApiKeysListPage() {
-    const t = useTranslations("features.management.apiKeys");
+    const t = useTranslations("features.apiKeys");
     const tRoot = useTranslations();
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
             { label: tRoot("features.home.title"), href: appRoutes.home() },
-            { label: t("list.title"), href: appRoutes.management.apiKeys.list() },
+            { label: t("list.title"), href: appRoutes.access.list() },
         ];
     }, [t, tRoot]);
 

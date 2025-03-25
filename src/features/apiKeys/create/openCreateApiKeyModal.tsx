@@ -31,7 +31,7 @@ export async function openCreateApiKeyModal(modalTitle: string) {
 }
 
 export function useOpenCreateApiKeyModal() {
-    const t = useTranslations("features.management.apiKeys");
+    const t = useTranslations("features.apiKeys");
     const openCreateApiKeyModalCallback = useCallback(async () => {
         return await openCreateApiKeyModal(t("create.modalTitle"));
     }, [t]);

@@ -67,13 +67,13 @@ export interface ApiKeyProfilePageCoreProps {
 }
 
 export function ApiKeyProfilePageCore(props: ApiKeyProfilePageCoreProps) {
-    const t = useTranslations("features.management.apiKeys");
+    const t = useTranslations("features.apiKeys");
     const tRoot = useTranslations();
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
             { label: tRoot("features.home.title"), href: appRoutes.home() },
-            { label: t("list.title"), href: appRoutes.management.apiKeys.list() },
-            { label: t("profile.title", { name: props.apiKey.name }), href: appRoutes.management.apiKeys.$apiKey(props.apiKey.id).profile() },
+            { label: t("list.title"), href: appRoutes.access.list() },
+            { label: t("profile.title", { name: props.apiKey.name }), href: appRoutes.access.$apiKey(props.apiKey.id).profile() },
         ];
     }, [t, tRoot, props.apiKey]);
 

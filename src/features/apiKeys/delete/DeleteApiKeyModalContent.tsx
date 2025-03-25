@@ -16,7 +16,7 @@ export interface DeleteApiKeyModalContentProps {
 }
 
 export function DeleteApiKeyModalContent(props: DeleteApiKeyModalContentProps) {
-    const t = useTranslations("features.management.apiKeys");
+    const t = useTranslations("features.apiKeys");
     const { isProcessing, withProcessing } = useProcessing();
     const managerApi = useManagerApi();
 

@@ -6,7 +6,7 @@
         "solutions": "Solutions",
         "contexts": "Contexts",
         "users": "Users",
-        "managementApiKeys": "Access management",
+        "apiKeys": "Access management",
         "navActions": {
             "expand": "more",
             "createNewSolution": "Create new",

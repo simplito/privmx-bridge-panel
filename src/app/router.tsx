@@ -6,15 +6,14 @@ import Auth_Login_Page from "./[locale]/auth/login/page";
 import Auth_Logout_Page from "./[locale]/auth/logout/page";
 import Error_General_Page from "./[locale]/error";
 import Error_NotFound_Page from "./[locale]/not-found";
-import Management_ApiKeys_Page from "./[locale]/management/apiKeys/page";
-import Management_ApiKeys_Profile_Page from "./[locale]/management/apiKeys/[apiKeyId]/page";
+import Access_Page from "./[locale]/access/page";
+import Access_Profile_Page from "./[locale]/access/[accessId]/page";
 import Contexts_Page from "./[locale]/contexts/page";
 import Contexts_Profile_Page from "./[locale]/contexts/[contextId]/page";
 import Contexts_Users_Page from "./[locale]/contexts/[contextId]/users/page";
 import Contexts_Shares_Page from "./[locale]/contexts/[contextId]/shares/page";
 import Solutions_Page from "./[locale]/solutions/page";
 import Solutions_Profile_Page from "./[locale]/solutions/[solutionId]/page";
-
 import RootLayout from "./layout";
 
 const error404Route: RouteObject = {
@@ -49,27 +48,23 @@ const mainPanelRoute: RouteObject = {
             ],
         },
         {
-            path: "management",
+            path: "access",
             errorElement: <Error_General_Page />,
             children: [
                 {
-                    path: "apiKeys",
-                    children: [
-                        {
-                            path: "",
-                            element: <RenderWithProps page={Management_ApiKeys_Page} />,
-                        },
+                    path: "",
+                    element: <RenderWithProps page={Access_Page} />,
+                },
 
-                        {
-                            path: ":apiKeyId",
-                            element: <RenderWithProps page={Management_ApiKeys_Profile_Page} />,
-                        },
-                    ],
+                {
+                    path: ":accessId",
+                    element: <RenderWithProps page={Access_Profile_Page} />,
                 },
             ],
         },
         {
             path: "contexts",
+            errorElement: <Error_General_Page />,
             children: [
                 {
                     path: "",

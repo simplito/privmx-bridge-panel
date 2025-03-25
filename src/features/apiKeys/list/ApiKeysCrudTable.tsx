@@ -20,7 +20,7 @@ export interface ApiKeysCrudTableProps {
 }
 
 export function ApiKeysCrudTable(props: ApiKeysCrudTableProps) {
-    const t = useTranslations("features.management.apiKeys");
+    const t = useTranslations("features.apiKeys");
     const router = useRouter();
     const refreshRef = useRef<() => Promise<ServerApiTypes.api.manager.ApiKey[]>>();
     const refresh = useCallback(() => {
@@ -53,7 +53,7 @@ export function ApiKeysCrudTable(props: ApiKeysCrudTableProps) {
 
     const handleViewApiKey = useCallback(
         (entry: ServerApiTypes.api.manager.ApiKey) => {
-            router.push(appRoutes.management.apiKeys.$apiKey(entry.id).profile());
+            router.push(appRoutes.access.$apiKey(entry.id).profile());
         },
         [router],
     );

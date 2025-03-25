@@ -35,7 +35,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 export function EditApiKeyModalContent(props: EditApiKeyModalContentProps) {
-    const t = useTranslations("features.management.apiKeys");
+    const t = useTranslations("features.apiKeys");
     const tRoot = useTranslations();
     const { isProcessing, withProcessing } = useProcessing();
     const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null);

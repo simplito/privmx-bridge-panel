@@ -38,7 +38,7 @@ interface CreateApiKeyResult {
 }
 
 export function CreateApiKeyModalContent(props: CreateApiKeyModalContentProps) {
-    const t = useTranslations("features.management.apiKeys");
+    const t = useTranslations("features.apiKeys");
     const tRoot = useTranslations();
     const { isProcessing, withProcessing } = useProcessing();
     const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null);

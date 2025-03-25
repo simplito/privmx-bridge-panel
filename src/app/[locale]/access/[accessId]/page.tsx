@@ -1,17 +1,17 @@
 import type * as ServerApiTypes from "privmx-server-api";
 import { AuthGuard } from "@/components/atoms/AuthGuard";
-import { ApiKeyProfilePage } from "@/features/management/apiKeys/profile/ApiKeyProfilePage";
+import { ApiKeyProfilePage } from "@/features/apiKeys/profile/ApiKeyProfilePage";
 
 interface PageProps {
     params: {
-        apiKeyId: ServerApiTypes.types.auth.ApiKeyId;
+        accessId: ServerApiTypes.types.auth.ApiKeyId;
     };
 }
 
 export default function Page(props: PageProps) {
     return (
         <AuthGuard type="requireAuthed" behavior="renderLoginForm">
-            <ApiKeyProfilePage apiKeyId={props.params.apiKeyId} />
+            <ApiKeyProfilePage apiKeyId={props.params.accessId} />
         </AuthGuard>
     );
 }

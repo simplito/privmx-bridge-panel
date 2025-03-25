@@ -1,5 +1,5 @@
 import { AuthGuard } from "@/components/atoms/AuthGuard";
-import { ApiKeysListPage } from "@/features/management/apiKeys/list/ApiKeysListPage";
+import { ApiKeysListPage } from "@/features/apiKeys/list/ApiKeysListPage";
 
 export default function Page() {
     return (
