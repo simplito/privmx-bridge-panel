@@ -10,7 +10,8 @@
         "sharesCount": "# Shares",
         "created": "Created",
         "modified": "Modified",
-        "description": "Description"
+        "description": "Description",
+        "solution": "Solution"
     },
     "usersButton": {
         "label": "View Users"
