@@ -8,12 +8,12 @@ import Error_General_Page from "./[locale]/error";
 import Error_NotFound_Page from "./[locale]/not-found";
 import Management_ApiKeys_Page from "./[locale]/management/apiKeys/page";
 import Management_ApiKeys_Profile_Page from "./[locale]/management/apiKeys/[apiKeyId]/page";
+import Contexts_Page from "./[locale]/contexts/page";
+import Contexts_Profile_Page from "./[locale]/contexts/[contextId]/page";
+import Contexts_Users_Page from "./[locale]/contexts/[contextId]/users/page";
+import Contexts_Shares_Page from "./[locale]/contexts/[contextId]/shares/page";
 import Solutions_Page from "./[locale]/solutions/page";
 import Solutions_Profile_Page from "./[locale]/solutions/[solutionId]/page";
-import Solutions_Contexts_Page from "./[locale]/solutions/[solutionId]/contexts/page";
-import Solutions_Contexts_Profile_Page from "./[locale]/solutions/[solutionId]/contexts/[contextId]/page";
-import Solutions_Contexts_Users_Page from "./[locale]/solutions/[solutionId]/contexts/[contextId]/users/page";
-import Solutions_Contexts_Shares_Page from "./[locale]/solutions/[solutionId]/contexts/[contextId]/shares/page";
 
 import RootLayout from "./layout";
 
@@ -69,6 +69,42 @@ const mainPanelRoute: RouteObject = {
             ],
         },
         {
+            path: "contexts",
+            children: [
+                {
+                    path: "",
+                    element: <RenderWithProps page={Contexts_Page} />,
+                },
+                {
+                    path: ":contextId",
+                    children: [
+                        {
+                            path: "",
+                            element: <RenderWithProps page={Contexts_Profile_Page} />,
+                        },
+                        {
+                            path: "users",
+                            children: [
+                                {
+                                    path: "",
+                                    element: <RenderWithProps page={Contexts_Users_Page} />,
+                                },
+                            ],
+                        },
+                        {
+                            path: "shares",
+                            children: [
+                                {
+                                    path: "",
+                                    element: <RenderWithProps page={Contexts_Shares_Page} />,
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        },
+        {
             path: "solutions",
             errorElement: <Error_General_Page />,
             children: [
@@ -83,46 +119,29 @@ const mainPanelRoute: RouteObject = {
                             path: "",
                             element: <RenderWithProps page={Solutions_Profile_Page} />,
                         },
-                        {
-                            path: "contexts",
-                            children: [
-                                {
-                                    path: "",
-                                    element: <RenderWithProps page={Solutions_Contexts_Page} />,
-                                },
-                                {
-                                    path: ":contextId",
-                                    children: [
-                                        {
-                                            path: "",
-                                            element: <RenderWithProps page={Solutions_Contexts_Profile_Page} />,
-                                        },
-                                        {
-                                            path: "users",
-                                            children: [
-                                                {
-                                                    path: "",
-                                                    element: <RenderWithProps page={Solutions_Contexts_Users_Page} />,
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            path: "shares",
-                                            children: [
-                                                {
-                                                    path: "",
-                                                    element: <RenderWithProps page={Solutions_Contexts_Shares_Page} />,
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
                     ],
                 },
             ],
         },
+        // {
+        //     path: "users",
+        //     errorElement: <Error_General_Page />,
+        //     children: [
+        //         {
+        //             path: "",
+        //             element: <RenderWithProps page={Users_Page} />,
+        //         },
+        //         {
+        //             path: ":userId",
+        //             children: [
+        //                 {
+        //                     path: "",
+        //                     element: <RenderWithProps page={Users_Profile_Page} />,
+        //                 },
+        //             ],
+        //         },
+        //     ],
+        // },
     ],
 };
 
