@@ -13,7 +13,6 @@ import Solutions_Profile_Page from "./[locale]/solutions/[solutionId]/page";
 import Solutions_Contexts_Page from "./[locale]/solutions/[solutionId]/contexts/page";
 import Solutions_Contexts_Profile_Page from "./[locale]/solutions/[solutionId]/contexts/[contextId]/page";
 import Solutions_Contexts_Users_Page from "./[locale]/solutions/[solutionId]/contexts/[contextId]/users/page";
-import Solutions_Contexts_Users_Profile_Page from "./[locale]/solutions/[solutionId]/contexts/[contextId]/users/[contextUserId]/page";
 import Solutions_Contexts_Shares_Page from "./[locale]/solutions/[solutionId]/contexts/[contextId]/shares/page";
 import Solutions_Contexts_Shares_Profile_Page from "./[locale]/solutions/[solutionId]/contexts/[contextId]/shares/[contextShareId]/page";
 
@@ -105,10 +104,6 @@ const mainPanelRoute: RouteObject = {
                                                 {
                                                     path: "",
                                                     element: <RenderWithProps page={Solutions_Contexts_Users_Page} />,
-                                                },
-                                                {
-                                                    path: ":contextUserId",
-                                                    element: <RenderWithProps page={Solutions_Contexts_Users_Profile_Page} />,
                                                 },
                                             ],
                                         },
