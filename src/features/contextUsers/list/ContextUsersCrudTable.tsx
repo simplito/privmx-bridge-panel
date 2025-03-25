@@ -16,7 +16,6 @@ import { ContextUserRow, untranslatedTableHeaders } from "./ContextUserRow";
 const entryIdProvider = (entry: ServerApiTypes.api.context.ContextUser) => entry.userId;
 
 export interface ContextUsersCrudTableProps {
-    solution: ServerApiTypes.api.solution.Solution;
     context: ServerApiTypes.api.context.Context;
     withTopCreateButton?: boolean | undefined;
     withBottomCreateButton?: boolean | undefined;
@@ -61,9 +60,9 @@ export function ContextUsersCrudTable(props: ContextUsersCrudTableProps) {
     const { openDeleteContextUserModal } = useOpenDeleteContextUserModal();
     const handleOpenDeleteContextUserModal = useCallback(
         async (entry: ServerApiTypes.api.context.ContextUser) => {
-            return await openDeleteContextUserModal({ context: props.context, solution: props.solution, user: entry });
+            return await openDeleteContextUserModal({ context: props.context, user: entry });
         },
-        [openDeleteContextUserModal, props.context, props.solution],
+        [openDeleteContextUserModal, props.context],
     );
 
     const { openEditContextUserModal } = useOpenEditContextUserModal();
@@ -85,7 +84,7 @@ export function ContextUsersCrudTable(props: ContextUsersCrudTableProps) {
         [contextApi, props.context.id],
     );
 
-    const handleViewSolution = useCallback(
+    const handleViewUser = useCallback(
         (entry: ServerApiTypes.api.context.ContextUser) => {
             router.push(appRoutes.users.$user(entry.userId).profile());
         },
@@ -112,9 +111,9 @@ export function ContextUsersCrudTable(props: ContextUsersCrudTableProps) {
                 headers={tableHeaders}
                 refreshRef={refreshRef}
                 rowComponent={ContextUserRow}
-                viewEntryDetails={handleViewSolution}
+                viewEntryDetails={handleViewUser}
                 withPagination
-                onRowClick={handleViewSolution}
+                onRowClick={handleViewUser}
                 withGlobalStringFilter={false}
                 actionsColumnWidth={100}
             />
