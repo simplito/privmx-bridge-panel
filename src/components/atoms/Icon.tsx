@@ -12,31 +12,33 @@ import {
     IconCopy,
     IconDeviceFloppy,
     IconDotsVertical,
-    IconDroplet,
-    IconDroplets,
     IconExclamationMark,
     IconExternalLink,
     IconEye,
     IconEyeOff,
     IconFilter,
-    IconHexagon,
-    IconHexagons,
-    IconHome,
     IconKey,
     IconLogin,
-    IconLogout,
     IconMail,
     IconPencil,
-    IconPlus,
     IconQuestionMark,
     IconReload,
     IconSearch,
     IconTrash,
     IconUser,
-    IconUsers,
     IconX,
     IconZoomQuestionFilled,
 } from "@tabler/icons-react";
+import { ReactComponent as IconBox } from "./icons/box.svg";
+import { ReactComponent as IconBubbles } from "./icons/bubbles.svg";
+import { ReactComponent as IconContext } from "./icons/context.svg";
+import { ReactComponent as IconHome } from "./icons/home.svg";
+import { ReactComponent as IconLogout } from "./icons/logout.svg";
+import { ReactComponent as IconMoreHor } from "./icons/more-hor.svg";
+import { ReactComponent as IconPlusLinear } from "./icons/plusLinear.svg";
+import { ReactComponent as IconSecureUser } from "./icons/secureUser.svg";
+import { ReactComponent as IconShapes } from "./icons/shapes.svg";
+import { ReactComponent as IconTeam } from "./icons/team.svg";
 
 export interface IconProps {
     name: IconName;
@@ -52,9 +54,9 @@ export function Icon(props: IconProps) {
 }
 
 const iconsMap = {
-    add: IconPlus,
+    add: IconPlusLinear,
     apiKey: IconKey,
-    apiKeys: IconKey,
+    apiKeys: IconSecureUser,
     arrowRight: IconArrowBadgeRight,
     bridge: IconBuildingBridge2,
     cancel: IconX,
@@ -64,8 +66,8 @@ const iconsMap = {
     chevronRight: IconChevronRight,
     chevronUp: IconChevronUp,
     confirm: IconCheck,
-    context: IconDroplet,
-    contexts: IconDroplets,
+    context: IconContext,
+    contexts: IconBubbles,
     copy: IconCopy,
     delete: IconTrash,
     docs: IconBook,
@@ -79,6 +81,7 @@ const iconsMap = {
     info: IconQuestionMark,
     internalLink: IconArrowRight,
     mail: IconMail,
+    more: IconMoreHor,
     no: IconX,
     reload: IconReload,
     remove: IconX,
@@ -87,12 +90,12 @@ const iconsMap = {
     search: IconSearch,
     signIn: IconLogin,
     signOut: IconLogout,
-    solution: IconHexagon,
-    solutions: IconHexagons,
+    solution: IconBox,
+    solutions: IconShapes,
     submit: IconCheck,
     update: IconDeviceFloppy,
     user: IconUser,
-    users: IconUsers,
+    users: IconTeam,
     viewDetails: IconZoomQuestionFilled,
     viewSecret: IconEye,
     warning: IconExclamationMark,
