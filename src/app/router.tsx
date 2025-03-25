@@ -14,7 +14,6 @@ import Solutions_Contexts_Page from "./[locale]/solutions/[solutionId]/contexts/
 import Solutions_Contexts_Profile_Page from "./[locale]/solutions/[solutionId]/contexts/[contextId]/page";
 import Solutions_Contexts_Users_Page from "./[locale]/solutions/[solutionId]/contexts/[contextId]/users/page";
 import Solutions_Contexts_Shares_Page from "./[locale]/solutions/[solutionId]/contexts/[contextId]/shares/page";
-import Solutions_Contexts_Shares_Profile_Page from "./[locale]/solutions/[solutionId]/contexts/[contextId]/shares/[contextShareId]/page";
 
 import RootLayout from "./layout";
 
@@ -113,10 +112,6 @@ const mainPanelRoute: RouteObject = {
                                                 {
                                                     path: "",
                                                     element: <RenderWithProps page={Solutions_Contexts_Shares_Page} />,
-                                                },
-                                                {
-                                                    path: ":contextShareId",
-                                                    element: <RenderWithProps page={Solutions_Contexts_Shares_Profile_Page} />,
                                                 },
                                             ],
                                         },
