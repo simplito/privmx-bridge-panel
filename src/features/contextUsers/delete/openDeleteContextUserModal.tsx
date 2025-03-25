@@ -1,11 +1,10 @@
 import { modals } from "@mantine/modals";
 import { useCallback } from "react";
 import { useTranslations } from "use-intl";
-import type { ContextUserEx } from "@/privMxBridgeApi/types";
 import { Deferred } from "@/utils/Deferred";
-import { DeleteContextUserModalContent } from "./DeleteContextUserModalContent";
+import { type ContextUserForDeletion, DeleteContextUserModalContent } from "./DeleteContextUserModalContent";
 
-export async function openDeleteContextUserModal(contextUserEx: ContextUserEx, modalTitle: string) {
+export async function openDeleteContextUserModal(contextUserForDeletion: ContextUserForDeletion, modalTitle: string) {
     const resultDeferred = new Deferred<{ deleted: boolean }>();
     const modalId = `${Math.random().toString(36).substring(2)}-${Date.now()}`;
     const close = () => {
@@ -17,7 +16,7 @@ export async function openDeleteContextUserModal(contextUserEx: ContextUserEx, m
         title: modalTitle,
         children: (
             <DeleteContextUserModalContent
-                contextUserEx={contextUserEx}
+                contextUserForDeletion={contextUserForDeletion}
                 // eslint-disable-next-line react/jsx-no-bind
                 onResult={(result) => {
                     resultDeferred.resolve({ deleted: result === "deleted" });
@@ -35,8 +34,8 @@ export async function openDeleteContextUserModal(contextUserEx: ContextUserEx, m
 export function useOpenDeleteContextUserModal() {
     const t = useTranslations("features.contextUsers");
     const openDeleteContextUserModalCallback = useCallback(
-        async (contextUserEx: ContextUserEx) => {
-            return await openDeleteContextUserModal(contextUserEx, t("deleteModal.modalTitle"));
+        async (contextUserForDeletion: ContextUserForDeletion) => {
+            return await openDeleteContextUserModal(contextUserForDeletion, t("deleteModal.modalTitle"));
         },
         [t],
     );

@@ -3,15 +3,15 @@ import { useCallback, useRef } from "react";
 import { useTranslations } from "use-intl";
 import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useContextApi } from "@/hooks/useContextApi";
-import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { useProcessing } from "@/hooks/useProcessing";
-import type { SolutionDeletedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
 import type { ContextUserEx } from "@/privMxBridgeApi/types";
 import { Logger } from "@/utils/Logger";
 import { Notifications } from "@/utils/Notifications";
 
+export type ContextUserForDeletion = Omit<ContextUserEx, "solution">;
+
 export interface DeleteContextUserModalContentProps {
-    contextUserEx: ContextUserEx;
+    contextUserForDeletion: ContextUserForDeletion;
     onResult: (result: "cancelled" | "deleted") => void;
 }
 
@@ -29,7 +29,10 @@ export function DeleteContextUserModalContent(props: DeleteContextUserModalConte
         void (async () => {
             hasTriggeredDeletionRef.current = true;
             const result = await withProcessing(async () => {
-                await contextApi.removeUserFromContext({ contextId: props.contextUserEx.context.id, userId: props.contextUserEx.user.userId });
+                await contextApi.removeUserFromContext({
+                    contextId: props.contextUserForDeletion.context.id,
+                    userId: props.contextUserForDeletion.user.userId,
+                });
             });
             if (result.success) {
                 onResult("deleted");
@@ -41,26 +44,13 @@ export function DeleteContextUserModalContent(props: DeleteContextUserModalConte
                 Notifications.showError({ message: t("notifications.deleteError") });
             }
         })();
-    }, [withProcessing, contextApi, props.contextUserEx.context.id, props.contextUserEx.user.userId, onResult, t]);
-    usePrivMxBridgeApiEventListener(
-        "solutionDeleted",
-        useCallback(
-            (event: SolutionDeletedEvent) => {
-                if (hasTriggeredDeletionRef.current) {
-                    return;
-                }
-                if (event.solutionId === props.contextUserEx.solution.id) {
-                    Notifications.showInfo({ message: t("notifications.hasBeenDeleted") });
-                    onResult("cancelled");
-                }
-            },
-            [onResult, props.contextUserEx.solution.id, t],
-        ),
-    );
+    }, [withProcessing, contextApi, props.contextUserForDeletion.context.id, props.contextUserForDeletion.user.userId, onResult, t]);
 
     return (
         <Stack gap="xl" my="md">
-            <Text mx="md">{t("deleteModal.confirmText", { userId: props.contextUserEx.user.userId, contextName: props.contextUserEx.context.name })}</Text>
+            <Text mx="md">
+                {t("deleteModal.confirmText", { userId: props.contextUserForDeletion.user.userId, contextName: props.contextUserForDeletion.context.name })}
+            </Text>
             <ModalButtons
                 onCancel={handleCancelClick}
                 onConfirm={handleDeleteClick}
