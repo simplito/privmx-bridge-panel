@@ -12,6 +12,7 @@ import * as features_auth_signOut_translations from "../features/auth/signOut/tr
 import * as features_contexts_translations from "../features/contexts/translations/en.json";
 import * as features_contextShares_translations from "../features/contextShares/translations/en.json";
 import * as features_contextUsers_translations from "../features/contextUsers/translations/en.json";
+import * as features_erorr_translations from "../features/error/translations/en.json";
 import * as features_home_translations from "../features/home/translations/en.json";
 import * as features_management_apiKeys_translations from "../features/management/apiKeys/translations/en.json";
 import * as features_solutions_translations from "../features/solutions/translations/en.json";
@@ -37,6 +38,7 @@ export function loadAllI18nMessages(_locale: I18nLocale) {
             contexts: features_contexts_translations,
             contextShares: features_contextShares_translations,
             contextUsers: features_contextUsers_translations,
+            error: features_erorr_translations,
             home: features_home_translations,
             management: {
                 apiKeys: features_management_apiKeys_translations,
