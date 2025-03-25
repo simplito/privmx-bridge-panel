@@ -4,6 +4,8 @@ import { Navigate, type RouteObject, createBrowserRouter, useParams } from "reac
 import Home_Page from "./[locale]/page";
 import Auth_SignIn_Page from "./[locale]/auth/signIn/page";
 import Auth_SignOut_Page from "./[locale]/auth/signOut/page";
+import Error_General_Page from "./[locale]/error";
+import Error_NotFound_Page from "./[locale]/not-found";
 import Management_ApiKeys_Page from "./[locale]/management/apiKeys/page";
 import Management_ApiKeys_Profile_Page from "./[locale]/management/apiKeys/[apiKeyId]/page";
 import Solutions_Page from "./[locale]/solutions/page";
@@ -17,6 +19,11 @@ import Solutions_Contexts_Shares_Profile_Page from "./[locale]/solutions/[soluti
 
 import RootLayout from "./layout";
 
+const error404Route: RouteObject = {
+    path: "*",
+    element: <Error_NotFound_Page />,
+};
+
 const redirectToPanelRoute: RouteObject = {
     path: "",
     element: <Navigate to="/panel" />,
@@ -25,10 +32,13 @@ const redirectToPanelRoute: RouteObject = {
 const mainPanelRoute: RouteObject = {
     path: "panel",
     element: <RootLayout />,
+    errorElement: <Error_General_Page />,
     children: [
-        { index: true, element: <RenderWithProps page={Home_Page} /> },
+        { index: true, element: <RenderWithProps page={Home_Page} />, errorElement: <Error_General_Page /> },
+        error404Route,
         {
             path: "auth",
+            errorElement: <Error_General_Page />,
             children: [
                 {
                     path: "signIn",
@@ -42,6 +52,7 @@ const mainPanelRoute: RouteObject = {
         },
         {
             path: "management",
+            errorElement: <Error_General_Page />,
             children: [
                 {
                     path: "apiKeys",
@@ -61,6 +72,7 @@ const mainPanelRoute: RouteObject = {
         },
         {
             path: "solutions",
+            errorElement: <Error_General_Page />,
             children: [
                 {
                     path: "",
@@ -124,7 +136,7 @@ const mainPanelRoute: RouteObject = {
     ],
 };
 
-const instanceRootRoutes: RouteObject[] = [redirectToPanelRoute, mainPanelRoute];
+const instanceRootRoutes: RouteObject[] = [redirectToPanelRoute, error404Route, mainPanelRoute];
 
 const serverRootRoutesWithInstance: RouteObject = {
     path: "d",
@@ -136,7 +148,7 @@ const serverRootRoutesWithInstance: RouteObject = {
     ],
 };
 
-export const router = createBrowserRouter([redirectToPanelRoute, mainPanelRoute, serverRootRoutesWithInstance]);
+export const router = createBrowserRouter([redirectToPanelRoute, error404Route, mainPanelRoute, serverRootRoutesWithInstance]);
 
 interface RenderWithPropsProps {
     page: React.ElementType;
