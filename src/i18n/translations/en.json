@@ -2,9 +2,16 @@
     "langName": "English",
     "appTitle": "PrivMX Bridge",
     "mainNav": {
-        "home": "Home",
+        "home": "Dashboard",
         "solutions": "Solutions",
-        "managementApiKeys": "Api Keys"
+        "contexts": "Contexts",
+        "users": "Users",
+        "managementApiKeys": "Access management",
+        "navActions": {
+            "expand": "more",
+            "createNewSolution": "Create new",
+            "createNewContext": "Create new"
+        }
     },
     "forms": {
         "buttons": {
@@ -20,7 +27,7 @@
             "reset": "Reset",
             "save": "Save",
             "signIn": "Sign In",
-            "signOut": "Sign Out",
+            "signOut": "Logout",
             "submit": "Submit",
             "viewDetails": "View details"
         },
