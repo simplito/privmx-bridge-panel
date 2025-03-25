@@ -16,10 +16,14 @@ export function Sidebar() {
     const [isContextsListOpen, setIsContextsListOpen] = useState(false);
     const [isSolutionsListOpen, setIsSolutionsListOpen] = useState(false);
 
-    const handleToggleContextsListClick = useCallback(() => {
+    const handleToggleContextsListClick = useCallback((event: React.MouseEvent) => {
+        event.stopPropagation();
+        event.preventDefault();
         setIsContextsListOpen((prev) => !prev);
     }, []);
-    const handleToggleSolutionsListClick = useCallback(() => {
+    const handleToggleSolutionsListClick = useCallback((event: React.MouseEvent) => {
+        event.stopPropagation();
+        event.preventDefault();
         setIsSolutionsListOpen((prev) => !prev);
     }, []);
 
