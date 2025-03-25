@@ -6,7 +6,8 @@
         "title": "Solution: {name}",
         "id": "ID",
         "name": "Name",
-        "created": "Created"
+        "created": "Created",
+        "contexts": "Contexts"
     },
     "contextsButton": {
         "label": "View Contexts"

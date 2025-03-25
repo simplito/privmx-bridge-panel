@@ -78,7 +78,7 @@ export function SolutionProfilePageCore(props: SolutionProfilePageCoreProps) {
     }, [t, tRoot, props.solution]);
 
     return (
-        <PageWrapper title={t("profile.title", { name: props.solution.name })} breadcrumbs={breadcrumbs} size="lg">
+        <PageWrapper title={t("profile.title", { name: props.solution.name })} breadcrumbs={breadcrumbs} size="full">
             <SolutionProfileCore solution={props.solution} />
         </PageWrapper>
     );

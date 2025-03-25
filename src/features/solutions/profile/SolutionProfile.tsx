@@ -1,13 +1,14 @@
-import { Box, Center, Group, Stack } from "@mantine/core";
+import { Center, Group, Stack, Title } from "@mantine/core";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
-import { Icon } from "@/components/atoms/Icon";
 import { LoadingOrError } from "@/components/atoms/LoadingOrError";
+import { pageWidthBySize } from "@/components/atoms/PageWrapper";
 import { Button } from "@/components/button/Button";
 import { PropsView } from "@/components/propsView/PropsView";
 import type * as propsViewTypes from "@/components/propsView/types";
+import { ContextsCrudTable } from "@/features/contexts/list/ContextsCrudTable";
 import { useDataLoader } from "@/hooks/useDataLoader";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { useSolutionApi } from "@/hooks/useSolutionApi";
@@ -123,21 +124,19 @@ export function SolutionProfileCore(props: SolutionProfileCoreProps) {
 
     return (
         <Stack gap="xl">
-            <PropsView props={solutionProps} />
-            <Group justify="space-between" align="flex-start">
-                <Group gap="md">
-                    <Button type="button" preset="edit" onClick={handleEditClick} />
-                    <Button type="button" preset="delete" onClick={handleDeleteClick} />
+            <Stack gap="xl" w={pageWidthBySize.lg}>
+                <PropsView props={solutionProps} />
+                <Group justify="space-between" align="flex-start">
+                    <Group gap="md">
+                        <Button type="button" preset="edit" onClick={handleEditClick} />
+                        <Button type="button" preset="delete" onClick={handleDeleteClick} />
+                    </Group>
                 </Group>
-                <Stack gap="md">
-                    <Button type="link" icon="contexts" href={appRoutes.contexts.list()}>
-                        <Box component="span" mr={6}>
-                            {t("contextsButton.label")}
-                        </Box>
-                        <Icon name="arrowRight" />
-                    </Button>
-                </Stack>
-            </Group>
+            </Stack>
+            <Title order={3} mt="lg">
+                {t("profile.contexts")}
+            </Title>
+            <ContextsCrudTable solutionId={props.solution.id} />
         </Stack>
     );
 }

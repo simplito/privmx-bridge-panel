@@ -8,7 +8,7 @@ export interface PageWrapperProps extends React.PropsWithChildren {
     breadcrumbs?: BreadcrumbItem[] | undefined;
 }
 
-const widthBySize = {
+export const pageWidthBySize = {
     sm: 500,
     md: 700,
     lg: 900,
@@ -20,7 +20,7 @@ export function PageWrapper(props: PageWrapperProps) {
     const size = props.size ?? "full";
 
     return (
-        <Stack maw={widthBySize[size]} gap={20} ml={20}>
+        <Stack maw={pageWidthBySize[size]} gap={20} ml={20}>
             <Stack gap="m">
                 {props.breadcrumbs === undefined ? null : <Breadcrumbs items={props.breadcrumbs} />}
                 <Title order={1}>{props.title}</Title>
