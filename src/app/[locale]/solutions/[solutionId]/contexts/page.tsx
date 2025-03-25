@@ -4,7 +4,7 @@ import { ContextsListPage } from "@/features/contexts/list/ContextsListPage";
 
 interface PageProps {
     params: {
-        solutionId: ServerApiTypes.types.cloud.SolutionId;
+        solutionId?: ServerApiTypes.types.cloud.SolutionId | undefined;
     };
 }
 

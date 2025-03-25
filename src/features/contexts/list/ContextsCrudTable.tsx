@@ -15,7 +15,7 @@ import { ContextRow, untranslatedTableHeaders } from "./ContextRow";
 const entryIdProvider = (entry: ServerApiTypes.api.context.Context) => entry.id;
 
 export interface ContextsCrudTableProps {
-    solutionId: ServerApiTypes.types.cloud.SolutionId;
+    solutionId?: ServerApiTypes.types.cloud.SolutionId | undefined;
     withTopCreateButton?: boolean | undefined;
     withBottomCreateButton?: boolean | undefined;
 }
@@ -32,7 +32,7 @@ export function ContextsCrudTable(props: ContextsCrudTableProps) {
     const { openDeleteContextModal } = useOpenDeleteContextModal();
     const { openEditContextModal } = useOpenEditContextModal();
     const handleOpenCreateContextModal = useCallback(async () => {
-        return await openCreateContextModal(props.solutionId);
+        return await openCreateContextModal(props.solutionId ?? null);
     }, [openCreateContextModal, props.solutionId]);
 
     const contextApi = useContextApi();
@@ -40,6 +40,15 @@ export function ContextsCrudTable(props: ContextsCrudTableProps) {
         async (pageId: number, entriesPerPage: number) => {
             const skip = pageId * entriesPerPage;
 
+            if (props.solutionId === undefined) {
+                const res = await contextApi.listContexts({
+                    limit: entriesPerPage,
+                    skip: skip,
+                    sortOrder: "desc",
+                });
+
+                return { entries: res.list, totalEntries: res.list.length };
+            }
             const res = await contextApi.listContextsOfSolution({
                 solutionId: props.solutionId,
                 limit: entriesPerPage,
