@@ -79,19 +79,14 @@ export function ContextUsersListPageCore(props: ContextUsersListPageCoreProps) {
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
             { label: tRoot("features.home.title"), href: appRoutes.home() },
-            { label: tRoot("features.solutions.list.title"), href: appRoutes.solutions.list() },
-            {
-                label: tRoot("features.solutions.profile.title", { name: props.solution.name }),
-                href: appRoutes.solutions.$solution(props.solution.id).profile(),
-            },
-            { label: tRoot("features.contexts.list.title"), href: appRoutes.solutions.$solution(props.solution.id).contexts.list() },
+            { label: tRoot("features.contexts.list.title"), href: appRoutes.contexts.list() },
             {
                 label: tRoot("features.contexts.profile.title", { name: props.context.name }),
-                href: appRoutes.solutions.$solution(props.solution.id).contexts.$context(props.context.id).profile(),
+                href: appRoutes.contexts.$context(props.context.id).profile(),
             },
-            { label: t("list.title"), href: appRoutes.solutions.$solution(props.solution.id).contexts.$context(props.context.id).users.list() },
+            { label: t("list.title"), href: appRoutes.contexts.$context(props.context.id).users.list() },
         ];
-    }, [props.context.id, props.context.name, props.solution.id, props.solution.name, t, tRoot]);
+    }, [props.context.id, props.context.name, t, tRoot]);
 
     return (
         <PageWrapper title={t("list.title")} breadcrumbs={breadcrumbs}>

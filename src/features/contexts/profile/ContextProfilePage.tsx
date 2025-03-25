@@ -100,18 +100,13 @@ export function ContextProfilePageCore(props: ContextProfilePageCoreProps) {
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
             { label: tRoot("features.home.title"), href: appRoutes.home() },
-            { label: tRoot("features.solutions.list.title"), href: appRoutes.solutions.list() },
-            {
-                label: tRoot("features.solutions.profile.title", { name: props.solution.name }),
-                href: appRoutes.solutions.$solution(props.solution.id).profile(),
-            },
-            { label: t("list.title"), href: appRoutes.solutions.$solution(props.solution.id).contexts.list() },
+            { label: t("list.title"), href: appRoutes.contexts.list() },
             {
                 label: t("profile.title", { name: props.context.name }),
-                href: appRoutes.solutions.$solution(props.solution.id).contexts.$context(props.context.id).profile(),
+                href: appRoutes.contexts.$context(props.context.id).profile(),
             },
         ];
-    }, [tRoot, props.solution.id, props.solution.name, props.context.name, props.context.id, t]);
+    }, [tRoot, props.context.name, props.context.id, t]);
 
     return (
         <PageWrapper title={t("profile.title", { name: props.context.name })} breadcrumbs={breadcrumbs} size="lg">

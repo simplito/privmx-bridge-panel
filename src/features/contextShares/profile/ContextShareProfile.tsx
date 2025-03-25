@@ -142,10 +142,10 @@ export function ContextShareProfileCore(props: ContextShareProfileCoreProps) {
     const handleRemoveClick = useCallback(() => {
         void openRemoveContextShareModal({ context: props.context, solution: contextShare }).then((res) => {
             if (res.removed) {
-                router.push(appRoutes.solutions.$solution(props.solution.id).contexts.$context(props.context.id).shares.list());
+                router.push(appRoutes.contexts.$context(props.context.id).shares.list());
             }
         });
-    }, [contextShare, openRemoveContextShareModal, props.context, props.solution.id, router]);
+    }, [contextShare, openRemoveContextShareModal, props.context, router]);
 
     return (
         <Stack gap="xl">

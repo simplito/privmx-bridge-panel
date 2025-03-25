@@ -104,23 +104,18 @@ export function ContextShareProfilePageCore(props: ContextShareProfilePageCorePr
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
             { label: tRoot("features.home.title"), href: appRoutes.home() },
-            { label: tRoot("features.solutions.list.title"), href: appRoutes.solutions.list() },
-            {
-                label: tRoot("features.solutions.profile.title", { name: props.solution.name }),
-                href: appRoutes.solutions.$solution(props.solution.id).profile(),
-            },
-            { label: tRoot("features.contexts.list.title"), href: appRoutes.solutions.$solution(props.solution.id).contexts.list() },
+            { label: tRoot("features.contexts.list.title"), href: appRoutes.contexts.list() },
             {
                 label: tRoot("features.contexts.profile.title", { name: props.context.name }),
-                href: appRoutes.solutions.$solution(props.solution.id).contexts.$context(props.context.id).profile(),
+                href: appRoutes.contexts.$context(props.context.id).profile(),
             },
-            { label: t("list.title"), href: appRoutes.solutions.$solution(props.solution.id).contexts.$context(props.context.id).shares.list() },
+            { label: t("list.title"), href: appRoutes.contexts.$context(props.context.id).shares.list() },
             {
                 label: t("profile.title", { name: props.contextShare.name }),
-                href: appRoutes.solutions.$solution(props.solution.id).contexts.$context(props.context.id).shares.$share(props.contextShare.id).profile(),
+                href: appRoutes.solutions.$solution(props.contextShare.id).profile(),
             },
         ];
-    }, [tRoot, props.solution.name, props.solution.id, props.context.name, props.context.id, props.contextShare.name, props.contextShare.id, t]);
+    }, [tRoot, props.context.name, props.context.id, props.contextShare.name, props.contextShare.id, t]);
 
     return (
         <PageWrapper title={t("profile.title", { name: props.contextShare.name })} breadcrumbs={breadcrumbs} size="lg">

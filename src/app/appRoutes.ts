@@ -29,37 +29,36 @@ export const appRoutes = {
             }),
         },
     },
+    contexts: {
+        _base: () => `${appRoutes._base()}/contexts`,
+        list: () => `${appRoutes.contexts._base()}/`,
+        $context: (contextId: ServerApiTypes.types.context.ContextId) => ({
+            _base: () => `${appRoutes.contexts._base()}/${contextId}`,
+            profile: () => `${appRoutes.contexts.$context(contextId)._base()}/`,
+            users: {
+                _base: () => `${appRoutes.contexts.$context(contextId)._base()}/users`,
+                list: () => `${appRoutes.contexts.$context(contextId).users._base()}/`,
+            },
+            shares: {
+                _base: () => `${appRoutes.contexts.$context(contextId)._base()}/shares`,
+                list: () => `${appRoutes.contexts.$context(contextId).shares._base()}/`,
+            },
+        }),
+    },
     solutions: {
         _base: () => `${appRoutes._base()}/solutions`,
         list: () => `${appRoutes.solutions._base()}/`,
         $solution: (solutionId: ServerApiTypes.types.cloud.SolutionId) => ({
             _base: () => `${appRoutes.solutions._base()}/${solutionId}`,
             profile: () => `${appRoutes.solutions.$solution(solutionId)._base()}/`,
-            contexts: {
-                _base: () => `${appRoutes.solutions.$solution(solutionId)._base()}/contexts`,
-                list: () => `${appRoutes.solutions.$solution(solutionId).contexts._base()}/`,
-                $context: (contextId: ServerApiTypes.types.context.ContextId) => ({
-                    _base: () => `${appRoutes.solutions.$solution(solutionId).contexts._base()}/${contextId}`,
-                    profile: () => `${appRoutes.solutions.$solution(solutionId).contexts.$context(contextId)._base()}/`,
-                    users: {
-                        _base: () => `${appRoutes.solutions.$solution(solutionId).contexts.$context(contextId)._base()}/users`,
-                        list: () => `${appRoutes.solutions.$solution(solutionId).contexts.$context(contextId).users._base()}/`,
-                        $user: (userId: ServerApiTypes.types.cloud.UserId) => ({
-                            _base: () =>
-                                `${appRoutes.solutions.$solution(solutionId).contexts.$context(contextId).users._base()}/${encodeURIComponent(userId)}`,
-                            profile: () => `${appRoutes.solutions.$solution(solutionId).contexts.$context(contextId).users.$user(userId)._base()}/`,
-                        }),
-                    },
-                    shares: {
-                        _base: () => `${appRoutes.solutions.$solution(solutionId).contexts.$context(contextId)._base()}/shares`,
-                        list: () => `${appRoutes.solutions.$solution(solutionId).contexts.$context(contextId).shares._base()}/`,
-                        $share: (shareSolutionId: ServerApiTypes.types.cloud.SolutionId) => ({
-                            _base: () => `${appRoutes.solutions.$solution(solutionId).contexts.$context(contextId).shares._base()}/${shareSolutionId}`,
-                            profile: () => `${appRoutes.solutions.$solution(solutionId).contexts.$context(contextId).shares.$share(shareSolutionId)._base()}/`,
-                        }),
-                    },
-                }),
-            },
+        }),
+    },
+    users: {
+        _base: () => `${appRoutes._base()}/users`,
+        list: () => `${appRoutes.solutions._base()}/`,
+        $user: (userId: ServerApiTypes.types.cloud.UserId) => ({
+            _base: () => `${appRoutes.users._base()}/${userId}`,
+            profile: () => `${appRoutes.users.$user(userId)._base()}/`,
         }),
     },
 } as const;

@@ -71,7 +71,7 @@ export function SidebarContexts() {
                         key={context.id}
                         label={context.name}
                         leftSection={<Icon name="context" size={"md"} />}
-                        href={appRoutes.solutions.$solution(context.solution).contexts.$context(context.id).profile()}
+                        href={appRoutes.contexts.$context(context.id).profile()}
                         component={Link}
                         style={{ paddingLeft: "30px" }}
                     />

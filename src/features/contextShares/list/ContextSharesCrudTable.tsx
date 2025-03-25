@@ -81,9 +81,9 @@ export function ContextSharesCrudTable(props: ContextSharesCrudTableProps) {
 
     const handleViewSolution = useCallback(
         (entry: ServerApiTypes.api.solution.Solution) => {
-            router.push(appRoutes.solutions.$solution(props.solution.id).contexts.$context(props.context.id).shares.$share(entry.id).profile());
+            router.push(appRoutes.solutions.$solution(entry.id).profile());
         },
-        [props.context.id, props.solution.id, router],
+        [router],
     );
 
     const tableHeaders: CrudTableHeader[] = untranslatedTableHeaders.map((tableHeader) => ({

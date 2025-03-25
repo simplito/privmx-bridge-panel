@@ -160,7 +160,7 @@ export function ContextUserProfileCore(props: ContextUserProfileCoreProps) {
     const handleDeleteClick = useCallback(() => {
         void openDeleteContextUserModal({ context: props.context, solution: props.solution, user: contextUser }).then((res) => {
             if (res.deleted) {
-                router.push(appRoutes.solutions.$solution(props.solution.id).contexts.$context(props.context.id).users.list());
+                router.push(appRoutes.contexts.$context(props.context.id).users.list());
             }
         });
     }, [contextUser, openDeleteContextUserModal, props.context, props.solution, router]);

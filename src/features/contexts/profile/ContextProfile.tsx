@@ -180,11 +180,10 @@ export function ContextProfileCore(props: ContextProfileCoreProps) {
     const handleDeleteClick = useCallback(() => {
         void openDeleteContextModal(context).then((res) => {
             if (res.deleted) {
-                //redirect
-                router.push(appRoutes.solutions.$solution(props.solution.id).contexts.list());
+                router.push(appRoutes.contexts.list());
             }
         });
-    }, [context, openDeleteContextModal, props.solution.id, router]);
+    }, [context, openDeleteContextModal, router]);
 
     return (
         <Stack gap="xl">
@@ -195,17 +194,13 @@ export function ContextProfileCore(props: ContextProfileCoreProps) {
                     <Button type="button" preset="delete" onClick={handleDeleteClick} />
                 </Group>
                 <Stack gap="md">
-                    <Button type="link" icon="users" href={appRoutes.solutions.$solution(props.solution.id).contexts.$context(props.context.id).users.list()}>
+                    <Button type="link" icon="users" href={appRoutes.contexts.$context(props.context.id).users.list()}>
                         <Box component="span" mr={6}>
                             {t("usersButton.label")}
                         </Box>
                         <Icon name="arrowRight" />
                     </Button>
-                    <Button
-                        type="link"
-                        icon="solutions"
-                        href={appRoutes.solutions.$solution(props.solution.id).contexts.$context(props.context.id).shares.list()}
-                    >
+                    <Button type="link" icon="solutions" href={appRoutes.contexts.$context(props.context.id).shares.list()}>
                         <Box component="span" mr={6}>
                             {t("sharesButton.label")}
                         </Box>

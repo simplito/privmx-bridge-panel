@@ -130,7 +130,7 @@ export function SolutionProfileCore(props: SolutionProfileCoreProps) {
                     <Button type="button" preset="delete" onClick={handleDeleteClick} />
                 </Group>
                 <Stack gap="md">
-                    <Button type="link" icon="contexts" href={appRoutes.solutions.$solution(props.solution.id).contexts.list()}>
+                    <Button type="link" icon="contexts" href={appRoutes.contexts.list()}>
                         <Box component="span" mr={6}>
                             {t("contextsButton.label")}
                         </Box>
