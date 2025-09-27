@@ -59,9 +59,9 @@ export function Sidebar() {
                     />
                 ) : null}
                 {isSignedIn && isContextsListOpen ? <SidebarContexts /> : null}
-                {isSignedIn ? (
+                {/* {isSignedIn ? (
                     <NavLink label={t("mainNav.users")} leftSection={<Icon name="users" size={"md"} />} href={appRoutes.users.list()} component={Link} />
-                ) : null}
+                ) : null} */}
                 {isSignedIn ? (
                     <NavLink label={t("mainNav.apiKeys")} leftSection={<Icon name="apiKeys" size={"md"} />} href={appRoutes.access.list()} component={Link} />
                 ) : null}
