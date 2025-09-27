@@ -11,6 +11,7 @@ import Access_Profile_Page from "./[locale]/access/[accessId]/page";
 import Contexts_Page from "./[locale]/contexts/page";
 import Contexts_Profile_Page from "./[locale]/contexts/[contextId]/page";
 import Contexts_Users_Page from "./[locale]/contexts/[contextId]/users/page";
+import Contexts_Users_Profile_Page from "./[locale]/contexts/[contextId]/users/[userId]/page";
 import Contexts_Shares_Page from "./[locale]/contexts/[contextId]/shares/page";
 import Solutions_Page from "./[locale]/solutions/page";
 import Solutions_Profile_Page from "./[locale]/solutions/[solutionId]/page";
@@ -83,6 +84,15 @@ const mainPanelRoute: RouteObject = {
                                 {
                                     path: "",
                                     element: <RenderWithProps page={Contexts_Users_Page} />,
+                                },
+                                {
+                                    path: ":contextUserId",
+                                    children: [
+                                        {
+                                            path: "",
+                                            element: <RenderWithProps page={Contexts_Users_Profile_Page} />,
+                                        },
+                                    ],
                                 },
                             ],
                         },
