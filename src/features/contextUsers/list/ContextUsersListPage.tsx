@@ -72,7 +72,7 @@ export function ContextUsersListPageCore(props: ContextUsersListPageCoreProps) {
     const tRoot = useTranslations();
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
-            { label: tRoot("features.home.title"), href: appRoutes.home() },
+            { label: tRoot("features.home.breadcrumb"), href: appRoutes.home() },
             { label: tRoot("features.contexts.list.title"), href: appRoutes.contexts.list() },
             {
                 label: tRoot("features.contexts.profile.title", { name: props.context.name }),

@@ -71,7 +71,7 @@ export function ApiKeyProfilePageCore(props: ApiKeyProfilePageCoreProps) {
     const tRoot = useTranslations();
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
-            { label: tRoot("features.home.title"), href: appRoutes.home() },
+            { label: tRoot("features.home.breadcrumb"), href: appRoutes.home() },
             { label: t("list.title"), href: appRoutes.access.list() },
             { label: t("profile.title", { name: props.apiKey.name }), href: appRoutes.access.$apiKey(props.apiKey.id).profile() },
         ];

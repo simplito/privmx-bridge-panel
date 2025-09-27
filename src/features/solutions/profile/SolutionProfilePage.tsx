@@ -71,7 +71,7 @@ export function SolutionProfilePageCore(props: SolutionProfilePageCoreProps) {
     const tRoot = useTranslations();
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
-            { label: tRoot("features.home.title"), href: appRoutes.home() },
+            { label: tRoot("features.home.breadcrumb"), href: appRoutes.home() },
             { label: t("list.title"), href: appRoutes.solutions.list() },
             { label: t("profile.title", { name: props.solution.name }), href: appRoutes.solutions.$solution(props.solution.id).profile() },
         ];

@@ -12,7 +12,7 @@ export function LogoutPage() {
     const tRoot = useTranslations();
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
-            { label: tRoot("features.home.title"), href: appRoutes.home() },
+            { label: tRoot("features.home.breadcrumb"), href: appRoutes.home() },
             { label: t("title"), href: appRoutes.auth.logout() },
         ];
     }, [t, tRoot]);

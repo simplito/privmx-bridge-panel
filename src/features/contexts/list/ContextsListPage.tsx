@@ -15,7 +15,7 @@ export function ContextsListPage(props: ContextsListPageProps) {
     const tRoot = useTranslations();
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
-            { label: tRoot("features.home.title"), href: appRoutes.home() },
+            { label: tRoot("features.home.breadcrumb"), href: appRoutes.home() },
             { label: t("list.title"), href: appRoutes.contexts.list() },
         ];
     }, [t, tRoot]);
