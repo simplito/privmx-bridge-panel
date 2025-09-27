@@ -86,9 +86,9 @@ export function ContextUsersCrudTable(props: ContextUsersCrudTableProps) {
 
     const handleViewUser = useCallback(
         (entry: ServerApiTypes.api.context.ContextUser) => {
-            router.push(appRoutes.users.$user(entry.userId).profile());
+            router.push(appRoutes.contexts.$context(props.context.id).users.$user(entry.userId).profile());
         },
-        [router],
+        [router, props.context.id],
     );
 
     const tableHeaders: CrudTableHeader[] = untranslatedTableHeaders.map((tableHeader) => ({
