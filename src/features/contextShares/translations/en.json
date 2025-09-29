@@ -3,7 +3,7 @@
         "title": "Shares"
     },
     "profile": {
-        "title": "Share: {name}",
+        "title": "Share: {{name}}",
         "id": "ID",
         "name": "Name",
         "created": "Created",
@@ -26,7 +26,7 @@
     },
     "remove": {
         "modalTitle": "Remove Share",
-        "confirmText": "Are you sure you want to remove Share {solutionName} from Context {contextName}?",
+        "confirmText": "Are you sure you want to remove Share {{solutionName}} from Context {{contextName}}?",
         "actionName": "Remove"
     },
     "add": {

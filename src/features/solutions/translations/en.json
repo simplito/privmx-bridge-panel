@@ -3,7 +3,7 @@
         "title": "Solutions"
     },
     "profile": {
-        "title": "Solution: {name}",
+        "title": "Solution: {{name}}",
         "id": "ID",
         "name": "Name",
         "created": "Created",
@@ -22,7 +22,7 @@
     },
     "deleteModal": {
         "modalTitle": "Delete Solution",
-        "confirmText": "Are you sure you want to delete Solution {name}?"
+        "confirmText": "Are you sure you want to delete Solution {{name}}?"
     },
     "create": {
         "modalTitle": "Create a Solution"

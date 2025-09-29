@@ -3,7 +3,7 @@
         "title": "Users"
     },
     "profile": {
-        "title": "User: {name}",
+        "title": "User: {{name}}",
         "id": "ID",
         "pubKey": "PubKey",
         "acl": "ACL",
@@ -20,7 +20,7 @@
     },
     "deleteModal": {
         "modalTitle": "Delete User",
-        "confirmText": "Are you sure you want to delete User {userId} from Context {contextName}?"
+        "confirmText": "Are you sure you want to delete User {{userId}} from Context {{contextName}}?"
     },
     "create": {
         "modalTitle": "Create User",

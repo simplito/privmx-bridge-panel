@@ -3,7 +3,7 @@
         "title": "Contexts"
     },
     "profile": {
-        "title": "Context: {name}",
+        "title": "Context: {{name}}",
         "id": "ID",
         "name": "Name",
         "scope": "Scope",
@@ -32,7 +32,7 @@
     },
     "deleteModal": {
         "modalTitle": "Delete Context",
-        "confirmText": "Are you sure you want to delete Context {name}?"
+        "confirmText": "Are you sure you want to delete Context {{name}}?"
     },
     "create": {
         "modalTitle": "Create a Context"
