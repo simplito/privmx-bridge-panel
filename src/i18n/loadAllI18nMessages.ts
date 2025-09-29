@@ -1,12 +1,10 @@
 /* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/naming-convention */
-import type { I18nLocale } from "./i18nConfig";
+import type { AllI18nMessages as AllComponentsI18nMessages } from "privmx-components/i18n/loadAllI18nMessages";
 import * as root_translations from "./translations/en.json";
 import * as components_aclEditor_translations from "../components/aclEditor/translations/en.json";
 import * as components_apiFormInputs_translations from "../components/apiFormInputs/translations/en.json";
 import * as components_apiScopesEditor_translations from "../components/apiScopesEditor/translations/en.json";
-import * as components_copyButton_translations from "../components/copyButton/translations/en.json";
-import * as components_noneText_translations from "../components/noneText/translations/en.json";
 import * as features_apiKeys_translations from "../features/apiKeys/translations/en.json";
 import * as features_auth_login_translations from "../features/auth/login/translations/en.json";
 import * as features_auth_logout_translations from "../features/auth/logout/translations/en.json";
@@ -16,6 +14,7 @@ import * as features_contextUsers_translations from "../features/contextUsers/tr
 import * as features_erorr_translations from "../features/error/translations/en.json";
 import * as features_home_translations from "../features/home/translations/en.json";
 import * as features_solutions_translations from "../features/solutions/translations/en.json";
+import type { I18nLocale } from "privmx-components/i18n/i18nConfig";
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, @typescript-eslint/explicit-module-boundary-types
 export function loadAllI18nMessages(_locale: I18nLocale) {
@@ -27,8 +26,6 @@ export function loadAllI18nMessages(_locale: I18nLocale) {
             aclEditor: components_aclEditor_translations,
             apiFormInputs: components_apiFormInputs_translations,
             apiScopesEditor: components_apiScopesEditor_translations,
-            copyButton: components_copyButton_translations,
-            noneText: components_noneText_translations,
         },
         features: {
             apiKeys: features_apiKeys_translations,
@@ -49,4 +46,4 @@ export function loadAllI18nMessages(_locale: I18nLocale) {
     return allMessages;
 }
 
-export type AllI18nMessages = ReturnType<typeof loadAllI18nMessages>;
+export type AllI18nMessages = ReturnType<typeof loadAllI18nMessages> & AllComponentsI18nMessages;
