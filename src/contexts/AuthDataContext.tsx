@@ -1,6 +1,6 @@
 import { createContext, useMemo, useState } from "react";
+import { Env } from "@/Env";
 import type { PrivMxBridgeApiAuthData } from "@/privMxBridgeApi/types";
-import { Env } from "@/utils/Env";
 
 export interface AuthData {
     privMxBridgeApiAuthData: PrivMxBridgeApiAuthData | null;
