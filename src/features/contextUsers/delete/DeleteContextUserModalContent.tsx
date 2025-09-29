@@ -1,12 +1,11 @@
-import { Stack, Text } from "@mantine/core";
+import { Notifications, Stack, Text } from "privmx-components/components/index";
+import { useProcessing } from "privmx-components/hooks/useProcessing";
+import { useI18n } from "privmx-components/i18n/useI18n";
+import { Logger } from "privmx-components/utils/Logger";
 import { useCallback, useRef } from "react";
-import { useTranslations } from "use-intl";
 import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useContextApi } from "@/hooks/useContextApi";
-import { useProcessing } from "@/hooks/useProcessing";
 import type { ContextUserEx } from "@/privMxBridgeApi/types";
-import { Logger } from "@/utils/Logger";
-import { Notifications } from "@/utils/Notifications";
 
 export type ContextUserForDeletion = Omit<ContextUserEx, "solution">;
 
@@ -16,7 +15,7 @@ export interface DeleteContextUserModalContentProps {
 }
 
 export function DeleteContextUserModalContent(props: DeleteContextUserModalContentProps) {
-    const t = useTranslations("features.contextUsers");
+    const { t } = useI18n("features.contextUsers");
     const { isProcessing, withProcessing } = useProcessing();
     const contextApi = useContextApi();
 

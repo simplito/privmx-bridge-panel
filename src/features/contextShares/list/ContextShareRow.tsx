@@ -1,11 +1,8 @@
-import { Text } from "@mantine/core";
+import type { CrudTableHeader } from "privmx-components/components/index";
+import { CopyableText, CrudTableCell, DateTimeText, Text } from "privmx-components/components/index";
+import { I18nDateTimeFormatName } from "privmx-components/i18n/formats/i18nDateTimeFormats";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
-import { useTranslations } from "use-intl";
-import { DateTimeText } from "@/components/atoms/DateTimeText";
-import { CopyableText } from "@/components/copyButton/CopyableText";
-import type { CrudTableHeader } from "@/components/crudTable/CrudTable";
-import { CrudTableCell } from "@/components/crudTable/CrudTableCell";
-import { I18nDateTimeFormatName } from "@/i18n/formats/i18nDateTimeFormats";
 
 export const untranslatedTableHeaders = [
     {
@@ -37,7 +34,7 @@ export interface ContextShareRowProps {
 
 export function ContextShareRow(props: ContextShareRowProps) {
     const entry = props.entry;
-    const t = useTranslations("features.contextShares");
+    const { t } = useI18n("features.contextShares");
 
     return (
         <>

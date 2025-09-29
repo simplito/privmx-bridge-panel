@@ -1,18 +1,18 @@
-import { Box, Center, Stack, Text } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Box, Center, Stack, Text } from "privmx-components/components/index";
+import { useForm } from "privmx-components/hooks/useForm";
+import { useProcessing } from "privmx-components/hooks/useProcessing";
+import { useI18n } from "privmx-components/i18n/useI18n";
+import { Logger } from "privmx-components/utils/Logger";
+import { getErrorMessage } from "privmx-components/utils/miscFunctions/getErrorMessage";
+import type { InferValueFromValidator } from "privmx-components/validators/types";
+import { validators } from "privmx-components/validators/validators";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useMemo, useState } from "react";
-import { useTranslations } from "use-intl";
-import { z } from "zod";
 import { SolutionSelect } from "@/components/apiFormInputs/SolutionSelect";
 import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useContextApi } from "@/hooks/useContextApi";
-import { useProcessing } from "@/hooks/useProcessing";
 import type { ContextShareIds } from "@/privMxBridgeApi/types";
-import { Logger } from "@/utils/Logger";
-import { getErrorMessage } from "@/utils/miscFunctions/getErrorMessage";
-import { zodResolver } from "@/validation/zodResolver";
-import { zodSchemas } from "@/validation/zodSchemas";
+import { validationSchemas } from "@/validation/validationSchemas";
 
 type AddContextShareModalResult = { result: "cancelled" } | { result: "added"; contextShareIds: ContextShareIds };
 
@@ -21,14 +21,14 @@ export interface AddContextShareModalContentProps {
     onResult: (result: AddContextShareModalResult) => void;
 }
 
-const schema = z.object({
-    solutionId: zodSchemas.solution.id(),
+const schema = validators.object({
+    solutionId: validationSchemas.solution.id(),
 });
 
-type FormValues = z.infer<typeof schema>;
+type FormValues = InferValueFromValidator<typeof schema>;
 
 export function AddContextShareModalContent(props: AddContextShareModalContentProps) {
-    const t = useTranslations("features.contextShares");
+    const { t } = useI18n("features.contextShares");
     const { isProcessing, withProcessing } = useProcessing();
     const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null);
     const contextApi = useContextApi();
@@ -37,7 +37,7 @@ export function AddContextShareModalContent(props: AddContextShareModalContentPr
         initialValues: {
             solutionId: "" as ServerApiTypes.types.cloud.SolutionId,
         },
-        validate: zodResolver(schema),
+        validate: schema,
     });
 
     const onResult = props.onResult;
@@ -92,7 +92,6 @@ export function AddContextShareModalContent(props: AddContextShareModalContentPr
                     <Stack gap="md">
                         <SolutionSelect
                             omitSolutionIds={omitSolutionIds}
-                            withAsterisk
                             required
                             label={t("add.solutionId.label")}
                             // eslint-disable-next-line react/jsx-props-no-spreading

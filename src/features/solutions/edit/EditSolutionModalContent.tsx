@@ -1,19 +1,18 @@
-import { Box, Center, Stack, Text, TextInput } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Box, Center, Notifications, Stack, Text, TextInput } from "privmx-components/components/index";
+import { useForm } from "privmx-components/hooks/useForm";
+import { useProcessing } from "privmx-components/hooks/useProcessing";
+import { useI18n } from "privmx-components/i18n/useI18n";
+import { Logger } from "privmx-components/utils/Logger";
+import { getErrorMessage } from "privmx-components/utils/miscFunctions/getErrorMessage";
+import type { InferValueFromValidator } from "privmx-components/validators/types";
+import { validators } from "privmx-components/validators/validators";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useState } from "react";
-import { useTranslations } from "use-intl";
-import { z } from "zod";
 import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
-import { useProcessing } from "@/hooks/useProcessing";
 import { useSolutionApi } from "@/hooks/useSolutionApi";
 import type { SolutionDeletedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
-import { Logger } from "@/utils/Logger";
-import { getErrorMessage } from "@/utils/miscFunctions/getErrorMessage";
-import { Notifications } from "@/utils/Notifications";
-import { zodResolver } from "@/validation/zodResolver";
-import { zodSchemas } from "@/validation/zodSchemas";
+import { validationSchemas } from "@/validation/validationSchemas";
 
 type EditSolutionModalResult = { result: "cancelled" } | { result: "changed" };
 
@@ -22,14 +21,14 @@ export interface EditSolutionModalContentProps {
     onResult: (result: EditSolutionModalResult) => void;
 }
 
-const schema = z.object({
-    solutionName: zodSchemas.solution.name(),
+const schema = validators.object({
+    solutionName: validationSchemas.solution.name(),
 });
 
-type FormValues = z.infer<typeof schema>;
+type FormValues = InferValueFromValidator<typeof schema>;
 
 export function EditSolutionModalContent(props: EditSolutionModalContentProps) {
-    const t = useTranslations("features.solutions");
+    const { t } = useI18n("features.solutions");
     const { isProcessing, withProcessing } = useProcessing();
     const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null);
     const solutionApi = useSolutionApi();
@@ -38,7 +37,7 @@ export function EditSolutionModalContent(props: EditSolutionModalContentProps) {
         initialValues: {
             solutionName: props.solution.name,
         },
-        validate: zodResolver(schema),
+        validate: schema,
     });
 
     const onResult = props.onResult;
@@ -99,7 +98,7 @@ export function EditSolutionModalContent(props: EditSolutionModalContentProps) {
                 <Box mx="md">
                     <Stack gap="md">
                         <TextInput
-                            withAsterisk
+                            required
                             label={t("profile.name")}
                             placeholder={t("profile.name")}
                             // eslint-disable-next-line react/jsx-props-no-spreading

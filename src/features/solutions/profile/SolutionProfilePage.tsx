@@ -1,12 +1,10 @@
-import { Center } from "@mantine/core";
+import { type BreadcrumbItem, Center, LoadingOrError } from "privmx-components/components/index";
+import { useDataLoader } from "privmx-components/hooks/useDataLoader";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useMemo, useState } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
-import type { BreadcrumbItem } from "@/components/atoms/Breadcrumbs";
-import { LoadingOrError } from "@/components/atoms/LoadingOrError";
 import { PageWrapper } from "@/components/atoms/PageWrapper";
-import { useDataLoader } from "@/hooks/useDataLoader";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { useSolutionApi } from "@/hooks/useSolutionApi";
 import type { SolutionDeletedEvent, SolutionUpdatedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
@@ -67,8 +65,8 @@ export interface SolutionProfilePageCoreProps {
 }
 
 export function SolutionProfilePageCore(props: SolutionProfilePageCoreProps) {
-    const t = useTranslations("features.solutions");
-    const tRoot = useTranslations();
+    const { t } = useI18n("features.solutions");
+    const { t: tRoot } = useI18n();
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
             { label: tRoot("features.home.breadcrumb"), href: appRoutes.home() },

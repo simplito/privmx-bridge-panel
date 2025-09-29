@@ -1,14 +1,13 @@
-import { Stack, Text } from "@mantine/core";
+import { Notifications, Stack, Text } from "privmx-components/components/index";
+import { useProcessing } from "privmx-components/hooks/useProcessing";
+import { useI18n } from "privmx-components/i18n/useI18n";
+import { Logger } from "privmx-components/utils/Logger";
 import { useCallback, useRef } from "react";
-import { useTranslations } from "use-intl";
 import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useContextApi } from "@/hooks/useContextApi";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
-import { useProcessing } from "@/hooks/useProcessing";
 import type { SolutionDeletedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
 import type { ContextShare } from "@/privMxBridgeApi/types";
-import { Logger } from "@/utils/Logger";
-import { Notifications } from "@/utils/Notifications";
 
 export interface RemoveContextShareModalContentProps {
     contextShare: ContextShare;
@@ -16,7 +15,7 @@ export interface RemoveContextShareModalContentProps {
 }
 
 export function RemoveContextShareModalContent(props: RemoveContextShareModalContentProps) {
-    const t = useTranslations("features.contextShares");
+    const { t } = useI18n("features.contextShares");
     const { isProcessing, withProcessing } = useProcessing();
     const contextApi = useContextApi();
 

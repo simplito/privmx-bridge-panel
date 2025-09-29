@@ -1,14 +1,10 @@
-import { Center, Group, Stack } from "@mantine/core";
+import { Button, Center, Group, InfoIcon, LoadingOrError, PropsView, Stack } from "privmx-components/components/index";
+import type * as propsViewTypes from "privmx-components/components/propsView/types";
+import { useDataLoader } from "privmx-components/hooks/useDataLoader";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useMemo, useState } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
-import { InfoIcon } from "@/components/atoms/InfoIcon";
-import { LoadingOrError } from "@/components/atoms/LoadingOrError";
-import { Button } from "@/components/button/Button";
-import { PropsView } from "@/components/propsView/PropsView";
-import type * as propsViewTypes from "@/components/propsView/types";
-import { useDataLoader } from "@/hooks/useDataLoader";
 import { useManagerApi } from "@/hooks/useManagerApi";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { useRouter } from "@/i18n/routing";
@@ -74,8 +70,8 @@ export interface ApiKeyProfileCoreProps {
 
 export function ApiKeyProfileCore(props: ApiKeyProfileCoreProps) {
     const apiKey = props.apiKey;
-    const t = useTranslations("features.apiKeys");
-    const tRoot = useTranslations();
+    const { t } = useI18n("features.apiKeys");
+    const { t: tRoot } = useI18n();
     const router = useRouter();
 
     const apiKeyProps: propsViewTypes.Prop[] = useMemo((): propsViewTypes.Prop[] => {
@@ -141,7 +137,7 @@ export function ApiKeyProfileCore(props: ApiKeyProfileCoreProps) {
     const handleDeleteClick = useCallback(() => {
         void openDeleteApiKeyModal(apiKey).then((res) => {
             if (res.deleted) {
-                router.push(appRoutes.access.list());
+                void router.push(appRoutes.access.list());
             }
         });
     }, [apiKey, openDeleteApiKeyModal, router]);

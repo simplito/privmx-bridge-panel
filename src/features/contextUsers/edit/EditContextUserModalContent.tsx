@@ -1,22 +1,20 @@
-import { Box, Center, Group, Stack, Text } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Box, Center, Group, InfoIcon, Notifications, Stack, Text } from "privmx-components/components/index";
+import { useForm } from "privmx-components/hooks/useForm";
+import { useProcessing } from "privmx-components/hooks/useProcessing";
+import { useI18n } from "privmx-components/i18n/useI18n";
+import { Logger } from "privmx-components/utils/Logger";
+import { getErrorMessage } from "privmx-components/utils/miscFunctions/getErrorMessage";
+import type { InferValueFromValidator } from "privmx-components/validators/types";
+import { validators } from "privmx-components/validators/validators";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useState } from "react";
-import { useTranslations } from "use-intl";
-import { z } from "zod";
 import { AclEditor } from "@/components/aclEditor/AclEditor";
-import { InfoIcon } from "@/components/atoms/InfoIcon";
 import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useContextApi } from "@/hooks/useContextApi";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
-import { useProcessing } from "@/hooks/useProcessing";
 import type { ContextDeletedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
 import { DocsUtils } from "@/utils/DocsUtils";
-import { Logger } from "@/utils/Logger";
-import { getErrorMessage } from "@/utils/miscFunctions/getErrorMessage";
-import { Notifications } from "@/utils/Notifications";
-import { zodResolver } from "@/validation/zodResolver";
-import { zodSchemas } from "@/validation/zodSchemas";
+import { validationSchemas } from "@/validation/validationSchemas";
 
 type EditContextUserModalResult = { result: "cancelled" } | { result: "changed" };
 
@@ -25,15 +23,15 @@ export interface EditContextUserModalContentProps {
     onResult: (result: EditContextUserModalResult) => void;
 }
 
-const schema = z.object({
-    userAcl: zodSchemas.context.userAcl(),
+const schema = validators.object({
+    userAcl: validationSchemas.context.userAcl(),
 });
 
-type FormValues = z.infer<typeof schema>;
+type FormValues = InferValueFromValidator<typeof schema>;
 
 export function EditContextUserModalContent(props: EditContextUserModalContentProps) {
-    const t = useTranslations("features.contextUsers");
-    const tRoot = useTranslations();
+    const { t } = useI18n("features.contextUsers");
+    const { t: tRoot } = useI18n();
     const { isProcessing, withProcessing } = useProcessing();
     const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null);
     const contextApi = useContextApi();
@@ -42,7 +40,7 @@ export function EditContextUserModalContent(props: EditContextUserModalContentPr
         initialValues: {
             userAcl: props.contextUser.acl,
         },
-        validate: zodResolver(schema),
+        validate: schema,
     });
 
     const onResult = props.onResult;

@@ -1,18 +1,16 @@
-import { Box, Stack, Text } from "@mantine/core";
+import { Box, type BreadcrumbItem, Button, Stack, Text } from "privmx-components/components/index";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import { useMemo } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
-import type { BreadcrumbItem } from "@/components/atoms/Breadcrumbs";
 import { PageWrapper } from "@/components/atoms/PageWrapper";
-import { Button } from "@/components/button/Button";
 
 export interface ErrorPageProps {
     error: "general" | "notFound";
 }
 
 export function ErrorPage(props: ErrorPageProps) {
-    const t = useTranslations(`features.error`);
-    const tError = useTranslations(`features.error.${props.error}`);
+    const { t } = useI18n(`features.error`);
+    const { t: tError } = useI18n(`features.error.${props.error}`);
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [];
     }, []);
@@ -22,7 +20,7 @@ export function ErrorPage(props: ErrorPageProps) {
             <Stack>
                 <Text>{tError("message")}</Text>
                 <Box mt="lg">
-                    <Button type="link" href={appRoutes.home()} icon="home" priority="primary">
+                    <Button type="link" href={appRoutes.home()} icon="home" variant="primary">
                         {t("homeButtonLabel")}
                     </Button>
                 </Box>

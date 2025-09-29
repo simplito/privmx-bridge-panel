@@ -1,9 +1,8 @@
-import { Box } from "@mantine/core";
+import { Box, CrudTable, type CrudTableFilter, type CrudTableHeader } from "privmx-components/components/index";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useRef } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
-import { CrudTable, type CrudTableFilter, type CrudTableHeader } from "@/components/crudTable/CrudTable";
 import { useManagerApi } from "@/hooks/useManagerApi";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { useRouter } from "@/i18n/routing";
@@ -20,9 +19,9 @@ export interface ApiKeysCrudTableProps {
 }
 
 export function ApiKeysCrudTable(props: ApiKeysCrudTableProps) {
-    const t = useTranslations("features.apiKeys");
+    const { t } = useI18n("features.apiKeys");
     const router = useRouter();
-    const refreshRef = useRef<() => Promise<ServerApiTypes.api.manager.ApiKey[]>>();
+    const refreshRef = useRef<() => Promise<ServerApiTypes.api.manager.ApiKey[]>>(undefined);
     const refresh = useCallback(() => {
         void refreshRef.current?.();
     }, []);
@@ -53,7 +52,7 @@ export function ApiKeysCrudTable(props: ApiKeysCrudTableProps) {
 
     const handleViewApiKey = useCallback(
         (entry: ServerApiTypes.api.manager.ApiKey) => {
-            router.push(appRoutes.access.$apiKey(entry.id).profile());
+            void router.push(appRoutes.access.$apiKey(entry.id).profile());
         },
         [router],
     );

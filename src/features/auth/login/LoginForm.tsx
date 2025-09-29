@@ -1,29 +1,29 @@
-import { Box, Center, PasswordInput, Stack, Text, TextInput } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Box, Center, Stack, Text, TextInput } from "privmx-components/components/index";
+import { useForm } from "privmx-components/hooks/useForm";
+import { useProcessing } from "privmx-components/hooks/useProcessing";
+import { useI18n } from "privmx-components/i18n/useI18n";
+import { Logger } from "privmx-components/utils/Logger";
+import { getErrorMessage } from "privmx-components/utils/miscFunctions/getErrorMessage";
+import type { InferValueFromValidator } from "privmx-components/validators/types";
+import { validators } from "privmx-components/validators/validators";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useState } from "react";
-import { useTranslations } from "use-intl";
-import { z } from "zod";
 import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useAuthData } from "@/hooks/useAuthData";
 import { useManagerApi } from "@/hooks/useManagerApi";
-import { useProcessing } from "@/hooks/useProcessing";
 import type { AccessToken, AccessTokenExpiry, AccessTokenPrivMxBridgeApiAuthData, RefreshToken, RefreshTokenExpiry } from "@/privMxBridgeApi/types";
-import { Logger } from "@/utils/Logger";
-import { getErrorMessage } from "@/utils/miscFunctions/getErrorMessage";
-import { zodResolver } from "@/validation/zodResolver";
-import { zodSchemas } from "@/validation/zodSchemas";
+import { validationSchemas } from "@/validation/validationSchemas";
 import { AuthPersistence } from "../AuthPersistence";
 
-const schema = z.object({
-    apiKeyId: zodSchemas.apiKey.id(),
-    apiKeySecret: zodSchemas.apiKey.secret(),
+const schema = validators.object({
+    apiKeyId: validationSchemas.apiKey.id(),
+    apiKeySecret: validationSchemas.apiKey.secret(),
 });
 
-type FormValues = z.infer<typeof schema>;
+type FormValues = InferValueFromValidator<typeof schema>;
 
 export function LoginForm() {
-    const t = useTranslations("features.auth.login");
+    const { t } = useI18n("features.auth.login");
     const { isProcessing, withProcessing } = useProcessing();
     const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null);
     const managerApi = useManagerApi();
@@ -34,7 +34,7 @@ export function LoginForm() {
             apiKeyId: "",
             apiKeySecret: "",
         },
-        validate: zodResolver(schema),
+        validate: schema,
     });
 
     const handleSubmit = useCallback(
@@ -76,7 +76,7 @@ export function LoginForm() {
                 void handleSubmit(values);
             })}
         >
-            <Stack gap="xl" my="md" maw={500}>
+            <Stack gap="xl" my="md" style={{ maxWidth: 500 }}>
                 <Center>
                     <Text
                         size="sm"
@@ -90,15 +90,16 @@ export function LoginForm() {
                 <Box mx="md">
                     <Stack gap="md">
                         <TextInput
-                            withAsterisk
+                            required
                             label={t("apiKeyId")}
                             placeholder={t("apiKeyId")}
                             // eslint-disable-next-line react/jsx-props-no-spreading
                             {...form.getInputProps("apiKeyId")}
                             disabled={isProcessing}
                         />
-                        <PasswordInput
-                            withAsterisk
+                        <TextInput
+                            required
+                            type="password"
                             label={t("apiKeySecret")}
                             placeholder={t("apiKeySecret")}
                             // eslint-disable-next-line react/jsx-props-no-spreading

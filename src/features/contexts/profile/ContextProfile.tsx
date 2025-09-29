@@ -1,15 +1,12 @@
-import { Box, Center, Group, Stack, Text } from "@mantine/core";
+import { Box, Button, Center, Group, LoadingOrError, PropsView, Stack, Text } from "privmx-components/components/index";
+import type * as propsViewTypes from "privmx-components/components/propsView/types";
+import { useDataLoader } from "privmx-components/hooks/useDataLoader";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useMemo, useState } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
 import { Icon } from "@/components/atoms/Icon";
-import { LoadingOrError } from "@/components/atoms/LoadingOrError";
-import { Button } from "@/components/button/Button";
-import { PropsView } from "@/components/propsView/PropsView";
-import type * as propsViewTypes from "@/components/propsView/types";
 import { useContextApi } from "@/hooks/useContextApi";
-import { useDataLoader } from "@/hooks/useDataLoader";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { useRouter } from "@/i18n/routing";
 import type { ContextDeletedEvent, ContextUpdatedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
@@ -73,8 +70,8 @@ export interface ContextProfileCoreProps {
 
 export function ContextProfileCore(props: ContextProfileCoreProps) {
     const context = props.context;
-    const t = useTranslations("features.contexts");
-    const tRoot = useTranslations();
+    const { t } = useI18n("features.contexts");
+    const { t: tRoot } = useI18n();
     const router = useRouter();
 
     const contextProps: propsViewTypes.Prop[] = useMemo((): propsViewTypes.Prop[] => {
@@ -153,7 +150,7 @@ export function ContextProfileCore(props: ContextProfileCoreProps) {
     const handleDeleteClick = useCallback(() => {
         void openDeleteContextModal(context).then((res) => {
             if (res.deleted) {
-                router.push(appRoutes.contexts.list());
+                void router.push(appRoutes.contexts.list());
             }
         });
     }, [context, openDeleteContextModal, router]);

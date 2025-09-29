@@ -1,9 +1,7 @@
+import type { CrudTableHeader } from "privmx-components/components/index";
+import { CopyableText, CrudTableCell, DateTimeText } from "privmx-components/components/index";
+import { I18nDateTimeFormatName } from "privmx-components/i18n/formats/i18nDateTimeFormats";
 import type * as ServerApiTypes from "privmx-server-api";
-import { DateTimeText } from "@/components/atoms/DateTimeText";
-import { CopyableText } from "@/components/copyButton/CopyableText";
-import type { CrudTableHeader } from "@/components/crudTable/CrudTable";
-import { CrudTableCell } from "@/components/crudTable/CrudTableCell";
-import { I18nDateTimeFormatName } from "@/i18n/formats/i18nDateTimeFormats";
 
 export const untranslatedTableHeaders = [
     {

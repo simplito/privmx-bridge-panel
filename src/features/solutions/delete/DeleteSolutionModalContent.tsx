@@ -1,14 +1,13 @@
-import { Stack, Text } from "@mantine/core";
+import { Notifications, Stack, Text } from "privmx-components/components/index";
+import { useProcessing } from "privmx-components/hooks/useProcessing";
+import { useI18n } from "privmx-components/i18n/useI18n";
+import { Logger } from "privmx-components/utils/Logger";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useRef } from "react";
-import { useTranslations } from "use-intl";
 import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
-import { useProcessing } from "@/hooks/useProcessing";
 import { useSolutionApi } from "@/hooks/useSolutionApi";
 import type { SolutionDeletedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
-import { Logger } from "@/utils/Logger";
-import { Notifications } from "@/utils/Notifications";
 
 export interface DeleteSolutionModalContentProps {
     solution: ServerApiTypes.api.solution.Solution;
@@ -16,7 +15,7 @@ export interface DeleteSolutionModalContentProps {
 }
 
 export function DeleteSolutionModalContent(props: DeleteSolutionModalContentProps) {
-    const t = useTranslations("features.solutions");
+    const { t } = useI18n("features.solutions");
     const { isProcessing, withProcessing } = useProcessing();
     const solutionApi = useSolutionApi();
 

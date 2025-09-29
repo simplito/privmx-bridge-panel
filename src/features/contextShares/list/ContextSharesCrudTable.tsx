@@ -1,9 +1,8 @@
-import { Box } from "@mantine/core";
+import { Box, CrudTable, type CrudTableFilter, type CrudTableHeader } from "privmx-components/components/index";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useRef } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
-import { CrudTable, type CrudTableFilter, type CrudTableHeader } from "@/components/crudTable/CrudTable";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { useSolutionApi } from "@/hooks/useSolutionApi";
 import { useRouter } from "@/i18n/routing";
@@ -25,9 +24,9 @@ function isEntryDeletable(entry: ContextSolution) {
 }
 
 export function ContextSharesCrudTable(props: ContextSharesCrudTableProps) {
-    const t = useTranslations("features.contextShares");
+    const { t } = useI18n("features.contextShares");
     const router = useRouter();
-    const refreshRef = useRef<() => Promise<ContextSolution[]>>();
+    const refreshRef = useRef<() => Promise<ContextSolution[]>>(undefined);
     const refresh = useCallback(() => {
         void refreshRef.current?.();
     }, []);
@@ -92,7 +91,7 @@ export function ContextSharesCrudTable(props: ContextSharesCrudTableProps) {
 
     const handleViewSolution = useCallback(
         (entry: ContextSolution) => {
-            router.push(appRoutes.solutions.$solution(entry.solution.id).profile());
+            void router.push(appRoutes.solutions.$solution(entry.solution.id).profile());
         },
         [router],
     );

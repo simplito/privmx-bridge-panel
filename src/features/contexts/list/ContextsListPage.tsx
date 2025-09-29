@@ -1,8 +1,8 @@
+import type { BreadcrumbItem } from "privmx-components/components/index";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useMemo } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
-import type { BreadcrumbItem } from "@/components/atoms/Breadcrumbs";
 import { PageWrapper } from "@/components/atoms/PageWrapper";
 import { ContextsCrudTable } from "./ContextsCrudTable";
 
@@ -11,8 +11,8 @@ export interface ContextsListPageProps {
 }
 
 export function ContextsListPage(props: ContextsListPageProps) {
-    const t = useTranslations("features.contexts");
-    const tRoot = useTranslations();
+    const { t } = useI18n("features.contexts");
+    const { t: tRoot } = useI18n();
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
             { label: tRoot("features.home.breadcrumb"), href: appRoutes.home() },

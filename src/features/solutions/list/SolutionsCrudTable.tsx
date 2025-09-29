@@ -1,9 +1,8 @@
-import { Box } from "@mantine/core";
+import { Box, CrudTable, type CrudTableFilter, type CrudTableHeader } from "privmx-components/components/index";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useRef } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
-import { CrudTable, type CrudTableFilter, type CrudTableHeader } from "@/components/crudTable/CrudTable";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { useSolutionApi } from "@/hooks/useSolutionApi";
 import { useRouter } from "@/i18n/routing";
@@ -20,9 +19,9 @@ export interface SolutionsCrudTableProps {
 }
 
 export function SolutionsCrudTable(props: SolutionsCrudTableProps) {
-    const t = useTranslations("features.solutions");
+    const { t } = useI18n("features.solutions");
     const router = useRouter();
-    const refreshRef = useRef<() => Promise<ServerApiTypes.api.solution.Solution[]>>();
+    const refreshRef = useRef<() => Promise<ServerApiTypes.api.solution.Solution[]>>(undefined);
     const refresh = useCallback(() => {
         void refreshRef.current?.();
     }, []);
@@ -53,7 +52,7 @@ export function SolutionsCrudTable(props: SolutionsCrudTableProps) {
 
     const handleViewSolution = useCallback(
         (entry: ServerApiTypes.api.solution.Solution) => {
-            router.push(appRoutes.solutions.$solution(entry.id).profile());
+            void router.push(appRoutes.solutions.$solution(entry.id).profile());
         },
         [router],
     );

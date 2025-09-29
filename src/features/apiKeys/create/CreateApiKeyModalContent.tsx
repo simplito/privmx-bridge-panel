@@ -1,21 +1,18 @@
-import { Box, Center, Group, Stack, Text, TextInput } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Box, Center, CopyableText, Group, InfoIcon, SecretViewer, Stack, Text, TextInput } from "privmx-components/components/index";
+import { useForm } from "privmx-components/hooks/useForm";
+import { useProcessing } from "privmx-components/hooks/useProcessing";
+import { useI18n } from "privmx-components/i18n/useI18n";
+import { Logger } from "privmx-components/utils/Logger";
+import { getErrorMessage } from "privmx-components/utils/miscFunctions/getErrorMessage";
+import type { InferValueFromValidator } from "privmx-components/validators/types";
+import { validators } from "privmx-components/validators/validators";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useState } from "react";
-import { useTranslations } from "use-intl";
-import { z } from "zod";
 import { ApiScopesEditor } from "@/components/apiScopesEditor/ApiScopesEditor";
-import { InfoIcon } from "@/components/atoms/InfoIcon";
 import { ModalButtons } from "@/components/atoms/ModalButtons";
-import { SecretViewer } from "@/components/atoms/SecretViewer";
-import { CopyableText } from "@/components/copyButton/CopyableText";
 import { useManagerApi } from "@/hooks/useManagerApi";
-import { useProcessing } from "@/hooks/useProcessing";
 import { DocsUtils } from "@/utils/DocsUtils";
-import { Logger } from "@/utils/Logger";
-import { getErrorMessage } from "@/utils/miscFunctions/getErrorMessage";
-import { zodResolver } from "@/validation/zodResolver";
-import { zodSchemas } from "@/validation/zodSchemas";
+import { validationSchemas } from "@/validation/validationSchemas";
 
 type CreateApiKeyModalResult =
     | { result: "cancelled" }
@@ -25,12 +22,12 @@ export interface CreateApiKeyModalContentProps {
     onResult: (result: CreateApiKeyModalResult) => void;
 }
 
-const schema = z.object({
-    apiKeyName: zodSchemas.apiKey.name(),
-    apiKeyScope: zodSchemas.apiKey.scope(),
+const schema = validators.object({
+    apiKeyName: validationSchemas.apiKey.name(),
+    apiKeyScope: validationSchemas.apiKey.scope(),
 });
 
-type FormValues = z.infer<typeof schema>;
+type FormValues = InferValueFromValidator<typeof schema>;
 
 interface CreateApiKeyResult {
     apiKeyId: ServerApiTypes.types.auth.ApiKeyId;
@@ -38,8 +35,8 @@ interface CreateApiKeyResult {
 }
 
 export function CreateApiKeyModalContent(props: CreateApiKeyModalContentProps) {
-    const t = useTranslations("features.apiKeys");
-    const tRoot = useTranslations();
+    const { t } = useI18n("features.apiKeys");
+    const { t: tRoot } = useI18n();
     const { isProcessing, withProcessing } = useProcessing();
     const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null);
     const managerApi = useManagerApi();
@@ -50,7 +47,7 @@ export function CreateApiKeyModalContent(props: CreateApiKeyModalContentProps) {
             apiKeyName: "" as ServerApiTypes.types.auth.ApiKeyName,
             apiKeyScope: [],
         },
-        validate: zodResolver(schema),
+        validate: schema,
     });
 
     const onResult = props.onResult;
@@ -131,7 +128,7 @@ export function CreateApiKeyModalContent(props: CreateApiKeyModalContentProps) {
                 <Box mx="md">
                     <Stack gap="md">
                         <TextInput
-                            withAsterisk
+                            required
                             label={t("profile.name")}
                             placeholder={t("profile.name")}
                             // eslint-disable-next-line react/jsx-props-no-spreading

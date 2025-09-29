@@ -1,15 +1,12 @@
-import { Center, Group, Stack, Title } from "@mantine/core";
+import { Button, Center, Group, LoadingOrError, PropsView, Stack, Text } from "privmx-components/components/index";
+import type * as propsViewTypes from "privmx-components/components/propsView/types";
+import { useDataLoader } from "privmx-components/hooks/useDataLoader";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useMemo, useState } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
-import { LoadingOrError } from "@/components/atoms/LoadingOrError";
 import { pageWidthBySize } from "@/components/atoms/PageWrapper";
-import { Button } from "@/components/button/Button";
-import { PropsView } from "@/components/propsView/PropsView";
-import type * as propsViewTypes from "@/components/propsView/types";
 import { ContextsCrudTable } from "@/features/contexts/list/ContextsCrudTable";
-import { useDataLoader } from "@/hooks/useDataLoader";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { useSolutionApi } from "@/hooks/useSolutionApi";
 import { useRouter } from "@/i18n/routing";
@@ -73,7 +70,7 @@ export interface SolutionProfileCoreProps {
 
 export function SolutionProfileCore(props: SolutionProfileCoreProps) {
     const solution = props.solution;
-    const t = useTranslations("features.solutions");
+    const { t } = useI18n("features.solutions");
     const router = useRouter();
 
     const solutionProps: propsViewTypes.Prop[] = useMemo((): propsViewTypes.Prop[] => {
@@ -117,7 +114,7 @@ export function SolutionProfileCore(props: SolutionProfileCoreProps) {
     const handleDeleteClick = useCallback(() => {
         void openDeleteSolutionModal(solution).then((res) => {
             if (res.deleted) {
-                router.push(appRoutes.solutions.list());
+                void router.push(appRoutes.solutions.list());
             }
         });
     }, [solution, openDeleteSolutionModal, router]);
@@ -133,9 +130,9 @@ export function SolutionProfileCore(props: SolutionProfileCoreProps) {
                     </Group>
                 </Group>
             </Stack>
-            <Title order={3} mt="lg">
+            <Text component="h3" mt="lg">
                 {t("profile.contexts")}
-            </Title>
+            </Text>
             <ContextsCrudTable solutionId={props.solution.id} />
         </Stack>
     );

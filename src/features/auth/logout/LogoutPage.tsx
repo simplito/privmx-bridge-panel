@@ -1,15 +1,15 @@
+import type { BreadcrumbItem } from "privmx-components/components/index";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import { useEffect, useMemo } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
-import type { BreadcrumbItem } from "@/components/atoms/Breadcrumbs";
 import { PageWrapper } from "@/components/atoms/PageWrapper";
 import { useAuthData } from "@/hooks/useAuthData";
 import { AuthPersistence } from "../AuthPersistence";
 
 export function LogoutPage() {
     const { setAuthData } = useAuthData();
-    const t = useTranslations("features.auth.logout");
-    const tRoot = useTranslations();
+    const { t } = useI18n("features.auth.logout");
+    const { t: tRoot } = useI18n();
     const breadcrumbs: BreadcrumbItem[] = useMemo(() => {
         return [
             { label: tRoot("features.home.breadcrumb"), href: appRoutes.home() },

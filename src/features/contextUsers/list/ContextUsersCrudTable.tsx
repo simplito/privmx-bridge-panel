@@ -1,9 +1,8 @@
-import { Box } from "@mantine/core";
+import { Box, CrudTable, type CrudTableFilter, type CrudTableHeader } from "privmx-components/components/index";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useRef } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
-import { CrudTable, type CrudTableFilter, type CrudTableHeader } from "@/components/crudTable/CrudTable";
 import { useContextApi } from "@/hooks/useContextApi";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { useRouter } from "@/i18n/routing";
@@ -22,9 +21,9 @@ export interface ContextUsersCrudTableProps {
 }
 
 export function ContextUsersCrudTable(props: ContextUsersCrudTableProps) {
-    const t = useTranslations("features.contextUsers");
+    const { t } = useI18n("features.contextUsers");
     const router = useRouter();
-    const refreshRef = useRef<() => Promise<ServerApiTypes.api.context.ContextUser[]>>();
+    const refreshRef = useRef<() => Promise<ServerApiTypes.api.context.ContextUser[]>>(undefined);
     const refresh = useCallback(() => {
         void refreshRef.current?.();
     }, []);
@@ -86,7 +85,7 @@ export function ContextUsersCrudTable(props: ContextUsersCrudTableProps) {
 
     const handleViewUser = useCallback(
         (entry: ServerApiTypes.api.context.ContextUser) => {
-            router.push(appRoutes.contexts.$context(props.context.id).users.$user(entry.userId).profile());
+            void router.push(appRoutes.contexts.$context(props.context.id).users.$user(entry.userId).profile());
         },
         [router, props.context.id],
     );

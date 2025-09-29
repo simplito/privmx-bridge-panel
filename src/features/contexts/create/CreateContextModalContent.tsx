@@ -1,19 +1,18 @@
-import { Box, Center, Stack, Text, TextInput, Textarea } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Box, Center, CopyableText, Stack, Text, TextArea, TextInput } from "privmx-components/components/index";
+import { useForm } from "privmx-components/hooks/useForm";
+import { useProcessing } from "privmx-components/hooks/useProcessing";
+import { useI18n } from "privmx-components/i18n/useI18n";
+import { Logger } from "privmx-components/utils/Logger";
+import { getErrorMessage } from "privmx-components/utils/miscFunctions/getErrorMessage";
+import type { InferValueFromValidator } from "privmx-components/validators/types";
+import { validators } from "privmx-components/validators/validators";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useState } from "react";
-import { useTranslations } from "use-intl";
-import { z } from "zod";
 import { ContextScopeSelect } from "@/components/apiFormInputs/ContextScopeSelect";
 import { SolutionSelect } from "@/components/apiFormInputs/SolutionSelect";
 import { ModalButtons } from "@/components/atoms/ModalButtons";
-import { CopyableText } from "@/components/copyButton/CopyableText";
 import { useContextApi } from "@/hooks/useContextApi";
-import { useProcessing } from "@/hooks/useProcessing";
-import { Logger } from "@/utils/Logger";
-import { getErrorMessage } from "@/utils/miscFunctions/getErrorMessage";
-import { zodResolver } from "@/validation/zodResolver";
-import { zodSchemas } from "@/validation/zodSchemas";
+import { validationSchemas } from "@/validation/validationSchemas";
 
 type CreateContextModalResult = { result: "cancelled" } | { result: "created"; contextId: ServerApiTypes.types.context.ContextId };
 
@@ -22,21 +21,21 @@ export interface CreateContextModalContentProps {
     onResult: (result: CreateContextModalResult) => void;
 }
 
-const schema = z.object({
-    solutionId: zodSchemas.solution.id(),
-    contextName: zodSchemas.context.name(),
-    contextDescription: zodSchemas.context.description(),
-    contextScope: zodSchemas.context.scope(),
+const schema = validators.object({
+    solutionId: validationSchemas.solution.id(),
+    contextName: validationSchemas.context.name(),
+    contextDescription: validationSchemas.context.description(),
+    contextScope: validationSchemas.context.scope(),
 });
 
-type FormValues = z.infer<typeof schema>;
+type FormValues = InferValueFromValidator<typeof schema>;
 
 interface CreateContextResult {
     contextId: ServerApiTypes.types.context.ContextId;
 }
 
 export function CreateContextModalContent(props: CreateContextModalContentProps) {
-    const t = useTranslations("features.contexts");
+    const { t } = useI18n("features.contexts");
     const { isProcessing, withProcessing } = useProcessing();
     const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null);
     const contextApi = useContextApi();
@@ -49,7 +48,7 @@ export function CreateContextModalContent(props: CreateContextModalContentProps)
             contextDescription: "",
             contextScope: "private",
         },
-        validate: zodResolver(schema),
+        validate: schema,
     });
 
     const onResult = props.onResult;
@@ -127,7 +126,6 @@ export function CreateContextModalContent(props: CreateContextModalContentProps)
                 <Box mx="md">
                     <Stack gap="md">
                         <SolutionSelect
-                            withAsterisk
                             required
                             label={t("profile.solution")}
                             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -135,15 +133,15 @@ export function CreateContextModalContent(props: CreateContextModalContentProps)
                             disabled={isProcessing}
                         />
                         <TextInput
-                            withAsterisk
+                            required
                             label={t("profile.name")}
                             placeholder={t("profile.name")}
                             // eslint-disable-next-line react/jsx-props-no-spreading
                             {...form.getInputProps("contextName")}
                             disabled={isProcessing}
                         />
-                        <Textarea
-                            rows={5}
+                        <TextArea
+                            fieldHeight={100}
                             label={t("profile.description")}
                             placeholder={t("profile.description")}
                             // eslint-disable-next-line react/jsx-props-no-spreading
