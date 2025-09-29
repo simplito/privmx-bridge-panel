@@ -13,7 +13,7 @@ const commonNamingConventionRules = [
         selector: "default",
         format: ["strictCamelCase", "StrictPascalCase"],
         filter: {
-            regex: "(Class|Constructor)$",
+            regex: "(Class|Constructor|Component)$",
             match: true,
         },
     },
@@ -100,7 +100,7 @@ module.exports = {
         ecmaFeatures: {
             jsx: true,
         },
-        project: true,
+        project: "./tsconfigs/tsconfig.*.json",
     },
     plugins: ["@typescript-eslint", "deprecation", "import", "jsx-a11y", "react", "react-hooks"],
     root: true,
@@ -523,9 +523,18 @@ module.exports = {
         "import/no-extraneous-dependencies": [
             "error",
             {
-                devDependencies: ["**/*.spec.ts", "**/*.spec.tsx", "**/*.test.ts", "**/*.test.tsx"],
+                devDependencies: [
+                    "**/*.spec.ts",
+                    "**/*.spec.tsx",
+                    "**/*.test.ts",
+                    "**/*.test.tsx",
+                    "src/**/tests/**/*.ts",
+                    "src/**/tests/**/*.tsx",
+                    "playwright/common/**/*.ts",
+                    "playwright/common/**/*.tsx",
+                ],
                 optionalDependencies: false,
-                peerDependencies: false,
+                peerDependencies: true,
             },
         ],
         "import/no-mutable-exports": "error",
@@ -712,6 +721,25 @@ module.exports = {
                         format: ["camelCase", "PascalCase"],
                     },
                 ],
+            },
+        },
+        {
+            files: ["*.spec.ts", "*.spec.tsx", "playwright/**/*.ts", "playwright/**/*.tsx"],
+            rules: {
+                // eslint core / "Suggestions"
+                "max-lines-per-function": "off",
+                // "no-warning-comments": "off",
+
+                // plugin: @typescript-eslint
+                "@typescript-eslint/max-params": "off",
+                // "@typescript-eslint/naming-convention": "off",
+                "@typescript-eslint/no-non-null-assertion": "off",
+                // "@typescript-eslint/no-unused-vars": "off",
+                "@typescript-eslint/unbound-method": "off",
+
+                // plugin: react
+                "react/jsx-no-bind": "off",
+                "react/jsx-props-no-spreading": "off",
             },
         },
         {
