@@ -1,4 +1,4 @@
-export type Opaque<TPrimary, TUnique extends symbol> = TPrimary & { [P in TUnique]: never };
+import type { Opaque } from "privmx-components/types";
 
 declare const Timestamp: unique symbol;
 export type Timestamp = Opaque<number, typeof Timestamp>;
