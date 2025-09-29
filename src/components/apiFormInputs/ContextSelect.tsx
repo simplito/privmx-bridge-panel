@@ -1,9 +1,9 @@
-import { Select, type SelectProps } from "@mantine/core";
+import { Select, type SelectProps } from "privmx-components/components/index";
+import { useDataLoader } from "privmx-components/hooks/useDataLoader";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useMemo, useState } from "react";
-import { useTranslations } from "use-intl";
 import { useContextApi } from "@/hooks/useContextApi";
-import { useDataLoader } from "@/hooks/useDataLoader";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { ApiUtils } from "@/privMxBridgeApi/ApiUtils";
 import type { ContextApi } from "@/privMxBridgeApi/ContextApi";
@@ -38,7 +38,7 @@ async function loadContexts(contextApi: ContextApi, solutionId?: ServerApiTypes.
 export function ContextSelect(props: ContextSelectProps) {
     // eslint-disable-next-line react/destructuring-assignment
     const { solutionId, ...selectProps } = props;
-    const t = useTranslations("components.apiFormInputs");
+    const { t } = useI18n("components.apiFormInputs");
     const contextApi = useContextApi();
     const [contexts, setContexts] = useState<ServerApiTypes.api.context.Context[]>([]);
     const contextsLoader = useCallback(async () => await loadContexts(contextApi, solutionId), [contextApi, solutionId]);
@@ -59,7 +59,7 @@ export function ContextSelect(props: ContextSelectProps) {
                       : t("failedToLoadContexts")
             }
             disabled={isLoadingContexts ? true : selectProps.disabled}
-            data={options}
+            options={options}
         />
     );
 }

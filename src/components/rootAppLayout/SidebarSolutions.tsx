@@ -1,17 +1,15 @@
-import { NavLink } from "@mantine/core";
+import { AppSidebarLink, LoadingOrError } from "privmx-components/components/index";
+import { useDataLoader } from "privmx-components/hooks/useDataLoader";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useState } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
 import { useOpenCreateSolutionModal } from "@/features/solutions/create/openCreateSolutionModal";
 import { useAuthData } from "@/hooks/useAuthData";
-import { useDataLoader } from "@/hooks/useDataLoader";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { useSolutionApi } from "@/hooks/useSolutionApi";
-import { Link } from "@/i18n/routing";
 import type { SolutionApi } from "@/privMxBridgeApi/SolutionApi";
 import { Icon } from "../atoms/Icon";
-import { LoadingOrError } from "../atoms/LoadingOrError";
 
 async function loadSolutions(solutionApi: SolutionApi): Promise<ServerApiTypes.api.solution.Solution[]> {
     const res = await solutionApi.listSolutions();
@@ -21,7 +19,7 @@ async function loadSolutions(solutionApi: SolutionApi): Promise<ServerApiTypes.a
 const defaultSolutionsCount = 3;
 
 export function SidebarSolutions() {
-    const t = useTranslations();
+    const { t } = useI18n();
     const { openCreateSolutionModal } = useOpenCreateSolutionModal();
     const { authData } = useAuthData();
     const isSignedIn = authData.privMxBridgeApiAuthData !== null;
@@ -58,30 +56,24 @@ export function SidebarSolutions() {
                     return null;
                 }
                 return (
-                    <NavLink
+                    <AppSidebarLink
                         key={solution.id}
-                        label={solution.name}
                         leftSection={<Icon name="solution" size={"md"} />}
                         href={appRoutes.solutions.$solution(solution.id).profile()}
-                        component={Link}
                         style={{ paddingLeft: "30px" }}
-                    />
+                    >
+                        {solution.name}
+                    </AppSidebarLink>
                 );
             })}
             {shouldShowMoreSolutionsButton ? (
-                <NavLink
-                    label={t("mainNav.navActions.expand")}
-                    leftSection={<Icon name="more" size={"md"} />}
-                    onClick={handleToggleSolutionsListClick}
-                    style={{ paddingLeft: "30px" }}
-                />
+                <AppSidebarLink leftSection={<Icon name="more" size={"md"} />} onClick={handleToggleSolutionsListClick} style={{ paddingLeft: "30px" }}>
+                    {t("mainNav.navActions.expand")}
+                </AppSidebarLink>
             ) : null}
-            <NavLink
-                label={t("mainNav.navActions.createNewSolution")}
-                leftSection={<Icon name="add" size={"md"} />}
-                onClick={handleCreateSolutionClick}
-                style={{ paddingLeft: "30px" }}
-            />
+            <AppSidebarLink leftSection={<Icon name="add" size={"md"} />} onClick={handleCreateSolutionClick} style={{ paddingLeft: "30px" }}>
+                {t("mainNav.navActions.createNewSolution")}
+            </AppSidebarLink>
         </>
     );
 }

@@ -1,9 +1,9 @@
-import { MultiSelect, type MultiSelectProps } from "@mantine/core";
-import { useCallback, useState } from "react";
-import { useTranslations } from "use-intl";
+import { MultiSelect, type MultiSelectOption, type MultiSelectProps } from "privmx-components/components/index";
+import { useI18n } from "privmx-components/i18n/useI18n";
+import { useCallback, useMemo, useState } from "react";
 import { PromptModal, type PromptModalProps } from "@/modals/promptModal/PromptModal";
 
-export interface ApiScopesEditorProps extends Omit<MultiSelectProps, "data"> {}
+export interface ApiScopesEditorProps extends Omit<MultiSelectProps, "options"> {}
 
 const ipAddrPrefix = "ipAddr:";
 const sessionPrefix = "session:";
@@ -13,7 +13,7 @@ const sessionCreatorOption = `${sessionPrefix}...`;
 const allInitialOptions = [...basicOptions, ipAddrCreatorOption, sessionCreatorOption];
 
 export function ApiScopesEditor(props: ApiScopesEditorProps) {
-    const t = useTranslations("components.apiScopesEditor");
+    const { t } = useI18n("components.apiScopesEditor");
     const propsOnChange = props.onChange;
     const [value, setValue] = useState<string[]>(props.value ?? []);
     const [options, setOptions] = useState<string[]>(allInitialOptions);
@@ -59,6 +59,14 @@ export function ApiScopesEditor(props: ApiScopesEditorProps) {
         },
         [propsOnChange, t, options],
     );
+    const multiSelectOptions: MultiSelectOption[] = useMemo(
+        () =>
+            options.map((option) => ({
+                value: option,
+                label: option,
+            })),
+        [options],
+    );
 
     return (
         <>
@@ -67,7 +75,7 @@ export function ApiScopesEditor(props: ApiScopesEditorProps) {
                 {...props}
                 value={value}
                 onChange={handleChange}
-                data={options}
+                options={multiSelectOptions}
             />
             {promptModalContentProps === null ? null : (
                 // eslint-disable-next-line react/jsx-props-no-spreading

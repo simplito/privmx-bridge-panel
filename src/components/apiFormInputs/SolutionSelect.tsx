@@ -1,13 +1,13 @@
-import { Select, type SelectProps } from "@mantine/core";
+import { Select, type SelectProps } from "privmx-components/components/index";
+import { useDataLoader } from "privmx-components/hooks/useDataLoader";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useMemo, useState } from "react";
-import { useTranslations } from "use-intl";
-import { useDataLoader } from "@/hooks/useDataLoader";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import { useSolutionApi } from "@/hooks/useSolutionApi";
 import type { SolutionApi } from "@/privMxBridgeApi/SolutionApi";
 
-export interface SolutionSelectProps extends Omit<SelectProps, "data"> {
+export interface SolutionSelectProps extends Omit<SelectProps, "options"> {
     omitSolutionIds?: ServerApiTypes.types.cloud.SolutionId[] | undefined;
 }
 
@@ -19,7 +19,7 @@ async function loadSolutions(solutionApi: SolutionApi): Promise<ServerApiTypes.a
 export function SolutionSelect(props: SolutionSelectProps) {
     // eslint-disable-next-line react/destructuring-assignment
     const { omitSolutionIds, ...selectProps } = props;
-    const t = useTranslations("components.apiFormInputs");
+    const { t } = useI18n("components.apiFormInputs");
     const solutionApi = useSolutionApi();
     const [solutions, setSolutions] = useState<ServerApiTypes.api.solution.Solution[]>([]);
     const solutionsLoader = useCallback(async () => await loadSolutions(solutionApi), [solutionApi]);
@@ -46,7 +46,7 @@ export function SolutionSelect(props: SolutionSelectProps) {
                       : t("failedToLoadSolutions")
             }
             disabled={isLoadingSolutions ? true : selectProps.disabled}
-            data={options}
+            options={options}
         />
     );
 }

@@ -1,18 +1,16 @@
-import { NavLink } from "@mantine/core";
+import { AppSidebarLink, LoadingOrError } from "privmx-components/components/index";
+import { useDataLoader } from "privmx-components/hooks/useDataLoader";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useState } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
 import { useOpenCreateContextModal } from "@/features/contexts/create/openCreateContextModal";
 import { useAuthData } from "@/hooks/useAuthData";
 import { useContextApi } from "@/hooks/useContextApi";
-import { useDataLoader } from "@/hooks/useDataLoader";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
-import { Link } from "@/i18n/routing";
 import { ApiUtils } from "@/privMxBridgeApi/ApiUtils";
 import type { ContextApi } from "@/privMxBridgeApi/ContextApi";
 import { Icon } from "../atoms/Icon";
-import { LoadingOrError } from "../atoms/LoadingOrError";
 
 async function loadContexts(contextApi: ContextApi): Promise<ServerApiTypes.api.context.Context[]> {
     const pageSize = 100;
@@ -30,7 +28,7 @@ async function loadContexts(contextApi: ContextApi): Promise<ServerApiTypes.api.
 const defaultContextsCount = 3;
 
 export function SidebarContexts() {
-    const t = useTranslations();
+    const { t } = useI18n();
     const { openCreateContextModal } = useOpenCreateContextModal();
     const { authData } = useAuthData();
     const isSignedIn = authData.privMxBridgeApiAuthData !== null;
@@ -67,30 +65,24 @@ export function SidebarContexts() {
                     return null;
                 }
                 return (
-                    <NavLink
+                    <AppSidebarLink
                         key={context.id}
-                        label={context.name}
                         leftSection={<Icon name="context" size={"md"} />}
                         href={appRoutes.contexts.$context(context.id).profile()}
-                        component={Link}
                         style={{ paddingLeft: "30px" }}
-                    />
+                    >
+                        {context.name}
+                    </AppSidebarLink>
                 );
             })}
             {shouldShowMoreContextsButton ? (
-                <NavLink
-                    label={t("mainNav.navActions.expand")}
-                    leftSection={<Icon name="more" size={"md"} />}
-                    onClick={handleToggleContextsListClick}
-                    style={{ paddingLeft: "30px" }}
-                />
+                <AppSidebarLink leftSection={<Icon name="more" size={"md"} />} onClick={handleToggleContextsListClick} style={{ paddingLeft: "30px" }}>
+                    {t("mainNav.navActions.expand")}
+                </AppSidebarLink>
             ) : null}
-            <NavLink
-                label={t("mainNav.navActions.createNewContext")}
-                leftSection={<Icon name="add" size={"md"} />}
-                onClick={handleCreateContextClick}
-                style={{ paddingLeft: "30px" }}
-            />
+            <AppSidebarLink leftSection={<Icon name="add" size={"md"} />} onClick={handleCreateContextClick} style={{ paddingLeft: "30px" }}>
+                {t("mainNav.navActions.createNewContext")}
+            </AppSidebarLink>
         </>
     );
 }

@@ -1,16 +1,14 @@
-import { AppShell, Box, NavLink, ScrollArea, Stack } from "@mantine/core";
+import { AppSidebar, AppSidebarBottom, AppSidebarLink, AppSidebarMain } from "privmx-components/components/index";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import { useCallback, useState } from "react";
-import { useTranslations } from "use-intl";
 import { appRoutes } from "@/app/appRoutes";
 import { useAuthData } from "@/hooks/useAuthData";
-import { Link } from "@/i18n/routing";
 import { Icon } from "../atoms/Icon";
-import { colors } from "./mantineTheme";
 import { SidebarContexts } from "./SidebarContexts";
 import { SidebarSolutions } from "./SidebarSolutions";
 
 export function Sidebar() {
-    const t = useTranslations();
+    const { t } = useI18n();
     const { authData } = useAuthData();
     const isSignedIn = authData.privMxBridgeApiAuthData !== null;
     const [isContextsListOpen, setIsContextsListOpen] = useState(false);
@@ -28,81 +26,59 @@ export function Sidebar() {
     }, []);
 
     return (
-        <AppShell.Navbar withBorder={false} bg={colors["document/backgrounds/body"]}>
-            <AppShell.Section grow my="md" component={ScrollArea}>
-                <NavLink label={t("mainNav.home")} leftSection={<Icon name="home" size={"md"} />} href={appRoutes.home()} component={Link} />
+        <AppSidebar>
+            <AppSidebarMain>
+                <AppSidebarLink leftSection={<Icon name="home" size="lg" />} href={appRoutes.home()}>
+                    {t("mainNav.home")}
+                </AppSidebarLink>
                 {isSignedIn ? (
-                    <NavLink
-                        label={t("mainNav.solutions")}
-                        leftSection={<Icon name="solutions" size={"md"} />}
+                    <AppSidebarLink
+                        leftSection={<Icon name="solutions" size="lg" />}
                         rightSection={
                             <div onClick={handleToggleSolutionsListClick}>
                                 <Icon name={isSolutionsListOpen ? "chevronDown" : "chevronRight"} size={"sm"} />
                             </div>
                         }
                         href={appRoutes.solutions.list()}
-                        component={Link}
-                    />
+                    >
+                        {t("mainNav.solutions")}
+                    </AppSidebarLink>
                 ) : null}
                 {isSignedIn && isSolutionsListOpen ? <SidebarSolutions /> : null}
                 {isSignedIn ? (
-                    <NavLink
-                        label={t("mainNav.contexts")}
-                        leftSection={<Icon name="contexts" size={"md"} />}
+                    <AppSidebarLink
+                        leftSection={<Icon name="contexts" size="lg" />}
                         rightSection={
                             <div onClick={handleToggleContextsListClick}>
                                 <Icon name={isContextsListOpen ? "chevronDown" : "chevronRight"} size={"sm"} />
                             </div>
                         }
                         href={appRoutes.contexts.list()}
-                        component={Link}
-                    />
+                    >
+                        {t("mainNav.contexts")}
+                    </AppSidebarLink>
                 ) : null}
                 {isSignedIn && isContextsListOpen ? <SidebarContexts /> : null}
                 {/* {isSignedIn ? (
-                    <NavLink label={t("mainNav.users")} leftSection={<Icon name="users" size={"md"} />} href={appRoutes.users.list()} component={Link} />
+                    <AppSidebarLink leftSection={<Icon name="users" size="lg" />} href={appRoutes.users.list()}>{t("mainNav.users")}</AppSidebarLink>
                 ) : null} */}
                 {isSignedIn ? (
-                    <NavLink label={t("mainNav.apiKeys")} leftSection={<Icon name="apiKeys" size={"md"} />} href={appRoutes.access.list()} component={Link} />
+                    <AppSidebarLink leftSection={<Icon name="apiKeys" size="lg" />} href={appRoutes.access.list()}>
+                        {t("mainNav.apiKeys")}
+                    </AppSidebarLink>
                 ) : null}
-                <Box mt="md" style={{ borderBottom: `1px solid ${colors["document/backgrounds/grid"]}` }} />
-            </AppShell.Section>
-            <AppShell.Section>
-                <Stack
-                    gap="md"
-                    align="stretch"
-                    pb="sm"
-                    pt="sm"
-                    mb="xl"
-                    style={{ borderBottom: `1px solid ${colors["document/backgrounds/grid"]}`, borderTop: `1px solid ${colors["document/backgrounds/grid"]}` }}
-                >
-                    {isSignedIn ? (
-                        <NavLink
-                            label={t("forms.buttons.logout")}
-                            rightSection={
-                                <span style={{ color: colors["document/typography/text"] }}>
-                                    <Icon name="logout" size={"md"} />
-                                </span>
-                            }
-                            href={appRoutes.auth.logout()}
-                            pl="md"
-                            component={Link}
-                        />
-                    ) : (
-                        <NavLink
-                            label={t("forms.buttons.login")}
-                            rightSection={
-                                <span style={{ color: colors["document/typography/text"] }}>
-                                    <Icon name="login" size={"md"} />
-                                </span>
-                            }
-                            href={appRoutes.auth.login()}
-                            pl="md"
-                            component={Link}
-                        />
-                    )}
-                </Stack>
-            </AppShell.Section>
-        </AppShell.Navbar>
+            </AppSidebarMain>
+            <AppSidebarBottom>
+                {isSignedIn ? (
+                    <AppSidebarLink rightSection={<Icon name="logout" size="lg" />} rightSectionColor="inherit" href={appRoutes.auth.logout()}>
+                        {t("forms.buttons.logout")}
+                    </AppSidebarLink>
+                ) : (
+                    <AppSidebarLink rightSection={<Icon name="login" size="lg" />} rightSectionColor="inherit" href={appRoutes.auth.login()}>
+                        {t("forms.buttons.login")}
+                    </AppSidebarLink>
+                )}
+            </AppSidebarBottom>
+        </AppSidebar>
     );
 }

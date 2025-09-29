@@ -1,14 +1,15 @@
-import { InputError, InputLabel, InputWrapper, Table } from "@mantine/core";
-import { useCallback, useState } from "react";
-import { useTranslations } from "use-intl";
-import { Button } from "../button/Button";
+import { Button, Center, type FormFieldContextData, FormFieldContextProvider, FormFieldError, FormFieldLabel } from "privmx-components/components/index";
+import { useUniqueId } from "privmx-components/hooks/useUniqueId";
+import { useI18n } from "privmx-components/i18n/useI18n";
+import { useCallback, useMemo, useState } from "react";
 import { AclEditorRow } from "./AclEditorRow";
+import styles from "./AclEditor.module.scss";
 
 export interface AclEditorProps {
     value?: string | undefined;
     onChange?: ((value: string) => void) | undefined;
-    onBlur?: (() => void) | undefined;
-    onFocus?: (() => void) | undefined;
+    onFocus?: ((event: React.FocusEvent<HTMLElement>) => void) | undefined;
+    onBlur?: ((event: React.FocusEvent<HTMLElement>) => void) | undefined;
     disabled?: boolean | undefined;
     label?: React.ReactNode | undefined;
     error?: React.ReactNode | undefined;
@@ -17,8 +18,8 @@ export interface AclEditorProps {
 let nextRowId = 0;
 
 export function AclEditor(props: AclEditorProps) {
-    const t = useTranslations("components.aclEditor");
-    const tFormErrors = useTranslations("forms.errors");
+    const { t } = useI18n("components.aclEditor");
+    const { t: tFormErrors } = useI18n("forms.validation");
     const propsOnChange = props.onChange;
     const [rows, setRows] = useState<RowData[]>(() => getRowsFromString(props.value ?? ""));
 
@@ -63,22 +64,34 @@ export function AclEditor(props: AclEditorProps) {
     }, []);
 
     const error = props.error === undefined ? undefined : convertRowsToString(rows) === "" ? tFormErrors("required") : props.error;
+    const id = useUniqueId();
+
+    const formFieldContextData: FormFieldContextData = useMemo(
+        () => ({
+            errorElementId: `form-field-${id}-error`,
+            hasError: props.error !== undefined,
+            isRequired: false,
+            labelElementId: props.label === undefined ? undefined : `form-field-${id}-label`,
+        }),
+        [id, props.error, props.label],
+    );
 
     return (
         <>
-            <InputWrapper>
-                <InputLabel>{props.label === undefined ? t("defaultTitle") : props.label}</InputLabel>
-                {error !== undefined && <InputError>{error}</InputError>}
-                <Table>
-                    <Table.Thead>
-                        <Table.Tr>
-                            <Table.Th>{t("table.headers.action")}</Table.Th>
-                            <Table.Th>{t("table.headers.target")}</Table.Th>
-                            <Table.Th>{t("table.headers.param")}</Table.Th>
-                            <Table.Th />
-                        </Table.Tr>
-                    </Table.Thead>
-                    <Table.Tbody>
+            <FormFieldContextProvider formFieldContextData={formFieldContextData}>
+                <FormFieldLabel>{props.label === undefined ? t("defaultTitle") : props.label}</FormFieldLabel>
+                {error !== undefined && <FormFieldError>{error}</FormFieldError>}
+                <table className={styles["table"]}>
+                    <thead>
+                        <tr>
+                            <th style={{ width: "30%" }}>{t("table.headers.action")}</th>
+                            <th style={{ width: "30%" }}>{t("table.headers.target")}</th>
+                            <th style={{ width: "30%" }}>{t("table.headers.param")}</th>
+                            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                            <th />
+                        </tr>
+                    </thead>
+                    <tbody>
                         {rows.map((row) => (
                             <AclEditorRow
                                 key={row.id}
@@ -92,12 +105,14 @@ export function AclEditor(props: AclEditorProps) {
                             />
                         ))}
                         {/* <AclEditorRow entry="" id={rows.length.toString()} onChange={handleRowChange} onDelete={handleDeleteRow} /> */}
-                    </Table.Tbody>
-                </Table>
-                <Button type="button" preset="add" onClick={handleAddRow} disabled={props.disabled}>
-                    {t("addAclEntry")}
-                </Button>
-            </InputWrapper>
+                    </tbody>
+                </table>
+                <Center>
+                    <Button type="button" preset="add" onClick={handleAddRow} disabled={props.disabled}>
+                        {t("addAclEntry")}
+                    </Button>
+                </Center>
+            </FormFieldContextProvider>
         </>
     );
 }

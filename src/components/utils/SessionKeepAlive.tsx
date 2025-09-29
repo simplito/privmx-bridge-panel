@@ -1,3 +1,4 @@
+import { Logger } from "privmx-components/utils/Logger";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useEffect, useRef } from "react";
 import { AuthPersistence } from "@/features/auth/AuthPersistence";
@@ -5,7 +6,6 @@ import { type UseAuthDataReturnValue, useAuthData } from "@/hooks/useAuthData";
 import { useManagerApi } from "@/hooks/useManagerApi";
 import type { ManagerApi } from "@/privMxBridgeApi/ManagerApi";
 import type { AccessToken, AccessTokenExpiry, AccessTokenPrivMxBridgeApiAuthData, RefreshToken, RefreshTokenExpiry } from "@/privMxBridgeApi/types";
-import { Logger } from "@/utils/Logger";
 
 const refreshTokenBeforeExpirySeconds = 60;
 

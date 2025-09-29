@@ -1,6 +1,4 @@
-import { Group } from "@mantine/core";
-import { Button } from "../button/Button";
-import type { ButtonPresetName } from "../button/buttonPresets";
+import { Button, type ButtonPresetName, Group } from "privmx-components/components/index";
 
 export interface ModalButtonsProps extends React.PropsWithChildren {
     confirmButtonPreset?: ButtonPresetName | undefined;

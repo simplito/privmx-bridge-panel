@@ -1,5 +1,4 @@
-import { Box, Stack, Text, Title } from "@mantine/core";
-import { type BreadcrumbItem, Breadcrumbs } from "./Breadcrumbs";
+import { Box, type BreadcrumbItem, Breadcrumbs, Stack, Text } from "privmx-components/components/index";
 
 export interface PageWrapperProps extends React.PropsWithChildren {
     title: React.ReactNode;
@@ -20,10 +19,16 @@ export function PageWrapper(props: PageWrapperProps) {
     const size = props.size ?? "full";
 
     return (
-        <Stack maw={pageWidthBySize[size]} gap={20} ml={20}>
+        <Stack
+            gap={20}
+            ml={20}
+            style={{
+                maxWidth: pageWidthBySize[size],
+            }}
+        >
             <Stack gap="m">
                 {props.breadcrumbs === undefined ? null : <Breadcrumbs items={props.breadcrumbs} />}
-                <Title order={1}>{props.title}</Title>
+                <Text component="h1">{props.title}</Text>
                 {props.subTitle === undefined ? null : <Text>{props.subTitle}</Text>}
             </Stack>
             <Box>{props.children}</Box>

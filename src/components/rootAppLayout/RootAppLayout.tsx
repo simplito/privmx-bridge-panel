@@ -1,76 +1,84 @@
-import { AppShell, Box, Burger, Group, MantineProvider } from "@mantine/core";
-import "@mantine/core/styles.css";
-import { useDisclosure } from "@mantine/hooks";
-import { ModalsProvider } from "@mantine/modals";
-import { Notifications } from "@mantine/notifications";
-import "@mantine/notifications/styles.css";
-import { useEffect } from "react";
-import { IntlProvider, useTranslations } from "use-intl";
+import { AppHeader, AppLayout, AppMain } from "privmx-components/components/index";
+import { AppWrapper, TitleSetter } from "privmx-components/components/index";
+import type { AppConfig } from "privmx-components/contexts/AppConfigContext";
+import { i18nConfig } from "privmx-components/i18n/i18nConfig";
+import { useI18n } from "privmx-components/i18n/useI18n";
+import { Link, type LinkProps, Navigate } from "react-router-dom";
 import { appRoutes } from "@/app/appRoutes";
 import { AuthDataContextProvider } from "@/contexts/AuthDataContext";
 import { AuthPersistence } from "@/features/auth/AuthPersistence";
-import { i18nFormats } from "@/i18n/formats/i18nFormats";
-import { i18nConfig } from "@/i18n/i18nConfig";
 import { loadAllI18nMessages } from "@/i18n/loadAllI18nMessages";
 import { AppLogo } from "../appLogo/AppLogo";
 import { SessionFromUrlEstablisher } from "../utils/SessionFromUrlEstablisher";
 import { SessionKeepAlive } from "../utils/SessionKeepAlive";
-import { colors, mantineTheme, themeCssVariablesResolver } from "./mantineTheme";
-import { headerHeight, sidebarWidth } from "./rootAppLayoutConsts";
 import { Sidebar } from "./Sidebar";
 import "./global.scss";
 
 export interface RootAppLayoutProps extends React.PropsWithChildren {}
 
-const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+const appConfig: AppConfig = {
+    homePagePath: appRoutes.home(),
+    loginFormPath: appRoutes.auth.login(),
+    linkComponent: LinkProxy,
+    loginFormComponent: LoginForm,
+    redirectComponent: RedirectComponent,
+};
+
+interface LinkProxyProps extends Omit<LinkProps, "to"> {
+    href?: string | undefined;
+}
+function LinkProxy(props: LinkProxyProps) {
+    // eslint-disable-next-line react/destructuring-assignment
+    const { href, ...rest } = props;
+
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    return <Link to={href ?? ""} {...rest} />;
+}
+
+function LoginForm() {
+    return <LoginForm />;
+}
+
+function RedirectComponent(props: { to?: string | undefined }) {
+    return <Navigate to={props.to ?? appConfig.homePagePath ?? appRoutes.home()} replace />;
+}
+
+// Use the default locale for now - this will be updated when a 2nd locale is added
+const initialLocale = i18nConfig.defaultLocale;
+const allI18nMessages = loadAllI18nMessages(initialLocale);
 
 export function RootAppLayout(props: RootAppLayoutProps) {
-    // Use the default locale for now - this will be updated when a 2nd locale is added
-    const locale = i18nConfig.defaultLocale;
-    const messages = loadAllI18nMessages(locale);
-
-    const [isBurgerNavOpen, { toggle: setIsBurgerNavOpen }] = useDisclosure();
-
     const storedAuthData = AuthPersistence.readAuthData();
     const defaultAuthData = storedAuthData && storedAuthData.accessTokenExpiry > Date.now() + 5000 ? { privMxBridgeApiAuthData: storedAuthData } : undefined;
 
     return (
-        <IntlProvider messages={messages} locale={locale} formats={i18nFormats} timeZone={timeZone}>
-            <TitleSetter />
-            <MantineProvider theme={mantineTheme} forceColorScheme="dark" defaultColorScheme="dark" cssVariablesResolver={themeCssVariablesResolver}>
-                <Notifications />
-                <AuthDataContextProvider defaultAuthData={defaultAuthData}>
-                    <SessionFromUrlEstablisher />
-                    <SessionKeepAlive />
-                    <ModalsProvider>
-                        <AppShell
-                            header={{ height: headerHeight }}
-                            navbar={{ width: sidebarWidth, breakpoint: "sm", collapsed: { mobile: !isBurgerNavOpen } }}
-                            padding="md"
-                        >
-                            <AppShell.Header withBorder={false} bg={colors["document/backgrounds/body"]}>
-                                <Group h="100%" px="md" justify="space-between">
-                                    <Burger opened={isBurgerNavOpen} onClick={setIsBurgerNavOpen} hiddenFrom="sm" size="sm" />
-                                    <AppLogo href={appRoutes.home()} />
-                                </Group>
-                            </AppShell.Header>
-                            <Sidebar />
-                            <AppShell.Main display="flex" style={{ flexDirection: "column" }}>
-                                <Box py={20}>{props.children}</Box>
-                            </AppShell.Main>
-                        </AppShell>
-                    </ModalsProvider>
-                </AuthDataContextProvider>
-            </MantineProvider>
-        </IntlProvider>
+        <AppWrapper initialAppConfig={appConfig} initialMessages={allI18nMessages} initialLocale={initialLocale}>
+            <AuthDataContextProvider defaultAuthData={defaultAuthData}>
+                <RootAppLayoutCore>{props.children}</RootAppLayoutCore>
+            </AuthDataContextProvider>
+        </AppWrapper>
     );
 }
 
-function TitleSetter() {
-    const t = useTranslations();
-    useEffect(() => {
-        document.title = t("appTitle");
-    }, [t]);
+interface RootAppLayoutCoreProps extends React.PropsWithChildren {}
 
-    return null;
+function RootAppLayoutCore(props: RootAppLayoutCoreProps) {
+    const { t } = useI18n();
+
+    return (
+        <>
+            <TitleSetter title={t("appTitle")} />
+            <SessionFromUrlEstablisher />
+            <SessionKeepAlive />
+            <AppLayout>
+                <AppHeader>
+                    <div style={{ padding: "0 var(--privmx-spacing-md)", height: "100%", display: "flex", alignItems: "center" }}>
+                        <AppLogo href={appRoutes.home()} />
+                    </div>
+                </AppHeader>
+                <Sidebar />
+                <AppMain>{props.children}</AppMain>
+            </AppLayout>
+        </>
+    );
 }

@@ -1,7 +1,6 @@
-import { Select, Table, TextInput } from "@mantine/core";
+import { Button, Select, TextInput } from "privmx-components/components/index";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import { type ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
-import { useTranslations } from "use-intl";
-import { Button } from "../button/Button";
 import { aclData } from "./aclData";
 
 const noneParamId = "__none__";
@@ -11,14 +10,14 @@ export interface AclEditorRowProps {
     entry: string;
     onChange: (id: number, entry: string) => void;
     onDelete: (id: number) => void;
-    onBlur?: (() => void) | undefined;
-    onFocus?: (() => void) | undefined;
+    onFocus?: ((event: React.FocusEvent<HTMLElement>) => void) | undefined;
+    onBlur?: ((event: React.FocusEvent<HTMLElement>) => void) | undefined;
     disabled?: boolean | undefined;
 }
 
 const aclTargetOptions = aclData.map((group) => ({
-    group: group.id,
-    items: [
+    groupLabel: group.id,
+    options: [
         { value: `${group.id}#${group.id}`, label: group.id },
         ...group.functions.map((item) => ({
             value: `${group.id}#${item.id}`,
@@ -27,11 +26,15 @@ const aclTargetOptions = aclData.map((group) => ({
     ],
 }));
 const groupIds = aclData.map((group) => group.id);
+const actionOptions = [
+    { value: "ALLOW", label: "ALLOW" },
+    { value: "DENY", label: "DENY" },
+];
 
 export function AclEditorRow(props: AclEditorRowProps) {
     const propsOnChange = props.onChange;
     const propsOnDelete = props.onDelete;
-    const t = useTranslations("components.aclEditor");
+    const { t } = useI18n("components.aclEditor");
     const [entry, setEntry] = useState(props.entry);
     useEffect(() => {
         setEntry(props.entry);
@@ -41,25 +44,20 @@ export function AclEditorRow(props: AclEditorRowProps) {
     if (action === undefined || action === "") {
         action = "ALLOW";
     }
-    if (target === undefined) {
-        target = "";
-    }
-    if (paramStr === undefined) {
-        paramStr = "";
-    }
+    target ??= "";
+    paramStr ??= "";
     let [paramName, paramValue] = paramStr.split("=");
-    if (paramName === undefined) {
-        paramName = "";
-    }
-    if (paramValue === undefined) {
-        paramValue = "";
-    }
+    paramName ??= "";
+    paramValue ??= "";
     const [targetFieldGroupId, setTargetFieldGroupId] = useState(groupIds.includes(target) ? target : "ALL");
 
     const availableParams = useMemo(() => {
         return [
             { value: noneParamId, label: t("table.rows.param.none") },
-            ...(aclData.find((group) => group.id === targetFieldGroupId)?.functions.find((item) => item.id === target)?.parameters ?? []),
+            ...(aclData
+                .find((group) => group.id === targetFieldGroupId)
+                ?.functions.find((item) => item.id === target)
+                ?.parameters.map((param) => ({ value: param, label: param })) ?? []),
         ];
     }, [targetFieldGroupId, target, t]);
 
@@ -112,31 +110,30 @@ export function AclEditorRow(props: AclEditorRowProps) {
     }, [props.id, propsOnDelete]);
 
     return (
-        <Table.Tr>
-            <Table.Td valign="top">
+        <tr>
+            <td valign="top">
                 <Select
-                    data={["ALLOW", "DENY"]}
+                    options={actionOptions}
                     value={action}
                     onChange={handleActionChange}
                     onFocus={props.onFocus}
                     onBlur={props.onBlur}
                     disabled={props.disabled}
                 />
-            </Table.Td>
-            <Table.Td valign="top">
+            </td>
+            <td valign="top">
                 <Select
-                    data={aclTargetOptions}
+                    options={aclTargetOptions}
                     value={`${targetFieldGroupId}#${target}`}
                     onChange={handleTargetChange}
-                    maxDropdownHeight={"40vh"}
                     onFocus={props.onFocus}
                     onBlur={props.onBlur}
                     disabled={props.disabled}
                 />
-            </Table.Td>
-            <Table.Td valign="top">
+            </td>
+            <td valign="top">
                 <Select
-                    data={availableParams}
+                    options={availableParams}
                     value={paramName === "" ? noneParamId : paramName}
                     onChange={handleParamNameChange}
                     onFocus={props.onFocus}
@@ -151,10 +148,10 @@ export function AclEditorRow(props: AclEditorRowProps) {
                     onFocus={props.onFocus}
                     onBlur={props.onBlur}
                 />
-            </Table.Td>
-            <Table.Td valign="top">
+            </td>
+            <td valign="top">
                 <Button type="button" preset="delete" onlyIcon size="sm" onClick={handleDeleteClick} disabled={props.disabled} />
-            </Table.Td>
-        </Table.Tr>
+            </td>
+        </tr>
     );
 }

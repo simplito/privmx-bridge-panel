@@ -1,18 +1,18 @@
-import { Select, type SelectProps } from "@mantine/core";
+import { Select, type SelectProps } from "privmx-components/components/index";
+import { useI18n } from "privmx-components/i18n/useI18n";
 import { useMemo } from "react";
-import { useTranslations } from "use-intl";
 import { contextScopes } from "@/privMxBridgeApi/contextScopes";
 
-export type ContextScopeSelectProps = Omit<SelectProps, "data">;
+export type ContextScopeSelectProps = Omit<SelectProps, "options">;
 
 export function ContextScopeSelect(props: ContextScopeSelectProps) {
-    const t = useTranslations("api.context.scope");
+    const { t } = useI18n("api.context.scope");
     // eslint-disable-next-line react/destructuring-assignment
     const { ...selectProps } = props;
-    const options: React.ComponentProps<typeof Select>["data"] = useMemo(() => {
+    const options: React.ComponentProps<typeof Select>["options"] = useMemo(() => {
         return contextScopes.map((scope) => ({ value: scope, label: t(scope) }));
     }, [t]);
 
     // eslint-disable-next-line react/jsx-props-no-spreading
-    return <Select {...selectProps} data={options} />;
+    return <Select {...selectProps} options={options} />;
 }
