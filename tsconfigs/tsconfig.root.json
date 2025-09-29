@@ -1,0 +1,9 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "extends": "./tsconfig-baseNode.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "../node_modules/.tmp/tsconfig.root.tsbuildinfo",
+        "verbatimModuleSyntax": false
+    },
+    "include": ["../.eslintrc.cjs", "../playwright.config.ts", "../vite.config.ts", "../tmp/**/*"]
+}
