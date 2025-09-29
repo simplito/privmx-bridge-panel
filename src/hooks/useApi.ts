@@ -1,11 +1,11 @@
 import type { AuthData } from "@/contexts/AuthDataContext";
+import { Env } from "@/Env";
 import type { BaseApi } from "@/privMxBridgeApi/BaseApi";
 import { ContextApi } from "@/privMxBridgeApi/ContextApi";
 import { ManagerApi } from "@/privMxBridgeApi/ManagerApi";
 import type { PrivMxBridgeApiEvents } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
 import { SolutionApi } from "@/privMxBridgeApi/SolutionApi";
 import type { PrivMxBridgeApiAuthData, PrivMxBridgeUrl } from "@/privMxBridgeApi/types";
-import { Env } from "@/utils/Env";
 import { useAuthData } from "./useAuthData";
 import { usePrivMxBridgeApiEvents } from "./usePrivMxBridgeApiEvents";
 
