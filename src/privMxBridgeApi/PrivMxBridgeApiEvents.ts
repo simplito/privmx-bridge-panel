@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/unified-signatures */
 
+import { Logger } from "privmx-components/utils/Logger";
 import type * as ServerApiTypes from "privmx-server-api";
-import { Logger } from "@/utils/Logger";
 
 export interface ApiKeyCreatedEvent {
     type: "apiKeyCreated";

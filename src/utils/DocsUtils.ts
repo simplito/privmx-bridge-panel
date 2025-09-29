@@ -1,4 +1,4 @@
-import { Env } from "./Env";
+import { Env } from "../Env";
 
 export class DocsUtils {
     static getDocsUrl(hash?: string): string {

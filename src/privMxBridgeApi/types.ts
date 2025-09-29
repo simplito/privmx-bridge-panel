@@ -1,5 +1,6 @@
+import type { Opaque } from "privmx-components/types";
 import type * as ServerApiTypes from "privmx-server-api";
-import type { Opaque, Timestamp } from "@/types";
+import type { Timestamp } from "@/types";
 
 declare const ApiKeyId: unique symbol;
 export type ApiKeyId = Opaque<string, typeof ApiKeyId>;

@@ -1,4 +1,4 @@
-import { Logger } from "@/utils/Logger";
+import { Logger } from "privmx-components/utils/Logger";
 import { ApiCryptoUtils } from "./ApiCryptoUtils";
 import { NoPrivMxBridgeApiAuthDataError } from "./errors/NoPrivMxBridgeApiAuthDataError";
 import { RequestError } from "./errors/RequestError";
