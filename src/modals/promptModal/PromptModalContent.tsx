@@ -1,9 +1,10 @@
-import { Box, Center, Stack, Text, TextInput } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Box, Center, Stack, Text, TextInput } from "privmx-components/components/index";
+import { useForm } from "privmx-components/hooks/useForm";
+import type { StringValidator } from "privmx-components/validators/StringValidator";
+import type { InferValueFromValidator } from "privmx-components/validators/types";
+import { validators } from "privmx-components/validators/validators";
 import { useCallback } from "react";
-import { type ZodString, z } from "zod";
 import { ModalButtons } from "@/components/atoms/ModalButtons";
-import { zodResolver } from "@/validation/zodResolver";
 
 type PromptModalResult = { result: "cancelled" } | { result: "submitted"; value: string };
 
@@ -12,20 +13,20 @@ export interface PromptModalContentProps {
     content?: React.ReactNode | undefined;
     initialValue?: string | undefined;
     inputPlaceholder?: string | undefined;
-    validationSchema?: ZodString | undefined;
+    validationSchema?: StringValidator | undefined;
 }
 
 export function PromptModalContent(props: PromptModalContentProps) {
-    const schema = z.object({
-        value: props.validationSchema ?? z.string(),
+    const schema = validators.object({
+        value: props.validationSchema ?? validators.string(),
     });
-    type FormValues = z.infer<typeof schema>;
+    type FormValues = InferValueFromValidator<typeof schema>;
 
     const form = useForm<FormValues>({
         initialValues: {
             value: props.initialValue ?? "",
         },
-        validate: zodResolver(schema),
+        validate: schema,
     });
 
     const onResult = props.onResult;
@@ -56,7 +57,7 @@ export function PromptModalContent(props: PromptModalContentProps) {
                 <Box mx="md">
                     <Stack gap="md">
                         <TextInput
-                            withAsterisk
+                            required
                             placeholder={props.inputPlaceholder}
                             // eslint-disable-next-line react/jsx-props-no-spreading
                             {...form.getInputProps("value")}
