@@ -4,9 +4,10 @@ PrivMX Bridge Panel is an application used to manage [PrivMX Bridge](https://pri
 
 ## Requirements
 
-- Node.js in 20.10 version;
-- server that will serve static files;
-- [PrivMX Bridge](https://github.com/simplito/privmx-bridge) Instance.
+- Node.js v24.0+,
+- a running [PrivMX Bridge](https://github.com/simplito/privmx-bridge) instance,
+- [privmx-components](https://gitlab2.simplito.com/web/privmx-components) installed and built in `../` (this requirement will be removed as soon as development of `privmx-components` slows down),
+- deployment: a server that will serve static files.
 
 ## How to start
 
@@ -63,6 +64,18 @@ If you want to build a panel for PrivMX Bridge working at the same domain, use `
 VITE_PRIVMX_BRIDGE_URL=/
 VITE_LOG_LEVEL=error
 ```
+
+### Npm scripts
+
+Run `npm run X` where `X` is:
+
+- `lint-check` - eslint (w/o fixing code),
+- `prettier-check` - prettier (w/o fixing code),
+- `tsc-check` - checking types (`tsc --noEmit`),
+- `lint-fix` - eslint (w/ fixing auto-fixable problems with code),
+- `prettier-fix` - prettier (w/ fixing auto-fixable problems with code),
+- `check-all` - runs all `*-check` commands,
+- `pre-commit-checks` - runs all check required before committing.
 
 ## License
 
