@@ -1,10 +1,9 @@
-import { Notifications, Stack, Text } from "privmx-components/components/index";
+import { Notifications, SimpleModalButtons, Stack, Text } from "privmx-components/components/index";
 import { useProcessing } from "privmx-components/hooks/useProcessing";
 import { useI18n } from "privmx-components/i18n/useI18n";
 import { Logger } from "privmx-components/utils/Logger";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useRef } from "react";
-import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useManagerApi } from "@/hooks/useManagerApi";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import type { ApiKeyDeletedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
@@ -60,7 +59,7 @@ export function DeleteApiKeyModalContent(props: DeleteApiKeyModalContentProps) {
     return (
         <Stack gap="xl" my="md">
             <Text mx="md">{t("deleteModal.confirmText", { name: props.apiKey.name })}</Text>
-            <ModalButtons
+            <SimpleModalButtons
                 onCancel={handleCancelClick}
                 onConfirm={handleDeleteClick}
                 isProcessing={isProcessing}

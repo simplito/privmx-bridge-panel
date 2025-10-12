@@ -1,4 +1,4 @@
-import { Box, Center, Stack, Text } from "privmx-components/components/index";
+import { Box, Center, SimpleModalButtons, Stack, Text } from "privmx-components/components/index";
 import { useForm } from "privmx-components/hooks/useForm";
 import { useProcessing } from "privmx-components/hooks/useProcessing";
 import { useI18n } from "privmx-components/i18n/useI18n";
@@ -9,7 +9,6 @@ import { validators } from "privmx-components/validators/validators";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useMemo, useState } from "react";
 import { SolutionSelect } from "@/components/apiFormInputs/SolutionSelect";
-import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useContextApi } from "@/hooks/useContextApi";
 import type { ContextShareIds } from "@/privMxBridgeApi/types";
 import { validationSchemas } from "@/validation/validationSchemas";
@@ -100,7 +99,7 @@ export function AddContextShareModalContent(props: AddContextShareModalContentPr
                         />
                     </Stack>
                 </Box>
-                <ModalButtons
+                <SimpleModalButtons
                     onCancel={handleCancelClick}
                     onConfirm="formSubmit"
                     isProcessing={isProcessing}

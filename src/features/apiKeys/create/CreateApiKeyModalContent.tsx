@@ -1,4 +1,4 @@
-import { Box, Center, CopyableText, Group, InfoIcon, SecretViewer, Stack, Text, TextInput } from "privmx-components/components/index";
+import { Box, Center, CopyableText, Group, InfoIcon, SecretViewer, SimpleModalButtons, Stack, Text, TextInput } from "privmx-components/components/index";
 import { useForm } from "privmx-components/hooks/useForm";
 import { useProcessing } from "privmx-components/hooks/useProcessing";
 import { useI18n } from "privmx-components/i18n/useI18n";
@@ -9,7 +9,6 @@ import { validators } from "privmx-components/validators/validators";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useState } from "react";
 import { ApiScopesEditor } from "@/components/apiScopesEditor/ApiScopesEditor";
-import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useManagerApi } from "@/hooks/useManagerApi";
 import { DocsUtils } from "@/utils/DocsUtils";
 import { validationSchemas } from "@/validation/validationSchemas";
@@ -103,7 +102,7 @@ export function CreateApiKeyModalContent(props: CreateApiKeyModalContentProps) {
                         <SecretViewer secret={result.apiKeySecret} />
                     </Stack>
                 </Box>
-                <ModalButtons onConfirm={handleCloseClick} confirmButtonPreset="ok" />
+                <SimpleModalButtons onConfirm={handleCloseClick} confirmButtonPreset="ok" />
             </Stack>
         );
     }
@@ -149,7 +148,7 @@ export function CreateApiKeyModalContent(props: CreateApiKeyModalContentProps) {
                         />
                     </Stack>
                 </Box>
-                <ModalButtons
+                <SimpleModalButtons
                     onCancel={handleCancelClick}
                     onConfirm="formSubmit"
                     isProcessing={isProcessing}

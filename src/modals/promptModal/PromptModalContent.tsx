@@ -1,10 +1,9 @@
-import { Box, Center, Stack, Text, TextInput } from "privmx-components/components/index";
+import { Box, Center, SimpleModalButtons, Stack, Text, TextInput } from "privmx-components/components/index";
 import { useForm } from "privmx-components/hooks/useForm";
 import type { StringValidator } from "privmx-components/validators/StringValidator";
 import type { InferValueFromValidator } from "privmx-components/validators/types";
 import { validators } from "privmx-components/validators/validators";
 import { useCallback } from "react";
-import { ModalButtons } from "@/components/atoms/ModalButtons";
 
 type PromptModalResult = { result: "cancelled" } | { result: "submitted"; value: string };
 
@@ -65,7 +64,7 @@ export function PromptModalContent(props: PromptModalContentProps) {
                         />
                     </Stack>
                 </Box>
-                <ModalButtons onCancel={handleCancelClick} onConfirm="formSubmit" confirmButtonPreset="create" cancelButtonPreset="cancel" />
+                <SimpleModalButtons onCancel={handleCancelClick} onConfirm="formSubmit" confirmButtonPreset="create" cancelButtonPreset="cancel" />
             </Stack>
         </form>
     );

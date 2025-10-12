@@ -1,9 +1,8 @@
-import { Notifications, Stack, Text } from "privmx-components/components/index";
+import { Notifications, SimpleModalButtons, Stack, Text } from "privmx-components/components/index";
 import { useProcessing } from "privmx-components/hooks/useProcessing";
 import { useI18n } from "privmx-components/i18n/useI18n";
 import { Logger } from "privmx-components/utils/Logger";
 import { useCallback, useRef } from "react";
-import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useContextApi } from "@/hooks/useContextApi";
 import type { ContextUserEx } from "@/privMxBridgeApi/types";
 
@@ -50,7 +49,7 @@ export function DeleteContextUserModalContent(props: DeleteContextUserModalConte
             <Text mx="md">
                 {t("deleteModal.confirmText", { userId: props.contextUserForDeletion.user.userId, contextName: props.contextUserForDeletion.context.name })}
             </Text>
-            <ModalButtons
+            <SimpleModalButtons
                 onCancel={handleCancelClick}
                 onConfirm={handleDeleteClick}
                 isProcessing={isProcessing}

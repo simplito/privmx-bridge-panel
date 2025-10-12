@@ -1,4 +1,4 @@
-import { Box, Center, Group, InfoIcon, Notifications, Stack, Text } from "privmx-components/components/index";
+import { Box, Center, Group, InfoIcon, Notifications, SimpleModalButtons, Stack, Text } from "privmx-components/components/index";
 import { useForm } from "privmx-components/hooks/useForm";
 import { useProcessing } from "privmx-components/hooks/useProcessing";
 import { useI18n } from "privmx-components/i18n/useI18n";
@@ -9,7 +9,6 @@ import { validators } from "privmx-components/validators/validators";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useState } from "react";
 import { AclEditor } from "@/components/aclEditor/AclEditor";
-import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useContextApi } from "@/hooks/useContextApi";
 import { usePrivMxBridgeApiEventListener } from "@/hooks/usePrivMxBridgeApiEventListener";
 import type { ContextDeletedEvent } from "@/privMxBridgeApi/PrivMxBridgeApiEvents";
@@ -122,7 +121,7 @@ export function EditContextUserModalContent(props: EditContextUserModalContentPr
                         />
                     </Stack>
                 </Box>
-                <ModalButtons
+                <SimpleModalButtons
                     onCancel={handleCancelClick}
                     onConfirm="formSubmit"
                     isProcessing={isProcessing}

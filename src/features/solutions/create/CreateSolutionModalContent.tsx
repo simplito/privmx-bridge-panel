@@ -1,4 +1,4 @@
-import { Box, Center, CopyableText, Stack, Text, TextInput } from "privmx-components/components/index";
+import { Box, Center, CopyableText, SimpleModalButtons, Stack, Text, TextInput } from "privmx-components/components/index";
 import { useForm } from "privmx-components/hooks/useForm";
 import { useProcessing } from "privmx-components/hooks/useProcessing";
 import { useI18n } from "privmx-components/i18n/useI18n";
@@ -8,7 +8,6 @@ import type { InferValueFromValidator } from "privmx-components/validators/types
 import { validators } from "privmx-components/validators/validators";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useState } from "react";
-import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useSolutionApi } from "@/hooks/useSolutionApi";
 import { validationSchemas } from "@/validation/validationSchemas";
 
@@ -89,7 +88,7 @@ export function CreateSolutionModalContent(props: CreateSolutionModalContentProp
                         <CopyableText text={result.solutionId} isIdLike />
                     </Stack>
                 </Box>
-                <ModalButtons onConfirm={handleCloseClick} confirmButtonPreset="ok" />
+                <SimpleModalButtons onConfirm={handleCloseClick} confirmButtonPreset="ok" />
             </Stack>
         );
     }
@@ -123,7 +122,7 @@ export function CreateSolutionModalContent(props: CreateSolutionModalContentProp
                         />
                     </Stack>
                 </Box>
-                <ModalButtons
+                <SimpleModalButtons
                     onCancel={handleCancelClick}
                     onConfirm="formSubmit"
                     isProcessing={isProcessing}

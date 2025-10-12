@@ -1,4 +1,4 @@
-import { Box, Center, Stack, Text, TextInput } from "privmx-components/components/index";
+import { Box, Center, SimpleModalButtons, Stack, Text, TextInput } from "privmx-components/components/index";
 import { useForm } from "privmx-components/hooks/useForm";
 import { useProcessing } from "privmx-components/hooks/useProcessing";
 import { useI18n } from "privmx-components/i18n/useI18n";
@@ -8,7 +8,6 @@ import type { InferValueFromValidator } from "privmx-components/validators/types
 import { validators } from "privmx-components/validators/validators";
 import type * as ServerApiTypes from "privmx-server-api";
 import { useCallback, useState } from "react";
-import { ModalButtons } from "@/components/atoms/ModalButtons";
 import { useAuthData } from "@/hooks/useAuthData";
 import { useManagerApi } from "@/hooks/useManagerApi";
 import type { AccessToken, AccessTokenExpiry, AccessTokenPrivMxBridgeApiAuthData, RefreshToken, RefreshTokenExpiry } from "@/privMxBridgeApi/types";
@@ -108,7 +107,7 @@ export function LoginForm() {
                         />
                     </Stack>
                 </Box>
-                <ModalButtons onConfirm="formSubmit" isProcessing={isProcessing} confirmButtonPreset="login" />
+                <SimpleModalButtons onConfirm="formSubmit" isProcessing={isProcessing} confirmButtonPreset="login" />
             </Stack>
         </form>
     );
